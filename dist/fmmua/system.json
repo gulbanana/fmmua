@@ -1,0 +1,30 @@
+{
+    "name": "fmmua",
+    "title": "FMMUA - Foundry Strike",
+    "description": "An unfinished prototype.",
+    "version": 0.1,
+    "author": "Thomas Castiglione",
+    "scripts": [],
+    "esmodules": ["main.js"],
+    "styles": ["main.css"],
+    "packs": [],
+    "languages": [
+      {
+        "lang": "en",
+        "name": "English",
+        "path": "lang/en.json"
+      }
+    ],
+    "socket": false,
+    "initiative": "1d6",
+    "gridDistance": 1,
+    "gridUnits": "sq",
+    "primaryTokenAttribute": "hp",
+    "secondaryTokenAttribute": null,
+    "minimumCoreVersion": "0.6.5",
+    "compatibleCoreVersion": "0.6.5",
+    "url": null,
+    "manifest": null,
+    "download": null
+  }
+  
