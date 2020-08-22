@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "strict": true,
+    "skipLibCheck": true,    
+    "rootDir": "./src/",
+    "outDir": "./dist/fmmua/",
+    "types": ["foundry-pc-types"]
+  }
+}
