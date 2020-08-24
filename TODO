@@ -1,0 +1,20 @@
+MVT (Minimum Viable Thing)
+* Create the System
+  - strike dice rolls (variants - skill, combat, saving throw)
+  - at least some nominal amount of actor data - hp?
+  - ???
+
+* Create a combat encounter
+  - get enough understanding of strike's balance to make a level 1 fight
+    - what's this thing about enemies starting at level 2?
+  - also make it fun
+  - write up the numbers, on paper
+  
+* Put the encounter in a World
+  - do i want a Module as base that i could reuse for testing? or are Worlds templates for themselves?
+  - create Scene (map)
+  - add Actors (npcs, monsters [, pcs? if prebuilt])
+  - drop Tokens (incl. art)
+  - assets in Compendium? what's best for reuse  
+
+* Run a game
