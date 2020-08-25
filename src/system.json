@@ -19,7 +19,7 @@
     "initiative": "1d6",
     "gridDistance": 1,
     "gridUnits": "sq",
-    "primaryTokenAttribute": "hp", // XXX not sure whether this is working
+    "primaryTokenAttribute": "hp",
     "secondaryTokenAttribute": null,
     "minimumCoreVersion": "0.6.5",
     "compatibleCoreVersion": "0.6.5",
