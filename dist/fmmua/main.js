@@ -17,7 +17,6 @@ Hooks.once("setup", function () {
 Hooks.once("ready", function () {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("FMMUA: ready");
-        var result = yield DebugDialog.run();
-        console.log(`FMMUA: Dialog result: ${result}`);
+        let result = yield DebugDialog.run();
     });
 });

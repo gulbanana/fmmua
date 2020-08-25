@@ -23,23 +23,28 @@ export default class DebugDialog extends Dialog {
                 const dialog = new this({
                     title: `${data.title} Window`,
                     content: html,
-                    buttons: {
-                        no: {
-                            icon: `<i class="fas ${icon}"></i>`,
-                            label: "No",
-                            callback: () => resolve(false)
-                        },
-                        yes: {
-                            icon: `<i class="fas ${icon}"></i>`,
-                            label: "Yes",
-                            callback: () => resolve(true)
-                        }
-                    },
-                    default: "yes",
+                    buttons: {},
+                    default: null,
                     close: () => resolve(false)
                 });
                 dialog.render(true);
             });
         });
+    }
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find("#debug-create-actor").click(this.onCreateActor.bind(this));
+    }
+    getParam() {
+        let input = document.querySelector("input#param");
+        if (input != null && input.value != "") {
+            return input.value;
+        }
+        else {
+            return "null";
+        }
+    }
+    onCreateActor() {
+        ui.notifications.info(`Creating actor ${this.getParam()}`);
     }
 }

@@ -10,6 +10,5 @@ Hooks.once("setup", function() {
 
 Hooks.once("ready", async function() {
     console.log("FMMUA: ready");
-    var result = await DebugDialog.run();
-    console.log(`FMMUA: Dialog result: ${result}`);
+    let result = await DebugDialog.run();
 });
