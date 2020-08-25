@@ -2,7 +2,7 @@
     "name": "fmmua",
     "title": "FMMUA - Foundry Strike",
     "description": "An unfinished prototype.",
-    "version": 0.1,
+    "version": "0.1.0",
     "author": "Thomas Castiglione",
     "scripts": [],
     "esmodules": ["main.js"],
@@ -23,9 +23,8 @@
     "secondaryTokenAttribute": null,
     "minimumCoreVersion": "0.6.5",
     "compatibleCoreVersion": "0.6.5",
-    // XXX fill these in from github
-    "url": null,
-    "manifest": null,
-    "download": null
+    "url": "https://github.com/gulbanana/fmmua/",
+    "manifest": "https://raw.githubusercontent.com/gulbanana/fmmua/master/src/system.json",
+    "download": "https://github.com/gulbanana/fmmua/archive/v0.1.0.zip"
   }
   
