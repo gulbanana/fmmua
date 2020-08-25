@@ -1,7 +1,9 @@
+## Building
+`npm i`\
+`gulp`
+
 ## References
-
-[Strike RPG][strike]
-
+[Strike RPG][strike]\
 [Foundry VTT][foundry]
 
 [strike]: https://www.strikerpg.com/

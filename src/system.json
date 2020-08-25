@@ -19,10 +19,11 @@
     "initiative": "1d6",
     "gridDistance": 1,
     "gridUnits": "sq",
-    "primaryTokenAttribute": "hp",
+    "primaryTokenAttribute": "hp", // XXX not sure whether this is working
     "secondaryTokenAttribute": null,
     "minimumCoreVersion": "0.6.5",
     "compatibleCoreVersion": "0.6.5",
+    // XXX fill these in from github
     "url": null,
     "manifest": null,
     "download": null

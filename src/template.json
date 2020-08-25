@@ -1,4 +1,18 @@
 {
+  "Item": {
+    "types": ["skill", "power"],
+    "templates": {
+      "thing": {
+        "name": null
+      }
+    },
+    "skill": {
+      "templates": ["thing"]
+    },
+    "power": {
+      "templates": ["thing"]
+    }    
+  },
   "Actor": {
     "types": ["pc", "npc", "monster"],
     "templates": {
@@ -24,17 +38,6 @@
     },
     "monster": {
       "templates": ["tactical"]
-    }
-  },
-  "Item": {
-    "types": ["power"],
-    "templates": {
-      "power": {
-        "name": null
-      }
-    },
-    "power": {
-      "templates": ["power"]
     }
   }
 }
