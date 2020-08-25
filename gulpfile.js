@@ -3,9 +3,14 @@ const del = require('del');
 const path = require('path');
 const stripJsonComments = require('gulp-strip-json-comments');
 const ts = require("gulp-typescript");
+const zip = require('gulp-zip');
 
 // build src -> dist
 var tsProject = ts.createProject("tsconfig.json");
+
+function cleanBuild() {
+    return del(["dist"]);
+}
 
 function compileTypescript(cb) {
     return tsProject.src()
@@ -26,14 +31,17 @@ function copyMisc() {
 
 const build = parallel(compileTypescript, stripJson, copyMisc);
 
-// install dist => data
+exports.clean = cleanBuild;
+exports.default = build;
+
+// install dist -> data
 let dataPath = process.env.FOUNDRY_VTT_DATA_PATH;
 if (!dataPath || dataPath === "") {
     dataPath = path.join(process.env.LOCALAPPDATA, 'FoundryVTT');
 }
 const deployPath = path.join(dataPath, 'Data', 'systems', 'fmmua') + '/';
 
-function clean() {
+function cleanDeploy() {
     return del([deployPath], {force: true});
 }
 
@@ -42,11 +50,19 @@ function deploy() {
         .pipe(dest(deployPath));
 }
 
-exports.default = build;
-exports.install = series(build, clean, deploy);
+exports.install = series(build, cleanDeploy, deploy);
 exports.watch = function() {
     w('src/**', build);
 }
-exports['watch-install'] = series(clean, function watch() {
+exports['watch-install'] = series(cleanDeploy, function watch() {
     w('src/**', series(build, deploy));
 });
+
+// publish dist -> zip
+function publish() {
+    return src('dist/**')
+		.pipe(zip('fmmua.zip'))
+		.pipe(dest('rel/'));
+}
+
+exports.release = series(cleanBuild, build, publish);

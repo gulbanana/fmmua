@@ -5,6 +5,7 @@
     "gulp": "^4.0.2",
     "gulp-strip-json-comments": "^4.0.1",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-zip": "^5.0.2",
     "typescript": "^4.0.2"
   }
 }
