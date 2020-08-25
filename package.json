@@ -2,5 +2,8 @@
   "devDependencies": {
     "foundry-pc-types": "gitlab:foundry-projects/foundry-pc/foundry-pc-types",
     "typescript": "^4.0.2"
+  },
+  "scripts": {
+    "test": "npx tsc && rm -rf %LOCALAPPDATA%/FoundryVTT/Data/systems/fmmua && cp -R dist/fmmua %LOCALAPPDATA%/FoundryVTT/Data/systems/"
   }
 }
