@@ -1,4 +1,4 @@
-import DebugDialog from "./scripts/apps/DebugDialog.js";
+import DebugDialog from "./apps/DebugDialog.js";
 
 Hooks.once("init", function() {
     console.log("FMMUA: init");
