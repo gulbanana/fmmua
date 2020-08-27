@@ -125,7 +125,7 @@ declare class Roll {
      * console.log(r.result); // 5 + 4 + 2
      * console.log(r.total);  // 11
      */
-    evaluate({minimize=false, maximize=false}={});
+    evaluate({minimize=false, maximize=false}={}): Roll;
 
   /**
    * Clone the Roll instance, returning a new Roll instance that has not yet been evaluated

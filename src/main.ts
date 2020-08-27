@@ -1,8 +1,9 @@
-import {init as initDice} from "./dice/dice.js";
-import DebugDialog from "./apps/DebugDialog.js";
+import { init as initCommands } from "./commands.js";
+import { init as initDice } from "./dice/dice.js";
 
 Hooks.once("init", function() {
     console.log("FMMUA: init");
+    initCommands();
     initDice();
 }); 
 
@@ -12,5 +13,4 @@ Hooks.once("setup", function() {
 
 Hooks.once("ready", async function() {
     console.log("FMMUA: ready");
-    let result = await DebugDialog.run();
 });
