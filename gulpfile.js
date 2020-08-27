@@ -54,7 +54,7 @@ exports.install = series(build, cleanDeploy, deploy);
 exports.watch = function() {
     w('src/**', build);
 }
-exports['watch-install'] = series(cleanDeploy, function watch() {
+exports['watch-install'] = series(cleanDeploy, deploy, function watch() {
     w('src/**', series(build, deploy));
 });
 
