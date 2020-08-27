@@ -3,10 +3,12 @@
         <label>Roll type</label>
         <div class="form-fields">
             <select class="fmmua-roll-type">
+                {{#select type}}
                 <option value="attack">Attack Roll</option>
                 <option value="save">Saving Throw</option>
                 <option value="skilled">Skill</option>
                 <option value="unskilled">Skill (unskilled)</option>
+                {{/select}}
             </select>
         </div>
     </div>
@@ -14,13 +16,13 @@
     <div class="form-group">
         <label>Flavour text</label>
         <div class="form-fields">
-            <input class="fmmua-flavor" value="{{ flavor }}">
+            <input class="fmmua-flavor" value="{{flavor}}">
         </div>
     </div>
 
     <div class="form-group">
-        <label class="checkbox"><input type="checkbox" class="fmmua-advantage"/>Advantage</label>
-        <label class="checkbox"><input type="checkbox" class="fmmua-disadvantage"/>Disadvantage</label>
+        <label class="checkbox"><input type="checkbox" class="fmmua-advantage" checked="{{advantage}}"/>Advantage</label>
+        <label class="checkbox"><input type="checkbox" class="fmmua-disadvantage" checked="{{disadvantage}}"/>Disadvantage</label>
         <div class="form-fields"></div>
     </div>
 </form>
