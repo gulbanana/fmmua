@@ -5,3 +5,36 @@
 .fmmua-visible-tooltip > .dice-tooltip {
     display: inherit;
 }
+
+.fmmua.sheet {
+    --class-background: #A2B7DA;
+    --class-border: #214AA3;
+    --class-highlight: #5D80BE;
+    --role-background: #D9A5A7;
+    --role-border: #A52226;
+    --role-highlight: #B54D4F;
+}
+
+.fmmua .actor-sheet .role {
+    --section-background: var(--role-background);
+    --section-border: var(--role-border);
+    --section-highlight: var(--role-highlight);
+}
+
+.fmmua .actor-sheet .klass {
+    --section-background: var(--class-background);
+    --section-border: var(--class-border);
+    --section-highlight: var(--class-highlight);
+}
+
+.fmmua .actor-sheet section {
+    margin-top: 1em;
+    background: var(--section-background);
+    border: 2px solid var(--section-border);
+}
+
+.fmmua .actor-sheet section > h3 {
+    padding-left: 1em;
+    background: var(--section-highlight);
+    border-bottom: 2px solid var(--section-border);
+}
