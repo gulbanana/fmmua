@@ -1,3 +1,7 @@
 .fmmua label.checkbox {
     font-size: 14px;
 }
+
+.fmmua-visible-tooltip > .dice-tooltip {
+    display: inherit;
+}

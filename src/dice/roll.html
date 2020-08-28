@@ -3,8 +3,14 @@
     <div class="dice-flavor">{{flavor}}</div>
     {{/if}}
     <div class="dice-result">
+        {{#if tag}}
+        <div class="fmmua-visible-tooltip">
+            {{{tooltip}}}
+        </div>
+        {{else}}
         <div class="dice-formula">{{formula}}</div>
         {{{tooltip}}}
+        {{/if}}
         <h4 class="dice-total">{{strike-roll total tag}}</h4>
     </div>
 </div>
