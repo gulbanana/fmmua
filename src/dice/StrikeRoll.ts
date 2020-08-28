@@ -28,6 +28,8 @@ export class StrikeRoll extends Roll {
           user: chatOptions.user,
           tooltip: isPrivate ? "" : await this.getTooltip(),
           total: isPrivate ? "?" : Math.round(this.total * 100) / 100,
+          d1: this.terms[0] instanceof DiceTerm ? this.terms[0].results[0].result : 0,
+          d2: this.terms[0] instanceof Die && this.terms[0].results.length > 1 ? this.terms[0].results[1].result : 0,
           tag: this.terms.length == 1 && this.terms[0] instanceof Die ? this.terms[0].options.flavor : undefined
         };
 
@@ -35,7 +37,7 @@ export class StrikeRoll extends Roll {
         return renderTemplate(chatOptions.template || Roll.CHAT_TEMPLATE, chatData);
     }
 
-    static helper(total: number, tag: RollTag|undefined): string {
+    static helper(total: number, d1: number, d2: number, tag: RollTag|undefined): string {
         switch (tag) {
             case "attack":
                 return `${total} - ${total == 6 ? "Critical Hit!"
@@ -55,11 +57,15 @@ export class StrikeRoll extends Roll {
                     : "Twist with a Cost"}`;
     
             case "unskilled":
-                return `${total} - ${total == 6 ? "Success and Learn"
-                    : total == 5 ? "Success"
-                    : total == 4 ? "Success with a Cost"
-                    : total > 1 ? "Twist"
-                    : "Twist with a Cost"}`;
+                if ((d1 == 6 && (d2 == 0 || d2 > 4)) || (d2 == 6 && d1 > 4)) {
+                    return `${total} - ${total == 6 ? "Success with a Bonus or learn Skill!" : "Success and learn Skill!" }`;
+                } else {
+                    return `${total} - ${total == 6 ? "Success with a Bonus"
+                        : total > 4 ? "Success"
+                        : total == 4 ? "Success with a Cost"
+                        : total > 1 ? "Twist"
+                        : "Twist with a Cost"}`;
+                }
 
             default:
                 return total.toString();

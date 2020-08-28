@@ -1,3 +1,17 @@
+declare interface TermOptions {
+  flavor?: string;
+  marginSuccess?: string;
+  marginFailure?: string;
+}
+
+declare interface TermResult {
+  result: number;
+  active: boolean;
+  count?: number;
+  success?: boolean;
+  failure?: boolean;
+}
+
 /**
  * An abstract base class for any term which appears in a dice roll formula
  * @abstract
@@ -8,46 +22,38 @@
  * @param {string[]} termData.modifiers     An array of modifiers applied to the results
  * @param {object} termData.options         Additional options that modify the term
  */
-class DiceTerm {
-    constructor({number=1, faces=6, modifiers=[], options={}}={}) {
-  
-      /**
-       * The number of dice of this term to roll, before modifiers are applied
-       * @type {number}
-       */
-      this.number = number;
-  
-      /**
-       * The number of faces on the die
-       * @type {number}
-       */
-      this.faces = faces;
-  
-      /**
-       * An Array of dice term modifiers which are applied
-       * @type {string[]}
-       */
-      this.modifiers = modifiers;
-  
-      /**
-       * An object of additional options which modify the dice term
-       * @type {object}
-       */
-      this.options = options;
-  
-      /**
-       * The array of dice term results which have been rolled
-       * @type {object[]}
-       */
-      this.results = [];
-  
-      /**
-       * An internal flag for whether the dice term has been evaluated
-       * @type {boolean}
-       * @private
-       */
-      this._evaluated = false;
-    }
+declare class DiceTerm {  
+    /**
+     * The number of dice of this term to roll, before modifiers are applied
+     */
+    number: number;
+
+    /**
+     * The number of faces on the die
+     */
+    faces: number;
+
+    /**
+     * An Array of dice term modifiers which are applied
+     */
+    modifiers: string[];
+
+    /**
+     * An object of additional options which modify the dice term
+     */
+    options: TermOptions;
+
+    /**
+     * The array of dice term results which have been rolled
+     */
+    results: TermResult[];
+
+    /**
+     * An internal flag for whether the dice term has been evaluated
+     */
+    _evaluated: boolean;
+
+    constructor({number=1, faces=6, modifiers=[], options={}}={});
   
     /* -------------------------------------------- */
   
