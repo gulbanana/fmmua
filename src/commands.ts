@@ -1,4 +1,5 @@
 import RollDialog from "./dice/RollDialog.js";
+import StrikeActor from "./actors/StrikeActor.js";
 
 interface ChatData {
     user: string;
@@ -18,10 +19,37 @@ export function init() {
         {
             sroll(data, content.substring(7));
             return false;
-        }        
+        } else if (command = "/reset") {
+            reset();
+            return false;
+        }
     });    
 }
 
 function sroll(_data: ChatData, flavor: string) {
     setTimeout(() => RollDialog.run(flavor));
+}
+
+// debug
+async function reset() {
+    let scene = game.scenes.getName("Scene")!;
+    let tokens = scene.getEmbeddedCollection("Token");
+
+    for (let token of tokens) {        
+        await scene.deleteEmbeddedEntity("Token", token._id);
+    }
+
+    for (let actor of game.actors.values()) {
+        await actor.delete();
+    }
+
+    let hero = await Actor.create({name: "Hero", type: "pc"}) as StrikeActor;
+    let heroData = duplicate(hero.data);
+    let heroPosition = {x: 9*300, y: 7*300};
+    await Token.create(mergeObject(heroData.token, heroPosition, {inplace: true}));
+
+    let villain = await Actor.create({name: "Villain", type: "monster"}) as StrikeActor;
+    let villainData = duplicate(villain.data);
+    let villainPosition = {x: 11*300, y: 7*300};
+    await Token.create(mergeObject(villainData.token, villainPosition, {inplace: true}));
 }
