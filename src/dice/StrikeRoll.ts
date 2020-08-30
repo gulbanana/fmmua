@@ -1,20 +1,21 @@
 interface ChatOptions {
-    isPrivate?: boolean;
-    user?: string;
-    flavor?: string | null;
-    template?: string;
-    blind?: boolean;
+    isPrivate: boolean;
+    user: string;
+    flavor: string | null;
+    template: string;
+    blind: boolean;
 }
 
 export type RollTag = "attack" | "save" | "skilled" | "unskilled";
 
 export class StrikeRoll extends Roll {
-    async render(chatOptions: ChatOptions = {}) {
+    async render(chatOptions: Partial<ChatOptions> = {}) {
         chatOptions = mergeObject({
           user: game.user._id,
           flavor: null,
           template: Roll.CHAT_TEMPLATE,
-          blind: false
+          blind: false,
+          isPrivate: false
         }, chatOptions);
         const isPrivate = chatOptions.isPrivate;
     

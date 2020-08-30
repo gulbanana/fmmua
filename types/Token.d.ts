@@ -1,3 +1,37 @@
+declare interface TokenBar {
+    attribute: string;
+}
+
+declare interface TokenData {
+    name: string;
+    x: number;
+    y: number;
+    displayName: string;
+    img: string;
+    width: number;
+    height: number;
+    scale: number;
+    elevation: number;
+    lockRotation: boolean;
+    rotation: number,
+    effects: string[],
+    overlayEffect: string,
+    vision: boolean,
+    dimSight: number,
+    brightSight: number,
+    dimLight: number,
+    brightLight: number,
+    sightAngle: number,
+    hidden: boolean,
+    actorId: string,
+    actorLink: boolean,
+    actorData: ActorData,
+    disposition: number,
+    displayBars: number,
+    bar1: TokenBar | null,
+    bar2: TokenBar | null
+};
+
 /**
  * A Token is an implementation of PlaceableObject which represents an Actor within a viewed Scene on the game canvas.
  * @extends  {PlaceableObject}
@@ -33,106 +67,73 @@
  *   bar2: {attribute: "attributes.sp"}
  * }
  */
-class Token extends PlaceableObject {
-    constructor(...args) {
-      super(...args);
-  
-      /**
-       * A Ray which represents the Token's current movement path
-       * @type {Ray}
-       * @private
-       */
-      this._movement = null;
-  
-      /**
-       * An Object which records the Token's prior velocity dx and dy
-       * This can be used to determine which direction a Token was previously moving
-       * @type {Object}
-       * @private
-       */
-      this._velocity = {
-        dx: null,
-        dy: null,
-        sx: null,
-        sy: null
-      };
-  
-      /**
-       * The Token's most recent valid position
-       * @type {Object}
-       * @private
-       */
-      this._validPosition = {x: this.data.x, y: this.data.y};
-  
-      /**
-       * Provide a temporary flag through which th6is Token can be overridden to bypass any movement animation
-       * @type {boolean}
-       */
-      this._noAnimate = false;
-  
-      /**
-       * Track the set of User entities which are currently targeting this Token
-       * @type {Set.<User>}
-       */
-      this.targeted = new Set([]);
-  
-      /**
-       * An Actor entity constructed using this Token's data
-       * If actorLink is true, then the entity is the true Actor entity
-       * Otherwise, the Actor entity is a synthetic, constructed using the Token actorData
-       * @type {Actor}
-       */
-      this.actor = Actor.fromToken(this);
-  
-      /**
-       * A reference to the SightLayerSource object which defines this light source area of effect
-       * @type {SightLayerSource|null}
-       */
-      this.lightSource = null;
-    }
-  
-    /* -------------------------------------------- */
+declare class Token extends PlaceableObject<TokenData> {
+    /**
+     * A Ray which represents the Token's current movement path
+     */
+    _movement: Ray;
+
+    /**
+     * An Object which records the Token's prior velocity dx and dy
+     * This can be used to determine which direction a Token was previously moving
+     */
+    _velocity: {
+      dx: number,
+      dy: number,
+      sx: number,
+      sy: number
+    };
+
+    /**
+     * The Token's most recent valid position
+     */
+    _validPosition: {
+      x: number;
+      y: number;
+    };
+
+    /**
+     * Provide a temporary flag through which th6is Token can be overridden to bypass any movement animation
+     */
+    _noAnimate: boolean;
+
+    /**
+     * Track the set of User entities which are currently targeting this Token
+     */
+    targeted: Set<User>;
+
+    /**
+     * An Actor entity constructed using this Token's data
+     * If actorLink is true, then the entity is the true Actor entity
+     * Otherwise, the Actor entity is a synthetic, constructed using the Token actorData
+     */
+    actor: Actor;
+
+    /**
+     * A reference to the SightLayerSource object which defines this light source area of effect
+     */
+    lightSource: SightLayerSource|null;
+
+    constructor(data: TokenData, scene: Scene);
   
     /** @override */
-    static get embeddedName() {
-      return "Token";
-    }
-  
-    /* -------------------------------------------- */
-    /*  Permission Attributes
-    /* -------------------------------------------- */
+    static get embeddedName(): string;
   
     /**
      * A Boolean flag for whether the current game User has permission to control this token
-     * @type {boolean}
      */
-    get owner() {
-      if ( game.user.isGM ) return true;
-      return this.actor ? this.actor.owner : false;
-    }
-  
-    /* -------------------------------------------- */
-  
+    get owner(): boolean;
+    
     /**
      * A boolean flag for whether the current game User has observer permission for the Token
-     * @type {boolean}
      */
-    get observer() {
-      return game.user.isGM || (this.actor && this.actor.hasPerm(game.user, "OBSERVER"));
-    }
-  
-    /* -------------------------------------------- */
-  
+    get observer(): boolean;
+    
     /**
      * Is the HUD display active for this token?
-     * @return {boolean}
      */
-    get hasActiveHUD() {
-      return this.layer.hud.object === this;
-    }
-  
-    /* -------------------------------------------- */
-  
+    get hasActiveHUD(): boolean;
+    
     /**
      * Convenience access to the token's nameplate string
      * @type {string}
