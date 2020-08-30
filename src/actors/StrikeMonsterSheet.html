@@ -19,22 +19,10 @@
                 <input name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
             </div>
         </div>
-        <div class="form-group">
-            <label>Class</label>
-            <div class="form-fields">
-                <input name="data.class" value="{{data.class}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Role</label>
-            <div class="form-fields">
-                <input name="data.role" value="{{data.role}}">
-            </div>
-        </div>
     </section>
 
-    <section class="role">
-        <h3>Role Powers</h3>
+    <section>
+        <h3>Powers</h3>
         <ul>
         {{#each actor.items as |item id|}}
             <li data-item-id="{{id}}">
@@ -46,20 +34,5 @@
             </li>
         {{/each}}
         </ol>
-    </section>
-
-    <section class="klass">
-        <h3>Class Powers</h3>
-        <ul>
-        {{#each actor.items as |item id|}}
-            <li data-item-id="{{id}}">
-                <h4>
-                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> {{item.name}}
-                    <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
-                </h4>
-            </li>
-        {{/each}}
-        </ol>
-    </section>
+    </section>    
 </form>

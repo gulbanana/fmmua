@@ -43,13 +43,18 @@ async function reset() {
         await actor.delete();
     }
 
-    let hero = await Actor.create({name: "Hero", type: "pc"}) as StrikeActor;
-    let heroData = duplicate(hero.data);
-    let heroPosition = {x: 9*300, y: 7*300};
-    await Token.create(mergeObject(heroData.token, heroPosition, {inplace: true}));
+    let hero = await Actor.create({
+        name: "Hero", 
+        type: "character",
+        data: {
+        }
+    }) as StrikeActor;
+    let heroData = duplicate(hero.data).token as object;
+    let heroPosition = {x: 9*300, y: 7*300, actorLink: true};
+    await Token.create(mergeObject(heroData, heroPosition, {inplace: true}));
 
     let villain = await Actor.create({name: "Villain", type: "monster"}) as StrikeActor;
-    let villainData = duplicate(villain.data);
-    let villainPosition = {x: 11*300, y: 7*300};
-    await Token.create(mergeObject(villainData.token, villainPosition, {inplace: true}));
+    let villainData = duplicate(villain.data).token as object;
+    let villainPosition = {x: 11*300, y: 7*300, actorLink: true};
+    await Token.create(mergeObject(villainData, villainPosition, {inplace: true}));
 }

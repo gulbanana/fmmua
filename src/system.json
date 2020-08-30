@@ -2,7 +2,7 @@
     "name": "fmmua",
     "title": "FMMUA - Foundry Strike",
     "description": "An unfinished prototype.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "author": "Thomas Castiglione",
     "scripts": [],
     "esmodules": ["main.js"],
