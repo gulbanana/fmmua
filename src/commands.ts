@@ -19,7 +19,7 @@ export function init() {
         {
             sroll(data, content.substring(7));
             return false;
-        } else if (command = "/reset") {
+        } else if (command == "/reset") {
             reset();
             return false;
         }
