@@ -1,4 +1,5 @@
-import { StrikeData } from "./actors.js";
+import StrikeData from "./StrikeData.js";
+import PowerItem from "../items/PowerItem.js";
 
 export default class StrikeActor extends Actor<StrikeData> {
     constructor(data: ActorData<StrikeData>, options: any) {
@@ -17,8 +18,34 @@ export default class StrikeActor extends Actor<StrikeData> {
                 actorLink: true,
                 disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
             }, { overwrite: false });
+            
+            data.permission = data.permission || {};
+            data.permission["default"] = CONST.ENTITY_PERMISSIONS.OBSERVER;
         }
 
         return super.create(data, options) as Promise<StrikeActor>;
+    }
+
+    getPower(powerName: string): PowerItem | null {
+        let result = this.items.find((i: Item) => i.name === powerName);
+        if (result instanceof PowerItem) {
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    async use(powerName: string): Promise<void> {
+        let power = this.getPower(powerName);
+        if (power == null) {
+            let error = game.i18n.format("fmmua.error.PowerNotFound", {
+                actor: this.name,
+                power: powerName
+            });
+            ui.notifications.warn(error);
+            return;
+        }
+
+        await power.use(this);
     }
 }

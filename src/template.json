@@ -1,16 +1,11 @@
 {
   "Item": {
-    "types": ["skill", "power"],
-    "templates": {
-      "thing": {
-        "name": null
-      }
-    },
-    "skill": {
-      "templates": ["thing"]
-    },
+    "types": ["power"],
+    "templates": {},
     "power": {
-      "templates": ["thing"]
+      "templates": [],
+      "usage": "at-will",
+      "action": "attack"
     }    
   },
   "Actor": {
@@ -27,14 +22,12 @@
           "value": 0,
           "max": 3
         }
-      }, 
-      "narrative": {
-        "class": "",
-        "role": ""
       }
     },
     "character": {
-      "templates": ["tactical", "narrative"]
+      "templates": ["tactical"],
+      "class": "",
+      "role": ""
     },
     "monster": {
       "templates": ["tactical"]
