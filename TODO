@@ -51,6 +51,10 @@ MVT (Minimum Viable Thing)
     [ ] sample monsters?
 [ ] remove debug commands (or limit to gm permission)
 
+* Fix bugs
+[ ] Firefox caret position (on player edit sheet) - could relate to textbox focus borders 
+[ ] TinyMCE height, buttonness, data saving
+
 * Create a combat encounter
 [x] write oneshot adventure
 [x] get enough understanding of strike's balance to make a level 1 or 2 fight
