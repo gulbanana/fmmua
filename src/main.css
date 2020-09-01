@@ -30,6 +30,10 @@
     display: inherit;
 }
 
+.fmmua.sheet .sheet-header h1 input {
+    width: 98%;
+}
+
 .fmmua.sheet label.checkbox {
     font-size: 14px;
 }
@@ -98,6 +102,8 @@
     margin-top: 1em;
     background: var(--section-background);
     border: 2px solid var(--section-border);
+    display: flex;
+    flex-direction: column;
 }
 
 .fmmua .actor-sheet section > h3 {
@@ -105,6 +111,12 @@
     margin-bottom: 0;
     background: var(--section-header);
     border-bottom: 2px solid var(--section-border);
+}
+
+.fmmua .actor-sheet .features {
+    --section-background: var(--yellow-light);
+    --section-border: var(--yellow-border);
+    --section-header: var(--yellow-dark);
 }
 
 .fmmua .actor-sheet .role {
@@ -123,5 +135,9 @@
     --section-background: var(--green-light);
     --section-border: var(--green-border);
     --section-header: var(--green-dark);
+    flex: 1;
+}
+
+.fmmua .actor-sheet .bio > div {
     flex: 1;
 }

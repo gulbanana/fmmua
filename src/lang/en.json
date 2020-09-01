@@ -4,9 +4,12 @@
     "fmmua.actor.classPowers": "Class Powers",
     "fmmua.actor.hp": "Hit Points",
     "fmmua.actor.level": "Level",
+    "fmmua.actor.monsterNotes": "Notes",
     "fmmua.actor.notesOrBiography": "Notes/Bio",
+    "fmmua.actor.rank": "Rank",
     "fmmua.actor.role": "Role",
     "fmmua.actor.rolePowers": "Role Powers",
+    "fmmua.actor.size": "Size",
     "fmmua.actor.speed": "Speed",
     "fmmua.error.PowerNotFound": "Character {actor} does not have a power named {power}."
 }

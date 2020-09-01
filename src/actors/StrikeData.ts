@@ -10,6 +10,13 @@ export default interface StrikeData {
         value: number;
         max: number;
     };
+    // character
     class?: string;
-    role?: string;    
+    role?: string;
+    // monster
+    rank?: "Stooge" | "Goon" | "Standard" | "Elite" | "Champion",
+    size?: {
+        width: number;
+        height: number;
+    }
 }
