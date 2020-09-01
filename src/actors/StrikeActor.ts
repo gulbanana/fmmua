@@ -10,17 +10,31 @@ export default class StrikeActor extends Actor<StrikeData> {
         // this will be filled out later, but we want to set defaults for some of it
         (data.token as Partial<TokenData>) = data.token || {};
 
+        // has tactical template
+        if (data.type === "character" || data.type === "monster") {
+            mergeObject(data.token, {
+                displayBars: CONST.TOKEN_DISPLAY_MODES.ALWAYS, // XXX or maybe Hover?
+                bar1: {
+                    attribute: "hp"
+                }
+            }, { overwrite: false });
+        }
+
         if (data.type === "character") {
             mergeObject(data.token, {
                 vision: true,
                 dimSight: 6,
                 brightSight: 0,
                 actorLink: true,
-                disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+                disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY
             }, { overwrite: false });
             
             data.permission = data.permission || {};
             data.permission["default"] = CONST.ENTITY_PERMISSIONS.OBSERVER;
+        } else if (data.type === "monster") {
+            mergeObject(data.token, {
+                disposition: CONST.TOKEN_DISPOSITIONS.HOSTILE
+            }, { overwrite: false });
         }
 
         return super.create(data, options) as Promise<StrikeActor>;
