@@ -1,4 +1,5 @@
 export default interface StrikeData {
+    notes: string;
     level: number;
     speed: number;
     hp: {
@@ -10,5 +11,5 @@ export default interface StrikeData {
         max: number;
     };
     class?: string;
-    role?: string;
+    role?: string;    
 }

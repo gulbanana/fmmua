@@ -1,40 +1,47 @@
 <form class="actor-sheet {{cssClass}}" autocomplete="off">
     <header class="sheet-header">
         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
-        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+        <h1 class="charname"><input class="bg-choice" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
     </header>
 
-    <section>
-        <div class="form-group">
-            <label>Level</label>
-            <div class="form-fields">
-                <input name="data.level" value="{{data.level}}" data-dtype="Number">
+    <div class="pairs">
+        <div class="pair-row">
+            <div class="pair">
+                <label>{{localize "fmmua.actor.level"}}</label>
+                <input class="box2 bg-choice" name="data.level" value="{{data.level}}" data-dtype="Number">
+            </div>
+
+            <div class="pair">
+                <label>{{localize "fmmua.actor.class"}}</label>
+                <input class="box10 bg-class" name="data.class" value="{{data.class}}">
+            </div>
+
+            <div class="pair">
+                <label>{{localize "fmmua.actor.role"}}</label>
+                <input class="box10 bg-role" name="data.role" value="{{data.role}}">
             </div>
         </div>
-        <div class="form-group">
-            <label>HP</label>
-            <div class="form-fields">
-                <input name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
+
+        <div class="pair-row">
+            <div class="pair">
+                <label>{{localize "fmmua.actor.hp"}}</label>
+                <input class="box2 bg-choice" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
                 /
-                <input name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
+                <input class="box2 bg-choice" name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
+            </div>
+            <div class="pair">
+                <label>{{localize "fmmua.actor.ap"}}</label>
+                <input class="box2 bg-choice" name="data.ap.value" value="{{data.ap.value}}" data-dtype="Number">
+            </div>
+            <div class="pair">
+                <label>{{localize "fmmua.actor.speed"}}</label>
+                <input class="box2 bg-choice" name="data.speed" value="{{data.speed}}" data-dtype="Number">
             </div>
         </div>
-        <div class="form-group">
-            <label>Class</label>
-            <div class="form-fields">
-                <input name="data.class" value="{{data.class}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Role</label>
-            <div class="form-fields">
-                <input name="data.role" value="{{data.role}}">
-            </div>
-        </div>
-    </section>
+    </div>
 
     <section class="role">
-        <h3>Role Powers</h3>
+        <h3>{{localize "fmmua.actor.classPowers"}}</h3>
         <ul>
         {{#each actor.items as |item id|}}
             <li data-item-id="{{id}}">
@@ -49,7 +56,7 @@
     </section>
 
     <section class="klass">
-        <h3>Class Powers</h3>
+        <h3>{{localize "fmmua.actor.rolePowers"}}</h3>
         <ul>
         {{#each actor.items as |item id|}}
             <li data-item-id="{{id}}">
@@ -61,5 +68,12 @@
             </li>
         {{/each}}
         </ol>
+    </section>
+
+    <section class="bio">
+        <h3>{{localize "fmmua.actor.notesOrBiography"}}</h3>
+        <div style="min-height: 100px;">
+            {{editor content=data.notes target="data.notes" button=false owner=owner editable=editable}}
+        </div>
     </section>
 </form>

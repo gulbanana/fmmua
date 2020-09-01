@@ -11,6 +11,9 @@
   "Actor": {
     "types": ["character", "monster"],
     "templates": {
+      "common": {
+        "notes": ""
+      },
       "tactical": {
         "level": 1,
         "speed": 6,
@@ -25,12 +28,12 @@
       }
     },
     "character": {
-      "templates": ["tactical"],
+      "templates": ["common", "tactical"],
       "class": "",
       "role": ""
     },
     "monster": {
-      "templates": ["tactical"]
+      "templates": ["common", "tactical"]
     }
   }
 }
