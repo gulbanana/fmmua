@@ -5,8 +5,8 @@ MVT (Minimum Viable Thing)
 [x] strike dice rolls (variants - skill, combat, saving throw)
 [x] actor data modelling
     [x] character
-    [ ] monster
-    [ ] token config (fix bars)
+    [x] monster
+    [x] token config
 [ ] actor sheets 
     [ ] character
         [x] numbers/names
@@ -23,7 +23,7 @@ MVT (Minimum Viable Thing)
             - another kind of Item?
         [ ] tabbing and more narrative stuff
     [ ] monster
-        [ ] numbers/names
+        [x] numbers/names
         [ ] features
         [ ] powers
 [ ] powers    
@@ -51,9 +51,6 @@ MVT (Minimum Viable Thing)
     [ ] common powers
     [ ] sample monsters?
 [ ] remove debug commands (or limit to gm permission)
-
-* Fix bugs
-[ ] TinyMCE height, buttonness, data saving
 
 * Create a combat encounter
 [x] write oneshot adventure
