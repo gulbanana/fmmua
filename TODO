@@ -1,20 +1,71 @@
 MVT (Minimum Viable Thing)
+--------------------------
+
 * Create the System
-  - strike dice rolls (variants - skill, combat, saving throw)
-  - at least some nominal amount of actor data - hp?
-  - ???
+[x] strike dice rolls (variants - skill, combat, saving throw)
+[x] actor data modelling
+    [x] character
+    [ ] monster
+    [ ] token config (fix bars)
+[ ] actor sheets 
+    [ ] character
+        [x] numbers/names
+        [ ] powers
+            [x] drag/drop
+            [ ] add
+            [ ] remove
+            [ ] edit
+            [ ] use 
+                [ ] activate 
+                [ ] configure targets & modifiers
+            [ ] make macro            
+        [ ] feats/etc
+        [ ] owner edit
+    [ ] monster
+        [ ] numbers/names
+        [ ] features
+        [ ] powers
+[ ] powers    
+    [x] macro activation
+    [ ] command activation
+    [ ] item data modelling
+    [ ] item sheet
+    [ ] chat display
+        [x] scaffold & scope
+        [ ] template
+        [ ] insert
+    [ ] attached scripts
+        - expose dice api through actor?
+[ ] encounters
+    [ ] initiative
+        - global formula? include automation for feats?
+    [ ] effect tracking
+[ ] glossary
+    [ ] in chatted powers
+    [ ] in effects
+    [ ] on sheets
+[ ] compendium packs
+    [ ] basic powers
+        - add to new characters?
+    [ ] common powers
+    [ ] sample monsters?
+[ ] remove debug commands (or limit to gm permission)
 
 * Create a combat encounter
-  - get enough understanding of strike's balance to make a level 1 fight
-    - what's this thing about enemies starting at level 2?
-  - also make it fun
-  - write up the numbers, on paper
+[x] write oneshot adventure
+[x] get enough understanding of strike's balance to make a level 1 or 2 fight
+[ ] write up the numbers, on paper
+[ ] optional second encounter/bossfight
   
 * Put the encounter in a World
-  - do i want a Module as base that i could reuse for testing? or are Worlds templates for themselves?
-  - create Scene (map)
-  - add Actors (npcs, monsters [, pcs? if prebuilt])
-  - drop Tokens (incl. art)
-  - assets in Compendium? what's best for reuse  
+[x] create scene 
+    [x] map
+    [x] walls & lighting
+[ ] rebase scene on mvp system or recreate
+[ ] create enemies
+    [ ] actors 
+    [ ] tokens
+    [ ] powers 
+[ ] optional second scene
 
 * Run a game

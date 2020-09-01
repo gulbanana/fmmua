@@ -1,5 +1,6 @@
 import RollDialog from "./dice/RollDialog.js";
 import StrikeActor from "./actors/StrikeActor.js";
+import StrikeData from "./actors/StrikeData.js";
 
 interface ChatData {
     user: string;
@@ -42,8 +43,18 @@ async function reset() {
     for (let actor of game.actors.values()) {
         await actor.delete();
     }
-
-    let hero = await StrikeActor.create({name: "Hero", type: "character"});
+    
+    let hero = await StrikeActor.create({
+        name: "Hero", 
+        type: "character",
+        permission: {
+            [game.users.getName("Player 2")!.id!]: CONST.ENTITY_PERMISSIONS.OWNER
+        },
+        data: {
+            class: "Burgermeister",
+            role: "Burgomeister"
+        } as StrikeData
+    });
     let heroData = duplicate(hero.data).token;
     let heroPosition = {x: 9*300, y: 7*300, actorLink: true};
     await Token.create(mergeObject(heroData, heroPosition, {inplace: true}));
