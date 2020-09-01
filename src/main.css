@@ -87,11 +87,11 @@
 }
 
 .fmmua .actor-sheet .bg-class {
-    background: var(--blue-dark);
+    background: var(--blue-alternate);
 }
 
 .fmmua .actor-sheet .bg-role {
-    background: var(--red-dark);
+    background: var(--red-light);
 }
 
 .fmmua .actor-sheet section {
