@@ -61,6 +61,6 @@ async function reset() {
 
     let villain = await StrikeActor.create({name: "Villain", type: "monster"});
     let villainData = duplicate(villain.data).token;
-    let villainPosition = {x: 11*300, y: 7*300, actorLink: true};
+    let villainPosition = {x: 11*300, y: 7*300};
     await Token.create(mergeObject(villainData, villainPosition, {inplace: true}));
 }

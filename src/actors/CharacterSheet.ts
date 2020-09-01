@@ -17,8 +17,6 @@ export default class CharacterSheet extends ActorSheet<StrikeData, StrikeActor> 
 
     getData() {
         const data = super.getData();
-        console.log("sheet data:");
-        console.log(data);
         return data;
     }
 }
