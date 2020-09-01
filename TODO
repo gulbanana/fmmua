@@ -52,7 +52,6 @@ MVT (Minimum Viable Thing)
 [ ] remove debug commands (or limit to gm permission)
 
 * Fix bugs
-[ ] Firefox caret position (on player edit sheet) - could relate to textbox focus borders 
 [ ] TinyMCE height, buttonness, data saving
 
 * Create a combat encounter
