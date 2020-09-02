@@ -18,38 +18,28 @@ MVT (Minimum Viable Thing)
             [ ] use 
                 [ ] activate 
                 [ ] configure targets & modifiers
-            [ ] make macro            
-        [ ] feats/etc
-            - another kind of Item?
-        [ ] tabbing and more narrative stuff
+            [ ] make macro
+        [ ] feats (class features? or is that a flag like where the power comes from?)
     [ ] monster
         [x] numbers/names
-        [ ] features
+        [ ] features (are these feats?)
         [ ] powers
 [ ] powers    
     [x] macro activation
     [ ] command activation
-    [ ] item data modelling
+    [ ] data model
     [ ] item sheet
     [ ] chat display
         [x] scaffold & scope
         [ ] template
         [ ] insert
-    [ ] attached scripts
-        - expose dice api through actor?
+[ ] feats
+    [ ] data model
+    [ ] item sheet
 [ ] encounters
     [ ] initiative
         - global formula? include automation for feats?
     [ ] effect tracking
-[ ] glossary
-    [ ] in chatted powers
-    [ ] in effects
-    [ ] on sheets
-[ ] compendium packs
-    [ ] basic powers
-        - add to new characters?
-    [ ] common powers
-    [ ] sample monsters?
 [ ] remove debug commands (or limit to gm permission)
 
 * Create a combat encounter
@@ -70,3 +60,26 @@ MVT (Minimum Viable Thing)
 [ ] optional second scene
 
 * Run a game
+
+* Post-MVP features
+[ ] glossary
+    [ ] in chatted powers
+    [ ] in effects
+    [ ] on sheets
+[ ] compendium packs
+    [ ] basic powers
+        - add to new characters?
+    [ ] common powers
+    [ ] sample monsters?
+[ ] sheets
+    [ ] configure targets & modifiers
+    [ ] tabbing and more narrative stuff (adventure/tactical sheet)
+        [ ] rollable skills
+        [ ] character creation?
+[ ] scripts
+    [ ] eval context
+    [ ] power scripts (on use)
+    [ ] feat scripts (on prepareData)
+    [ ] dice api should be accessible somewhere (on actor?)
+[ ] powers
+    [ ] differentiate types (attack power with effect, trigger, etc)

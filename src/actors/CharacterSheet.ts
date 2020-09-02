@@ -10,13 +10,4 @@ export default class CharacterSheet extends ActorSheet<StrikeData, StrikeActor> 
         template: "systems/fmmua/actors/CharacterSheet.html"
       });
     }
-
-    constructor(...args: any) {
-        super(...args);
-    }
-
-    getData() {
-        const data = super.getData();
-        return data;
-    }
 }

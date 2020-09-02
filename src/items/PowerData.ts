@@ -1,4 +1,9 @@
-export default interface PowerData {
+import StrikeData from "./StrikeData.js";
+
+export default interface PowerData extends StrikeData {
+    action: "attack" | "triggered" | "free" | "role" | "move";
     usage: "at-will" | "encounter";
-    action: "attack" | "role";
+    target: "ranged" | "melee" | "burst"
+    range: number;
+    damage: number | null;
 }

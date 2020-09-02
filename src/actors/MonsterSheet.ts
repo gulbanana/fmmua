@@ -10,13 +10,4 @@ export default class MonsterSheet extends ActorSheet<StrikeData, StrikeActor> {
         template: "systems/fmmua/actors/MonsterSheet.html"
       });
     }
-
-    constructor(...args: any) {
-        super(...args);
-    }
-
-    getData() {
-        const data = super.getData();
-        return data;
-    }
 }

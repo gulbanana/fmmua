@@ -1,5 +1,5 @@
 import StrikeData from "./StrikeData.js";
-import PowerItem from "../items/PowerItem.js";
+import { PowerItem } from "../items/items.js";
 
 export default class StrikeActor extends Actor<StrikeData> {
     constructor(data: ActorData<StrikeData>, options: any) {

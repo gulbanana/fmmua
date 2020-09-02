@@ -1,6 +1,7 @@
 import RollDialog from "./dice/RollDialog.js";
 import StrikeActor from "./actors/StrikeActor.js";
 import StrikeData from "./actors/StrikeData.js";
+import { FeatItem, PowerItem } from "./items/items.js";
 
 interface ChatData {
     user: string;
@@ -43,6 +44,45 @@ async function reset() {
     for (let actor of game.actors.values()) {
         await actor.delete();
     }
+
+    for (let item of game.items.values()) {
+        await item.delete();
+    }
+
+    let misfireFeature = await FeatItem.create({
+        name: "Misfire!",
+        data: {
+            classFeature: true,
+            description: `When you roll a 1 on any attack, do not take a Strike. Instead,
+take 2 damage and the zone your bomb creates is centered
+on you. Misfires are always square-shaped.`
+        }
+    });
+
+    let toughnessFeat = await FeatItem.create({
+        name: "Toughness",
+        data: {
+            description: `+3 to max HP. You Resist 1 damage against anything
+other than attacks and Opportunities (e.g. against damaging
+Zones or Ongoing Damage).`
+        }
+    });
+
+    let meleeBasic = await PowerItem.create({
+        name: "Melee Basic Attack",
+        data: {
+            target: "melee",
+            description: `<b>Effect:</b> None.`
+        }
+    });
+
+    let rangedBasic = await PowerItem.create({
+        name: "Ranged Basic Attack",
+        data: {
+            target: "ranged",
+            description: `<b>Effect:</b> None.`
+        }
+    });    
     
     let hero = await StrikeActor.create({
         name: "Hero", 
@@ -57,6 +97,7 @@ async function reset() {
     });
     let heroData = duplicate(hero.data).token;
     let heroPosition = {x: 9*300, y: 7*300, actorLink: true};
+
     await Token.create(mergeObject(heroData, heroPosition, {inplace: true}));
 
     let villain = await StrikeActor.create({name: "Villain", type: "monster"});
