@@ -19,7 +19,12 @@ MVT (Minimum Viable Thing)
                 [ ] activate 
                 [ ] configure targets & modifiers
             [ ] make macro
-        [ ] feats (class features? or is that a flag like where the power comes from?)
+            [x] power source sorting
+        [x] traits
+            [x] feats
+            [x] class features
+            [x] role boosts
+        [ ] either reject or display invalid items
     [ ] monster
         [x] numbers/names
         [ ] features (are these feats?)
@@ -27,14 +32,14 @@ MVT (Minimum Viable Thing)
 [ ] powers    
     [x] macro activation
     [ ] command activation
-    [ ] data model
+    [x] data model
     [ ] item sheet
     [ ] chat display
         [x] scaffold & scope
         [ ] template
         [ ] insert
 [ ] feats
-    [ ] data model
+    [x] data model
     [ ] item sheet
 [ ] encounters
     [ ] initiative
@@ -83,3 +88,7 @@ MVT (Minimum Viable Thing)
     [ ] dice api should be accessible somewhere (on actor?)
 [ ] powers
     [ ] differentiate types (attack power with effect, trigger, etc)
+[ ] feats
+    [ ] levels
+[ ] roles
+    [ ] power levels and advances

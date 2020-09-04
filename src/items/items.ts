@@ -35,8 +35,9 @@ export class TraitItem extends StrikeItem<TraitData> {
 
     static async create(data: Partial<ItemData<Partial<TraitData>>>, options = {}) {
         mergeObject(data, {
-            type: "trait"
-        });
+            type: "trait",
+            img: "icons/svg/book.svg"
+        }, { overwrite: false });
         return super.create(data, options);
     }
 }
@@ -48,8 +49,9 @@ export class PowerItem extends StrikeItem<PowerData> {
 
     static async create(data: Partial<ItemData<Partial<PowerData>>>, options = {}) {
         mergeObject(data, {
-            type: "power"
-        });
+            type: "power",
+            img: "icons/svg/dice-target.svg"
+        }, { overwrite: false });
         return super.create(data, options);
     }
 

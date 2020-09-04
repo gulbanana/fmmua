@@ -28,4 +28,71 @@
         --section-border: var(--class-border);
         --section-header: var(--class-header);
     }
+    
+    .trait {
+        display: flex;
+        align-items: center;
+        img {
+            background: url(/../ui/parchment.jpg) repeat;
+        }
+        h4 {
+           flex: 1;
+           margin: 0;
+           padding: 0 0.5em 0 0.5em;
+           white-space: nowrap;
+           overflow: hidden;
+           text-overflow: ellipsis;
+        }
+        a {
+            margin-right: 0.5em;
+        }
+    }
+
+    .power {
+        display: flex;
+        align-items: center;
+        padding-left: 0.5em;
+        & > .power-container {
+            flex: 1;
+            margin-right: 20px;
+
+            & > .power-header {
+                margin: 5px 0 5px 0;
+                font-size: 16px;
+                font-weight: bold;
+                display: grid;
+                align-items: center;
+                grid-template-columns: calc(0.5em + 12px) 1fr 1fr 2em;
+                grid-template-rows: 24px;
+
+                img.qfa {
+                    width: 12px;
+                    height: 12px;
+                    border: none;
+                    margin: 0 0.25em;
+                }
+
+                .fas {
+                    font-size: 12px;
+                    position: relative;
+                    top: -1px;
+                }
+            }
+
+            & > .usage-at-will {
+                background: var(--at-will-header);
+            }
+
+            & > .usage-encounter {
+                background: var(--encounter-header);
+            }
+
+            & > .usage-custom {
+                background: var(--special-header);
+            }
+        }
+        & > a {
+            margin-right: 0.5em;
+        }
+    }
 }

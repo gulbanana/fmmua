@@ -42,47 +42,65 @@
         </div>
     </div>
 
+    {{#*inline "trait"}}
+        <div class="trait" data-item-id="{{_id}}">
+            <h4 title="{{data.description}}"><b>{{name}}:</b> <span>{{data.description}}</span></h4>
+            <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+        </div>
+    {{/inline}}
+
+    {{#*inline "power"}}
+        <div class="power" data-item-id="{{_id}}">
+            <div class="power-container">
+                <div class="power-header usage-{{data.usage}}">
+                    <img class="qfa" src="/systems/fmmua/icons/swords.svg"/>
+                    <div>
+                        {{name}}
+                    </div>
+                    <div>
+                        {{data.usageText}}
+                    </div>
+                    <div>
+                    {{#if data.hasDamage}}                    
+                        <i class="fas fa-tint"></i>{{data.damage}}
+                    {{/if}}
+                    </div>
+                </div>
+            </div>            
+            <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+        </div>
+    {{/inline}}
+
     <section class="feats">
         <h3>{{localize "fmmua.actor.feats"}}</h3>
-        feats and maybe misc powers will go here
+        {{#each feats.traits as |t|}}
+            {{> trait t}}
+        {{/each}}
+        {{#each feats.powers as |p|}}
+            {{> power p}}
+        {{/each}}
+        </ul>    
     </section>
 
     <section class="role">
         <h3>{{localize "fmmua.actor.rolePowers"}}</h3>
-        <ul>
-        {{#each actor.items as |item id|}}
-            <li data-item-id="{{id}}">
-                <h4>
-                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> {{item.name}}
-                    <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
-                </h4>
-            </li>
+        {{#each role.traits as |t|}}
+            {{> trait t}}
         {{/each}}
-        </ol>
+        {{#each role.powers as |p|}}
+            {{> power p}}
+        {{/each}}
     </section>
 
     <section class="klass">
         <h3>{{localize "fmmua.actor.classPowers"}}</h3>
-        <ul>
-        {{#each actor.items as |item id|}}
-            <li data-item-id="{{id}}">
-                <h4>
-                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> {{item.name}}
-                    <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
-                </h4>
-            </li>
+        {{#each class.traits as |t|}}
+            {{> trait t}}
         {{/each}}
-        </ol>
+        {{#each class.powers as |p|}}
+            {{> power p}}
+        {{/each}}
     </section>
-
-    {{!--
-    <section class="bio">
-        <h3>{{localize "fmmua.actor.notesOrBiography"}}</h3>
-        <div style="min-height: 100px;">
-            {{editor content=data.notes target="data.notes" button=false owner=owner editable=editable}}
-        </div>
-    </section>
-    --}}
 </form>

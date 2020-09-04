@@ -53,9 +53,7 @@ async function reset() {
         name: "Misfire!",
         data: {
             source: "class",
-            description: `When you roll a 1 on any attack, do not take a Strike. Instead,
-take 2 damage and the zone your bomb creates is centered
-on you. Misfires are always square-shaped.`
+            description: "When you roll a 1 on any attack, do not take a Strike. Instead, take 2 damage and the zone your bomb creates is centered on you. Misfires are always square-shaped."
         }
     });
 
@@ -63,27 +61,56 @@ on you. Misfires are always square-shaped.`
         name: "Toughness",
         data: {
             source: "feat",
-            description: `+3 to max HP. You Resist 1 damage against anything
-other than attacks and Opportunities (e.g. against damaging
-Zones or Ongoing Damage).`
+            description: "+3 to max HP. You Resist 1 damage against anything other than attacks and Opportunities (e.g. against damaging Zones or Ongoing Damage)."
         }
     });
 
-    let meleeBasic = await PowerItem.create({
+    let stickinessBoost = await TraitItem.create({
+        name: "Stickiness Boost",
+        data: {
+            source: "role",
+            description: "When an enemy grants you an Opportunity, it takes 1 additional damage."
+        }
+    });
+
+    let meleeBasicPower = await PowerItem.create({
         name: "Melee Basic Attack",
         data: {
             target: "melee",
-            text: `<b>Effect:</b> None.`
+            text: "<b>Effect:</b> None."
         }
     });
 
-    let rangedBasic = await PowerItem.create({
-        name: "Ranged Basic Attack",
+    let grenadePower = await PowerItem.create({
+        name: "Get Over Here",
         data: {
+            source: "class",
             target: "ranged",
-            text: `<b>Effect:</b> None.`
+            range: 5,
+            text: "<b>Effect:</b> Target is pulled to an adjacent square."
         }
-    });    
+    });
+
+    let markPower = await PowerItem.create({
+        name: "Mark",
+        data: {
+            source: "role",
+            action: "role",
+            target: "ranged",
+            range: 5,
+            text: `Target is Marked by you until the end of its next turn.
+(At level 4, Mark two targets in range. At level 8, three targets.)`
+        }
+    });
+
+    let rallyPower = await PowerItem.create({
+        name: "Rally",
+        data: {
+            action: "move",
+            usage: "encounter",
+            text: ``
+        }
+    });
     
     let hero = await StrikeActor.create({
         name: "Hero", 
@@ -92,8 +119,8 @@ Zones or Ongoing Damage).`
             [game.users.getName("Player 2")!.id!]: CONST.ENTITY_PERMISSIONS.OWNER
         },
         data: {
-            class: "Burgermeister",
-            role: "Burgomeister"
+            class: "Duelist",
+            role: "Defender"
         } as StrikeData
     });
     let heroData = duplicate(hero.data).token;
