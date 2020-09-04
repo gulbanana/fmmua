@@ -1,11 +1,11 @@
-<form class="actor-sheet {{cssClass}}" autocomplete="off">
+<form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
         <h1 class="charname"><input class="bg-choice" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
     </header>
 
-    <div class="pairs">
-        <div class="pair-row">
+    <div class="stats">
+        <div class="stat-row">
             <div class="pair">
                 <label>{{localize "fmmua.actor.level"}}</label>
                 <input type="text" class="box2 bg-choice" name="data.level" value="{{data.level}}" data-dtype="Number">
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="pair-row">
+        <div class="stat-row">
             <div class="pair">
                 <label>{{localize "fmmua.actor.hp"}}</label>
                 <input type="text" class="box2 bg-choice" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
@@ -41,6 +41,11 @@
             </div>
         </div>
     </div>
+
+    <section class="feats">
+        <h3>{{localize "fmmua.actor.feats"}}</h3>
+        feats and maybe misc powers will go here
+    </section>
 
     <section class="role">
         <h3>{{localize "fmmua.actor.rolePowers"}}</h3>

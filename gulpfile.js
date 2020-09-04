@@ -4,6 +4,8 @@ const path = require('path');
 const stripJsonComments = require('gulp-strip-json-comments');
 const ts = require("gulp-typescript");
 const zip = require('gulp-zip');
+const sass = require('gulp-sass');
+sass.compiler = require('node-sass');
 
 // build src -> dist
 var tsProject = ts.createProject("tsconfig.json");
@@ -12,10 +14,16 @@ function cleanBuild() {
     return del(["dist"]);
 }
 
-function compileTypescript(cb) {
+function compileTypescript() {
     return tsProject.src()
         .pipe(tsProject()).js
         .pipe(dest("dist"));
+}
+
+function compileSass() {
+    return src("./src/main.scss")
+        .pipe(sass().on('error', sass.logError))
+        .pipe(dest("./dist"));
 }
 
 function stripJson() {
@@ -25,11 +33,11 @@ function stripJson() {
 }
 
 function copyMisc() {
-    return src(['src/**', '!src/**/*.json', '!src/**/*.ts'])
+    return src(['src/**', '!src/**/*.json', '!src/**/*.scss', '!src/**/*.ts'])
         .pipe(dest('dist/'));
 }
 
-const build = parallel(compileTypescript, stripJson, copyMisc);
+const build = parallel(compileTypescript, compileSass, stripJson, copyMisc);
 
 exports.clean = cleanBuild;
 exports.default = build;

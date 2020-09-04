@@ -1,0 +1,32 @@
+@import "./_colors.scss";
+
+.fmmua {
+    @include palette;
+    @import "./actors/StrikeSheet.scss";
+
+    &.sheet {
+        .sheet-header h1 input {
+            width: 98%;
+        }
+        label.checkbox {
+            font-size: 14px;
+        }
+        input.box2 {
+            width: 2em;
+        }
+        input.box10 {
+            width: 10em;
+        }
+        
+        .editor {
+            height: 100%;
+            .tox-toolbar-overlord,.tox-toolbar__primary {
+                background: none;
+            }
+        }
+    }
+}
+
+.fmmua-visible-tooltip > .dice-tooltip {
+    display: inherit;
+}

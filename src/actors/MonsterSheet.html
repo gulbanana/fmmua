@@ -1,19 +1,19 @@
-<form class="actor-sheet {{cssClass}}" autocomplete="off">
+<form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
-        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+        <h1 class="charname"><input class="bg-stat" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
     </header>
 
-    <div class="pairs">
-        <div class="pair-row">
+    <div class="stats">
+        <div class="stat-row">
             <div class="pair">
                 <label>{{localize "fmmua.actor.level"}}</label>
-                <input type="text" class="box2" name="data.level" value="{{data.level}}" data-dtype="Number">
+                <input type="text" class="box2 bg-stat" name="data.level" value="{{data.level}}" data-dtype="Number">
             </div>
 
             <div class="pair">
                 <label>{{localize "fmmua.actor.rank"}}</label>
-                <select name="data.rank" class="box10">
+                <select name="data.rank" class="box10 bg-stat">
                     {{#select data.rank}}
                     <option value="Stooge">Stooge</option>
                     <option value="Goon">Goon</option>
@@ -26,26 +26,41 @@
 
             <div class="pair">
                 <label>{{localize "fmmua.actor.hp"}}</label>
-                <input type="text" class="box2" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
+                <input type="text" class="box2 bg-stat" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
                 /
-                <input type="text" class="box2" name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
+                <input type="text" class="box2 bg-stat" name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
             </div>
 
             <div class="pair">
                 <label>{{localize "fmmua.actor.size"}}</label>
-                <input type="text" class="box2" name="data.size.width" value="{{data.size.width}}" data-dtype="Number">
+                <input type="text" class="box2 bg-stat" name="data.size.width" value="{{data.size.width}}" data-dtype="Number">
                 x
-                <input type="text" class="box2" name="data.size.height" value="{{data.size.height}}" data-dtype="Number">
+                <input type="text" class="box2 bg-stat" name="data.size.height" value="{{data.size.height}}" data-dtype="Number">
             </div>
             
             <div class="pair">
                 <label>{{localize "fmmua.actor.speed"}}</label>
-                <input type="text" class="box2" name="data.speed" value="{{data.speed}}" data-dtype="Number">
+                <input type="text" class="box2 bg-stat" name="data.speed" value="{{data.speed}}" data-dtype="Number">
             </div>
         </div>
     </div>
 
-    <section class="features">
+    <section class="traits">
+        <h3>Traits</h3>
+        <ul>
+        {{#each actor.items as |item id|}}
+            <li data-item-id="{{id}}">
+                <h4>
+                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> {{item.name}}
+                    <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+                </h4>
+            </li>
+        {{/each}}
+        </ol>
+    </section>
+
+    <section class="powers">
         <h3>Powers</h3>
         <ul>
         {{#each actor.items as |item id|}}
@@ -60,10 +75,8 @@
         </ol>
     </section>
 
-    <section class="bio">
+    <section class="misc">
         <h3>{{localize "fmmua.actor.monsterNotes"}}</h3>
-        <div class="editor-container">
-            {{editor content=data.notes target="data.notes" button=true owner=owner editable=editable}}
-        </div>
+        {{editor content=data.notes target="data.notes" button=true owner=owner editable=editable}}
     </section>
 </form>

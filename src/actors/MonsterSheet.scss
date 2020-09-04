@@ -1,0 +1,18 @@
+&.monster {
+    .bg-stat {
+        background: var(--monster-even);
+    }
+
+    .traits, .powers {
+        --section-background: var(--monster-odd);
+        --section-header: var(--monster-header);
+        --section-border: var(--monster-matching-border);
+    }    
+
+    .misc {
+        --section-background: var(--background-odd);
+        --section-header: var(--background-even);
+        --section-border: var(--background-matching-border);        
+        flex: 1;
+    }
+}

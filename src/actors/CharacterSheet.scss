@@ -1,0 +1,31 @@
+&.character {    
+    .bg-choice {
+        background: var(--option-odd);
+    }
+
+    .bg-class {
+        background: var(--class-content);
+    }
+
+    .bg-role {
+        background: var(--role-content);
+    }
+
+    .feats {
+        --section-background: var(--feat-content);
+        --section-border: var(--feat-border);
+        --section-header: var(--feat-header);
+    }    
+
+    .role {
+        --section-background: var(--role-content);
+        --section-border: var(--role-border);
+        --section-header: var(--role-header);
+    }
+
+    .klass {
+        --section-background: var(--class-content);
+        --section-border: var(--class-border);
+        --section-header: var(--class-header);
+    }
+}

@@ -1,0 +1,55 @@
+&.actor {
+    form {
+        display: flex;
+        flex-direction: column;
+
+        section {
+            margin-top: 1em;
+            background: var(--section-background);
+            border: 2px solid var(--section-border);
+            display: flex;
+            flex-direction: column;
+    
+            & > h3 {
+                padding-left: 1em;
+                margin-bottom: 0;
+                background: var(--section-header);
+                border-bottom: 2px solid var(--section-border);        
+            }
+
+            .editor-content, .tox-edit-area {
+                padding-left: 0.5em;
+            }
+        }
+    }
+
+    .stats {
+        display: flex;
+        flex-direction: column;
+
+        .stat-row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-self: center;
+            margin-top: 0.5em;
+        }
+    }
+
+    .pair {
+        white-space: nowrap;
+        margin-right: 1em;
+
+        & > label {
+            padding-right: 0.5em;
+        }
+        
+        & > input {
+            border: 1px solid #A9A9A9;
+        }
+    }
+
+    @import "./CharacterSheet.scss";
+    @import "./MonsterSheet.scss";
+}
