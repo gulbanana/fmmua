@@ -6,4 +6,5 @@ export default interface PowerData extends StrikeData {
     target: "ranged" | "melee" | "burst"
     range: number;
     damage: number | null;
+    text: string;
 }

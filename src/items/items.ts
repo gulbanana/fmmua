@@ -1,14 +1,14 @@
 import StrikeActor from "../actors/StrikeActor.js";
 import StrikeData from "./StrikeData.js";
-import FeatData from "./FeatData.js";
+import TraitData from "./TraitData.js";
 import PowerData from "./PowerData.js";
-import FeatSheet from "./FeatSheet.js";
+import TraitSheet from "./TraitSheet.js";
 import PowerSheet from "./PowerSheet.js";
 
 export function init() {
     CONFIG.Item.entityClass = StrikeItem as typeof Item;
     Items.unregisterSheet("core", ItemSheet);
-    Items.registerSheet("fmmua", FeatSheet, { types: ["feat"], makeDefault: true });
+    Items.registerSheet("fmmua", TraitSheet, { types: ["trait"], makeDefault: true });
     Items.registerSheet("fmmua", PowerSheet, { types: ["power"], makeDefault: true });
 }
 
@@ -18,8 +18,8 @@ class StrikeItem<T extends StrikeData> extends Item<T> {
 
         if (!construct) {
             switch (data.type) {
-                case "feat":
-                    return new FeatItem(data, actor) as unknown as Item<T>;
+                case "trait":
+                    return new TraitItem(data, actor) as unknown as Item<T>;
 
                 case "power":
                     return new PowerItem(data, actor) as unknown as Item<T>;
@@ -28,14 +28,14 @@ class StrikeItem<T extends StrikeData> extends Item<T> {
     }
 }
 
-export class FeatItem extends StrikeItem<FeatData> {
+export class TraitItem extends StrikeItem<TraitData> {
     constructor(data: ItemData<any>, actor: Actor) {
         super(data, actor, true);
     }
 
-    static async create(data: Partial<ItemData<Partial<FeatData>>>, options = {}) {
+    static async create(data: Partial<ItemData<Partial<TraitData>>>, options = {}) {
         mergeObject(data, {
-            type: "feat"
+            type: "trait"
         });
         return super.create(data, options);
     }

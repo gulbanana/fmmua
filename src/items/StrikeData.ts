@@ -1,4 +1,4 @@
 export default interface StrikeData {
-    description: string;
     script: string | null;
+    source: "feat" | "role" | "class" | null;
 }

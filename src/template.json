@@ -1,23 +1,24 @@
 {
   "Item": {
-    "types": ["power", "feat"],
+    "types": ["power", "trait"],
     "templates": {
       "programmability": {
-        "description": "Describe the effects here.",
-        "script": null
+        "source": null,
+        "macro": null
       }
     },
-    "feat": {
+    "trait": {
       "templates": ["programmability"],
-      "classFeature": false
-    },
+      "description": "Describe the effects here."
+    },  
     "power": {
       "templates": ["programmability"],
       "action": "attack",
       "usage": "at-will",
       "target": "ranged",
       "range": 5,
-      "damage": 2
+      "damage": 2,
+      "text": ""
     }
   },
   "Actor": {

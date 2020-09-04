@@ -1,7 +1,7 @@
 import RollDialog from "./dice/RollDialog.js";
 import StrikeActor from "./actors/StrikeActor.js";
 import StrikeData from "./actors/StrikeData.js";
-import { FeatItem, PowerItem } from "./items/items.js";
+import { TraitItem, PowerItem } from "./items/items.js";
 
 interface ChatData {
     user: string;
@@ -49,19 +49,20 @@ async function reset() {
         await item.delete();
     }
 
-    let misfireFeature = await FeatItem.create({
+    let misfireFeature = await TraitItem.create({
         name: "Misfire!",
         data: {
-            classFeature: true,
+            source: "class",
             description: `When you roll a 1 on any attack, do not take a Strike. Instead,
 take 2 damage and the zone your bomb creates is centered
 on you. Misfires are always square-shaped.`
         }
     });
 
-    let toughnessFeat = await FeatItem.create({
+    let toughnessFeat = await TraitItem.create({
         name: "Toughness",
         data: {
+            source: "feat",
             description: `+3 to max HP. You Resist 1 damage against anything
 other than attacks and Opportunities (e.g. against damaging
 Zones or Ongoing Damage).`
@@ -72,7 +73,7 @@ Zones or Ongoing Damage).`
         name: "Melee Basic Attack",
         data: {
             target: "melee",
-            description: `<b>Effect:</b> None.`
+            text: `<b>Effect:</b> None.`
         }
     });
 
@@ -80,7 +81,7 @@ Zones or Ongoing Damage).`
         name: "Ranged Basic Attack",
         data: {
             target: "ranged",
-            description: `<b>Effect:</b> None.`
+            text: `<b>Effect:</b> None.`
         }
     });    
     
