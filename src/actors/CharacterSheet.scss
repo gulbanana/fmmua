@@ -32,19 +32,6 @@
         --section-border: var(--blue2-border);
         --section-header: var(--blue2-dark);
     }
-
-    .powers {
-        --section-background: white;
-        --section-border: black;
-        --section-header: url(/ui/parchment.jpg) repeat;
-        flex: 1;
-        .cards {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-items: flex-start;
-        }
-    }
     
     .trait {
         display: flex;
@@ -65,18 +52,34 @@
         }
     }
 
-    .power {
-        position: relative;
-        width: 350px;
-        margin: 7px;
-        .commands {
-            position: absolute;
-            bottom: 7px;
-            right: 0;
-            display: flex;
-        }
-        a {
-            margin-right: 0.5em;
+    .powers {
+        --section-background: white;
+        --section-border: black;
+        --section-header: url(/ui/parchment.jpg) repeat;
+        flex: 1;
+        
+        .cards {
+            padding: 7px 7px 0 7px;
+
+            column-count: auto;
+            column-width: 350px;
+            column-gap: 7px;
+
+            .power {
+                break-inside: avoid;
+                margin: 0 0 7px 0;                
+                position: relative;                
+                
+                .commands {
+                    position: absolute;
+                    bottom: 7px;
+                    right: 0;
+                    display: flex;
+                }
+                a {
+                    margin-right: 0.5em;
+                }
+            }
         }
     }
 }
