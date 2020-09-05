@@ -15,11 +15,11 @@
                 <label>{{localize "fmmua.actor.rank"}}</label>
                 <select name="data.rank" class="box10 bg-stat">
                     {{#select data.rank}}
-                    <option value="Stooge">Stooge</option>
-                    <option value="Goon">Goon</option>
-                    <option value="Standard">Standard</option>
-                    <option value="Champion">Champion</option>
-                    <option value="Elite">Elite</option>
+                    <option value="Stooge">{{localize "fmmua.actor.ranks.stooge"}}</option>
+                    <option value="Goon">{{localize "fmmua.actor.ranks.goon"}}</option>
+                    <option value="Standard">{{localize "fmmua.actor.ranks.standard"}}</option>
+                    <option value="Champion">{{localize "fmmua.actor.ranks.champion"}}</option>
+                    <option value="Elite">{{localize "fmmua.actor.ranks.elite"}}</option>
                     {{/select}}
                 </select>
             </div>
@@ -46,14 +46,14 @@
     </div>
 
     <section class="traits">
-        <h3>Traits</h3>
+        <h3>{{localize "fmmua.actor.traits"}}</h3>
         <ul>
         {{#each actor.items as |item id|}}
             <li data-item-id="{{id}}">
                 <h4>
                     <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> {{item.name}}
-                    <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+                    <a class="item-edit" title="{{localize "fmmua.controls.edit"}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="{{localize "fmmua.controls.delete"}}"><i class="fas fa-trash"></i></a>
                 </h4>
             </li>
         {{/each}}
@@ -61,14 +61,14 @@
     </section>
 
     <section class="powers">
-        <h3>Powers</h3>
+        <h3>{{localize "fmmua.actor.powers"}}</h3>
         <ul>
         {{#each actor.items as |item id|}}
             <li data-item-id="{{id}}">
                 <h4>
                     <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> {{item.name}}
-                    <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+                    <a class="item-edit" title="{{localize "fmmua.controls.edit"}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="{{localize "fmmua.controls.delete"}}"><i class="fas fa-trash"></i></a>
                 </h4>
             </li>
         {{/each}}

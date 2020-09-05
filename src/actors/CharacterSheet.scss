@@ -32,12 +32,25 @@
         --section-border: var(--blue2-border);
         --section-header: var(--blue2-dark);
     }
+
+    .powers {
+        --section-background: white;
+        --section-border: black;
+        --section-header: url(/ui/parchment.jpg) repeat;
+        flex: 1;
+        .cards {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+    }
     
     .trait {
         display: flex;
         align-items: center;
         img {
-            background: url(/../ui/parchment.jpg) repeat;
+            background: url(/ui/parchment.jpg) repeat;
         }
         h4 {
            flex: 1;
@@ -53,15 +66,16 @@
     }
 
     .power {
-        display: flex;
-        align-items: center;
-        padding-left: 0.5em;
-        & > .power-container {
-            flex: 1;
-            margin-right: 20px;
-            padding: 5px 0 5px 0;
+        position: relative;
+        width: 350px;
+        margin: 7px;
+        .commands {
+            position: absolute;
+            bottom: 7px;
+            right: 0;
+            display: flex;
         }
-        & > a {
+        a {
             margin-right: 0.5em;
         }
     }

@@ -179,12 +179,12 @@ async function reset() {
     await hero.createOwnedItem(toughnessFeat);
     await hero.createOwnedItem(rallyPower);
     await hero.createOwnedItem(meleeBasicPower);
-    //await hero.createOwnedItem(openingFeature);    
+    await hero.createOwnedItem(openingFeature);    
     await hero.createOwnedItem(duelPower);
     await hero.createOwnedItem(pdPower);    
     await hero.createOwnedItem(changePower);
     await hero.createOwnedItem(gohPower);
-    //await hero.createOwnedItem(stickinessBoost);    
+    await hero.createOwnedItem(stickinessBoost);    
     await hero.createOwnedItem(cagiPower);
     await hero.createOwnedItem(markPower);    
 
