@@ -49,14 +49,6 @@ async function reset() {
         await item.delete();
     }
 
-    let misfireFeature = await TraitItem.create({
-        name: "Misfire!",
-        data: {
-            source: "class",
-            description: "When you roll a 1 on any attack, do not take a Strike. Instead, take 2 damage and the zone your bomb creates is centered on you. Misfires are always square-shaped."
-        }
-    });
-
     let toughnessFeat = await TraitItem.create({
         name: "Toughness",
         data: {
@@ -73,21 +65,41 @@ async function reset() {
         }
     });
 
+    let openingFeature = await TraitItem.create({
+        name: "Find an opening",
+        data: {
+            source: "class",
+            description: "When you attack the target of your Duel, you may spend any number of points of its Focus. If you hit, increase your damage by one per point spent."
+        }
+    });
+
+    let rallyPower = await PowerItem.create({
+        name: "Rally",
+        data: {
+            action: "none",
+            usage: "encounter",
+            text: `<p><b>Special:</b> You may only use this on your turn, but you may use at any point in your turn, even while Incapacitated, Dominated, or under any other Status.</p>
+<p>Spend an Action Point. Regain 4 Hit Points and regain the use of one Encounter Power from your Class (i.e. not a Role Action) you have expended.</p>`
+        }
+    });
+    
     let meleeBasicPower = await PowerItem.create({
         name: "Melee Basic Attack",
         data: {
             target: "melee",
-            text: "<b>Effect:</b> None."
+            range: 1,
+            text: "<p><b>Effect:</b> None.</p>"
         }
     });
 
-    let grenadePower = await PowerItem.create({
+
+    let gohPower = await PowerItem.create({
         name: "Get Over Here",
         data: {
             source: "class",
             target: "ranged",
             range: 5,
-            text: "<b>Effect:</b> Target is pulled to an adjacent square."
+            text: "<p><b>Effect:</b> Target is pulled to an adjacent square.</p>"
         }
     });
 
@@ -98,17 +110,55 @@ async function reset() {
             action: "role",
             target: "ranged",
             range: 5,
-            text: `Target is Marked by you until the end of its next turn.
-(At level 4, Mark two targets in range. At level 8, three targets.)`
+            text: `<p>Target is Marked by you until the end of its next turn.</p>
+<p>(At level 4, Mark two targets in range. At level 8, three targets.)</p>`
         }
     });
 
-    let rallyPower = await PowerItem.create({
-        name: "Rally",
+    let duelPower = await PowerItem.create({
+        name: "Duel",
         data: {
-            action: "move",
+            source: "class",            
+            action: "free",
             usage: "encounter",
-            text: ``
+            text: `<p>Target one creature within 10 squares. Until the end of the encounter, when you attack the target, any 2s on your dice are treated as though they were 4s (6s at level 5).</p>
+<p><b>Special:</b> This power recharges when its target is Taken Out.</p>`
+        }
+    });
+
+    let changePower = await PowerItem.create({
+        name: "Change Target",
+        data: {
+            source: "class",            
+            action: "attack",
+            usage: "at-will",
+            text: `<p>Make a Basic Attack against a creature. Then change the target of Duel to that creature.</p>
+<p><b>Clarification:</b> If you make this attack multiple times at once (for instance, as a Blaster), you may choose which target to change your Duel to after resolving the attacks. You may only ever have one target of Duel.</p>`
+        }
+    });
+
+    let cagiPower = await PowerItem.create({
+        name: "Come and Get It!",
+        data: {
+            source: "role",
+            action: "role",
+            usage: "encounter",
+            target: "burst",
+            range: 2,
+            text: `<p>You pull every enemy in the zone to a square adjacent to you. Mark any or all of them until the end of your next turn.</p>`
+        }
+    });
+
+    let pdPower = await PowerItem.create({
+        name: "Perfect Defense",
+        data: {
+            source: "class",
+            action: "attack",
+            usage: "encounter",
+            target: "melee",
+            range: 1,
+            damage: 3,
+            text: `<p><b>Effect:</b> Target has Disadvantage to attack you. It makes a Saving Throw against this Status each time it hits you with an attack.</p>`
         }
     });
     
@@ -125,6 +175,18 @@ async function reset() {
     });
     let heroData = duplicate(hero.data).token;
     let heroPosition = {x: 9*300, y: 7*300, actorLink: true};
+
+    await hero.createOwnedItem(toughnessFeat);
+    await hero.createOwnedItem(rallyPower);
+    await hero.createOwnedItem(meleeBasicPower);
+    //await hero.createOwnedItem(openingFeature);    
+    await hero.createOwnedItem(duelPower);
+    await hero.createOwnedItem(pdPower);    
+    await hero.createOwnedItem(changePower);
+    await hero.createOwnedItem(gohPower);
+    //await hero.createOwnedItem(stickinessBoost);    
+    await hero.createOwnedItem(cagiPower);
+    await hero.createOwnedItem(markPower);    
 
     await Token.create(mergeObject(heroData, heroPosition, {inplace: true}));
 

@@ -1,0 +1,102 @@
+.power-card {
+    font-size: 16px;
+    font-weight: bold;
+    display: grid;
+    align-items: center;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 24px auto;
+    grid-template-areas: 'action usage'
+                         'text   text';
+
+    & > .action {
+        grid-area: action;
+
+        .qfas {
+            margin-right: 0.25em;
+        }
+    }
+
+    & > .usage {
+        grid-area: usage;
+        display: grid;
+        align-items: center;
+
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'type subtype';
+
+        & > .target {
+            display: grid;
+            align-items: center;
+
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 'range damage';
+        }
+    }
+
+    & > .text {
+        grid-area: text;
+        font-size: 14px;
+        font-weight: 300;
+        p {
+            margin-left: 0.5em;
+            margin-right: 0.5em;
+        }
+    }
+
+    .gap-half {
+        display: inline-block;
+        width: 0.5em;
+    }
+
+    .gap-quarter {
+        display: inline-block;
+        width: 0.25em;
+    }
+
+    .qfas {
+        --size: 12px;
+    }
+
+    .fas {
+        font-size: 12px;
+        position: relative;
+        top: -1px;
+    }
+
+    /* card colors */
+    &.kind-class-at-will {
+        background: var(--green2-dark);
+        .text {
+            background: var(--green2-light);
+        }
+    }
+
+    &.kind-role-at-will {
+        background: var(--blue3-dark);
+        .text {
+            background: var(--blue3-light);
+        }
+    }
+
+    &.kind-class-encounter {
+        background: var(--purple-dark);
+        .text {
+            background: var(--purple-light);
+        }
+    }
+
+    &.kind-role-encounter {
+        background: var(--red1-dark);
+        .text {
+            background: var(--red1-light);
+        }
+    }
+
+    &.kind-other {
+        background: var(--orange2-border);
+        .text {
+            background: var(--orange2-light);
+        }
+    }
+}

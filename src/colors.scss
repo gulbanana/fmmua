@@ -1,0 +1,51 @@
+/* palette of colours used in various places - could use some rationalisation and redesign, but it's nice to have it look like the PDF */
+@mixin palette {    
+    /* background values and, in fmmua, bios/notes */
+    --green1-light: #CDE4CF;
+    --green1-dark: #84BB87;    
+    --green1-border: #70AC30; /* i made this one up */
+
+    /* power cards */
+    --green2-light: #CDE4CF;
+    --green2-dark: #84BB87;
+
+    /* origin values, Rally power card (?!) - the PDF claims this is orange */
+    --orange1-light: #F9EAB4;
+    --orange1-dark: #EFCB47;
+
+    /* feats on tactical sheet, power cards */
+    --orange2-light: #F3E2AB;
+    --orange2-dark: #E7C559;    
+    --orange2-border: #E1B733;
+
+    /* monster statblocks */
+    --monster-odd: #F5E7BA;
+    --monster-even: #F8EFD1;     
+    --monster-header: #ECD482;
+    --monster-matching-border: #F9C053; /* actually used for sidebars */
+    
+    /* player-choice traits */
+    --blue1-light: #B9C9E4;
+    --blue1-dark: #5D80BE;
+
+    /* class powers on tactical sheet */
+    --blue2-light: #A2B7DA; 
+    --blue2-dark: #5D80BE;
+    --blue2-border: #214AA3;
+
+    /* power cards */
+    --blue3-light: #9FBDD5;
+    --blue3-dark: #588CB6;
+
+    /* role powers on tactical sheet, power cards */
+    --red1-light: #D9A5A7;
+    --red1-dark: #B54D4F;
+    --red1-border: #A52226;
+
+    /* condition checkboxes */
+    --red2-light: #D08F90;
+
+    /* power cards */
+    --purple-light: #D59AD9;
+    --purple-dark: #B74FBC;
+}

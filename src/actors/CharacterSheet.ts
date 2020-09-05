@@ -54,22 +54,6 @@ export default class CharacterSheet extends ActorSheet<StrikeData, StrikeActor> 
                     break;
 
                 case "power":
-                    let powerData = item.data as PowerData & { usageText: string, hasDamage: boolean };
-                    switch (powerData.usage) {
-                        case "at-will":
-                            powerData.usageText = "At-Will";
-                            break;
-
-                        case "encounter":
-                            powerData.usageText = "Encounter";
-                            break;
-
-                        case "custom":
-                            powerData.usageText = powerData.usageCustom;
-                            break;
-                    }
-                    powerData.hasDamage = powerData.action === "attack" && typeof powerData.damage === "number" && powerData.damage > 0;
-
                     switch (item.data.source) {
                         case "feat":
                             data.feats.powers.push(item);

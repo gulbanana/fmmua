@@ -1,0 +1,42 @@
+<div class="power-card kind-{{data.kind}}">
+    <div class="action">        
+        {{#if data.actionIcon}}
+            <span class="gap-quarter"></span>
+            <i class="qfas qfa-{{data.actionIcon}}"/></i>
+        {{else}}
+            <span class="gap-half"></span>
+        {{/if}}
+        {{name}}
+    </div>
+    <div class="usage">
+        <div>
+            {{data.usageText}}
+        </div>
+        {{#if data.subtypeText}}
+            <div>
+                {{data.subtypeText}}
+            </div>
+        {{else}}
+            {{#if data.hasTarget}}
+                <div class="target">
+                    <span>
+                        <i class="qfas qfa-{{data.rangeIcon}}"></i>
+                        {{#if data.hasRange}}
+                        {{data.range}}
+                        {{/if}}
+                    </span>
+                    <span>
+                    {{#if data.hasDamage}}
+                        <i class="fas fa-tint"></i>{{data.damage}}
+                    {{/if}}
+                    </span>
+                </div>
+            {{else}}
+                <div></div>
+            {{/if}}
+        {{/if}}
+    </div>
+    <div class="text">
+        {{{data.text}}}
+    </div>
+</div>

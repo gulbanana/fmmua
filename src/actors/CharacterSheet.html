@@ -53,20 +53,7 @@
     {{#*inline "power"}}
         <div class="power" data-item-id="{{_id}}">
             <div class="power-container">
-                <div class="power-header usage-{{data.usage}}">
-                    <img class="qfa" src="/systems/fmmua/icons/swords.svg"/>
-                    <div>
-                        {{name}}
-                    </div>
-                    <div>
-                        {{data.usageText}}
-                    </div>
-                    <div>
-                    {{#if data.hasDamage}}                    
-                        <i class="fas fa-tint"></i>{{data.damage}}
-                    {{/if}}
-                    </div>
-                </div>
+                {{> "systems/fmmua/items/power-card.html"}}
             </div>            
             <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
             <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>

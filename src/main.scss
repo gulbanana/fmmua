@@ -1,8 +1,10 @@
-@import "./_colors.scss";
+@import "./colors.scss";
+@import "./icons.scss";
 
 .fmmua {
     @include palette;
-    @import "./actors/StrikeSheet.scss";
+    @import "./actors/actors.scss";
+    @import "./items/items.scss";
 
     &.sheet {
         .sheet-header h1 input {

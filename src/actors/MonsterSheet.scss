@@ -10,9 +10,9 @@
     }    
 
     .misc {
-        --section-background: var(--background-odd);
-        --section-header: var(--background-even);
-        --section-border: var(--background-matching-border);        
+        --section-background: var(--green1-light);
+        --section-header: var(--green1-dark);
+        --section-border: var(--green1-border);  
         flex: 1;
     }
 }

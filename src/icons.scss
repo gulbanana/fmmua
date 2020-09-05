@@ -1,0 +1,43 @@
+.qfas {
+    display: inline-block;    
+    --size: 14px;
+    height: var(--size);
+    width: var(--size);
+}
+
+.qfa-axe {
+    background-image: url(icons/axe.svg);
+    width: calc(var(--size) * 1.25);
+}
+
+.qfa-bolt {
+    background-image: url(icons/bolt.svg);
+    width: calc(var(--size) * 0.625);
+}
+
+.qfa-bow-arrow {
+    background-image: url(icons/bow-arrow.svg);
+}
+
+.qfa-bullseye {
+    background-image: url(icons/bullseye.svg);
+    width: calc(var(--size) * 0.96875);
+}
+
+.qfa-circle {
+    background-image: url(icons/circle.svg);
+}
+
+.qfa-running {
+    background-image: url(icons/running.svg);
+    width: calc(var(--size) * 0.8125);
+}
+
+.qfa-swords {
+    background-image: url(icons/swords.svg);
+}
+
+.qfa-users {
+    background-image: url(icons/users.svg);
+    width: calc(var(--size) * 1.25);
+}

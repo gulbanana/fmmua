@@ -1,32 +1,36 @@
 &.character {    
     .bg-choice {
-        background: var(--option-odd);
+        background: var(--blue1-light);
+    }
+
+    .bg-origin {
+        background: var(--orange-light);
     }
 
     .bg-class {
-        background: var(--class-content);
+        background: var(--blue2-light);
     }
 
     .bg-role {
-        background: var(--role-content);
+        background: var(--red1-light);
     }
 
     .feats {
-        --section-background: var(--feat-content);
-        --section-border: var(--feat-border);
-        --section-header: var(--feat-header);
+        --section-background: var(--orange2-light);
+        --section-border: var(--orange2-border);
+        --section-header: var(--orange2-dark);
     }    
 
     .role {
-        --section-background: var(--role-content);
-        --section-border: var(--role-border);
-        --section-header: var(--role-header);
+        --section-background: var(--red1-light);
+        --section-border: var(--red1-border);
+        --section-header: var(--red1-dark);
     }
 
     .klass {
-        --section-background: var(--class-content);
-        --section-border: var(--class-border);
-        --section-header: var(--class-header);
+        --section-background: var(--blue2-light);
+        --section-border: var(--blue2-border);
+        --section-header: var(--blue2-dark);
     }
     
     .trait {
@@ -55,41 +59,7 @@
         & > .power-container {
             flex: 1;
             margin-right: 20px;
-
-            & > .power-header {
-                margin: 5px 0 5px 0;
-                font-size: 16px;
-                font-weight: bold;
-                display: grid;
-                align-items: center;
-                grid-template-columns: calc(0.5em + 12px) 1fr 1fr 2em;
-                grid-template-rows: 24px;
-
-                img.qfa {
-                    width: 12px;
-                    height: 12px;
-                    border: none;
-                    margin: 0 0.25em;
-                }
-
-                .fas {
-                    font-size: 12px;
-                    position: relative;
-                    top: -1px;
-                }
-            }
-
-            & > .usage-at-will {
-                background: var(--at-will-header);
-            }
-
-            & > .usage-encounter {
-                background: var(--encounter-header);
-            }
-
-            & > .usage-custom {
-                background: var(--special-header);
-            }
+            padding: 5px 0 5px 0;
         }
         & > a {
             margin-right: 0.5em;

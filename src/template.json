@@ -15,10 +15,12 @@
       "templates": ["programmability"],
       "action": "attack",
       "usage": "at-will",
-      "target": "ranged",
-      "range": 5,
-      "damage": 2,
-      "text": ""
+      "target": null,
+      "range": 0,
+      "damage": 0,
+      "text": "",
+      "customType": null,
+      "customSubtype": null
     }
   },
   "Actor": {
