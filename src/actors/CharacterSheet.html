@@ -60,30 +60,42 @@
         </div>
     {{/inline}}
 
-    <section class="feats">
-        <h3>{{localize "fmmua.actor.feats"}}</h3>
+    <section class="items feats" data-item-type="trait" data-item-source="feat">
+        <h3>
+            {{localize "fmmua.actor.feats"}}
+            <a class="item-add" title="{{localize "fmmua.controls.add"}}"><i class="fas fa-plus"></i></a>
+        </h3>
         {{#each feats as |t|}}
             {{> trait t}}
         {{/each}}
         </ul>    
     </section>
 
-    <section class="role">
-        <h3>{{localize "fmmua.actor.roleBoosts"}}</h3>
+    <section class="items role" data-item-type="trait" data-item-source="role">
+        <h3>
+            {{localize "fmmua.actor.roleBoosts"}}
+            <a class="item-add" title="{{localize "fmmua.controls.add"}}"><i class="fas fa-plus"></i></a>
+        </h3>
         {{#each role as |t|}}
             {{> trait t}}
         {{/each}}
     </section>
 
-    <section class="klass">
-        <h3>{{localize "fmmua.actor.classFeatures"}}</h3>
+    <section class="items klass" data-item-type="trait" data-item-source="class">
+        <h3>
+            {{localize "fmmua.actor.classFeatures"}}
+            <a class="item-add" title="{{localize "fmmua.controls.add"}}"><i class="fas fa-plus"></i></a>
+        </h3>
         {{#each class as |t|}}
             {{> trait t}}
         {{/each}}
     </section>
 
-    <section class="powers">
-        <h3>{{localize "fmmua.actor.powers"}}</h3>
+    <section class="items powers" data-item-type="power">
+        <h3>
+            {{localize "fmmua.actor.powers"}}
+            <a class="item-add" title="{{localize "fmmua.controls.add"}}"><i class="fas fa-plus"></i></a>
+        </h3>
         <div class="cards">
             {{#each powers as |p|}}
                 {{> power p}}

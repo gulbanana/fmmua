@@ -19,6 +19,7 @@
     "fmmua.actor.size": "Size",
     "fmmua.actor.speed": "Speed",
     "fmmua.actor.traits": "Traits",
+    "fmmua.controls.add": "Add",
     "fmmua.controls.delete": "Delete",
     "fmmua.controls.edit": "Edit",
     "fmmua.error.PowerNotFound": "Character {actor} does not have a power named {power}.",

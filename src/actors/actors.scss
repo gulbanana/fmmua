@@ -14,11 +14,23 @@
                 padding-left: 1em;
                 margin-bottom: 0;
                 background: var(--section-header);
-                border-bottom: 2px solid var(--section-border);        
+                border-bottom: 2px solid var(--section-border);
             }
 
             .editor-content, .tox-edit-area {
                 padding-left: 0.5em;
+            }
+
+            &.items {
+                & > h3 {
+                    position: relative;    
+                    & > a {
+                        position: absolute;
+                        right: 0.5em;
+                        top: 2px;
+                        font-size: 14px;
+                    }
+                }
             }
         }
     }

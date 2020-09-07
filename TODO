@@ -12,7 +12,7 @@ MVT (Minimum Viable Thing)
         [x] numbers/names
         [ ] powers
             [x] drag/drop
-            [ ] add
+            [x] add
             [x] remove
             [x] edit
             [ ] activate 
@@ -22,7 +22,7 @@ MVT (Minimum Viable Thing)
             [x] feats
             [x] class features
             [x] role boosts
-            [ ] add
+            [x] add
             [x] remove
             [x] edit
         [x] either reject or display invalid items
@@ -30,6 +30,7 @@ MVT (Minimum Viable Thing)
         [x] numbers/names
         [ ] traits
         [ ] powers
+        [x] notes
 [ ] powers    
     [x] macro activation
     [ ] command activation

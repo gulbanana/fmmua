@@ -54,8 +54,8 @@
 
     .powers {
         --section-background: white;
-        --section-border: black;
-        --section-header: url(/ui/parchment.jpg) repeat;
+        --section-border: #999;
+        --section-header: rgba(0, 0, 0, 0.1);
         flex: 1;
         
         .cards {

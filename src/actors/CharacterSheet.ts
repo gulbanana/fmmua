@@ -106,6 +106,19 @@ export default class CharacterSheet extends ActorSheet<StrikeData, StrikeActor> 
                 });
             }
         });
+
+        html.find('.item-add').click(async ev => {
+            const container = $(ev.currentTarget).parents(".items");
+            const itemType = container.data("itemType");
+            const itemSource = container.data("itemSource");
+
+            this.actor.createOwnedItem({
+                type: itemType,
+                data: {
+                    source: itemSource
+                }
+            });
+        });
     }
 }
 
