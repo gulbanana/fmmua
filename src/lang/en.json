@@ -21,5 +21,6 @@
     "fmmua.actor.traits": "Traits",
     "fmmua.controls.delete": "Delete",
     "fmmua.controls.edit": "Edit",
-    "fmmua.error.PowerNotFound": "Character {actor} does not have a power named {power}."
+    "fmmua.error.PowerNotFound": "Character {actor} does not have a power named {power}.",
+    "fmmua.error.ItemIdNotFound": "Character {actor} does not have an item with id {item}."
 }

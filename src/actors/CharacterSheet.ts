@@ -71,6 +71,42 @@ export default class CharacterSheet extends ActorSheet<StrikeData, StrikeActor> 
 
         return data;
     }
+
+    activateListeners(html: JQuery<HTMLElement>) {
+        super.activateListeners(html);
+
+        html.find('.item-edit').click(ev => {
+            const container = $(ev.currentTarget).parents(".item");
+            const itemId = container.data("itemId");
+            const item = this.actor.getOwnedItem(itemId);
+
+            if (item == null) {
+                ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
+                    actor: this.actor.name,
+                    item: itemId
+                }));
+            } else {
+                item.sheet.render(true);
+            }
+        });
+
+        html.find('.item-delete').click(ev => {
+            const container = $(ev.currentTarget).parents(".item");
+            const itemId = container.data("itemId");
+            const item = this.actor.getOwnedItem(itemId);
+
+            if (item == null) {
+                ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
+                    actor: this.actor.name,
+                    item: itemId
+                }));
+            } else {
+                container.slideUp(200, () => {
+                    this.actor.deleteOwnedItem(itemId);
+                });
+            }
+        });
+    }
 }
 
 function returnsSource() {

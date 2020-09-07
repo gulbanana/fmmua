@@ -13,21 +13,22 @@ MVT (Minimum Viable Thing)
         [ ] powers
             [x] drag/drop
             [ ] add
-            [ ] remove
-            [ ] edit
-            [ ] use 
-                [ ] activate 
-                [ ] configure targets & modifiers
+            [x] remove
+            [x] edit
+            [ ] activate 
             [ ] make macro
             [x] power source sorting
         [x] traits
             [x] feats
             [x] class features
             [x] role boosts
-        [ ] either reject or display invalid items
+            [ ] add
+            [x] remove
+            [x] edit
+        [x] either reject or display invalid items
     [ ] monster
         [x] numbers/names
-        [ ] features (are these feats?)
+        [ ] traits
         [ ] powers
 [ ] powers    
     [x] macro activation
@@ -36,7 +37,7 @@ MVT (Minimum Viable Thing)
     [ ] item sheet
     [ ] chat display
         [x] scaffold & scope
-        [ ] template
+        [x] template
         [ ] insert
 [ ] feats
     [x] data model
@@ -91,4 +92,5 @@ MVT (Minimum Viable Thing)
 [ ] feats
     [ ] levels
 [ ] roles
+    [ ] boost levels
     [ ] power levels and advances

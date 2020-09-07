@@ -43,7 +43,7 @@
     </div>
 
     {{#*inline "trait"}}
-        <div class="trait" data-item-id="{{_id}}">
+        <div class="item trait" data-item-id="{{_id}}">
             <h4 title="{{data.description}}"><b>{{name}}:</b> <span>{{data.description}}</span></h4>
             <a class="item-edit" title="{{localize "fmmua.controls.edit"}}"><i class="fas fa-edit"></i></a>
             <a class="item-control item-delete" title="{{localize "fmmua.controls.delete"}}"><i class="fas fa-trash"></i></a>
@@ -51,7 +51,7 @@
     {{/inline}}
 
     {{#*inline "power"}}
-        <div class="power" data-item-id="{{_id}}">
+        <div class="item power" data-item-id="{{_id}}">
             {{> "systems/fmmua/items/power-card.html"}}
             <div class="commands">
             <a class="item-edit" title="{{localize "fmmua.controls.edit"}}"><i class="fas fa-edit"></i></a>
