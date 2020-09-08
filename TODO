@@ -70,9 +70,11 @@ MVT (Minimum Viable Thing)
 
 * Post-MVP features
 [ ] glossary
-    [ ] in chatted powers
-    [ ] in effects
+    [ ] application
+    [ ] write content (world-editable?)
+    [x] in chatted powers (currently all chat)
     [ ] on sheets
+    [x] client config
 [ ] compendium packs
     [ ] basic powers
         - add to new characters?

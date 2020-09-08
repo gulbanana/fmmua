@@ -2,12 +2,23 @@ import { BLEND_MODES } from "pixi.js";
 
 export function init() {    
     Hooks.on("renderChatMessage", onRenderChatMessage);
+
+    game.settings.register("fmmua", "glossaryChatLinks", {
+        name: "fmmua.settings.glossaryChatLinks",
+        hint: "fmmua.settings.glossaryChatLinksHint",
+        scope: "client",
+        config: true,
+        default: false,
+        type: Boolean,
+    });
 }
 
 function onRenderChatMessage(_app: Application, html: JQuery<HTMLElement>, _data: any) {
-    let content = html.find(".message-content");
-    if (content.length > 0 && content[0] instanceof HTMLElement) {
-        walk(content[0]);
+    if (game.settings.get("fmmua", "glossaryChatLinks")) {    
+        let content = html.find(".message-content");
+        if (content.length > 0 && content[0] instanceof HTMLElement) {
+            walk(content[0]);
+        }
     }
 }
 
