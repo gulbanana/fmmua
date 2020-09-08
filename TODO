@@ -52,7 +52,7 @@ MVT (Minimum Viable Thing)
 * Create a combat encounter
 [x] write oneshot adventure
 [x] get enough understanding of strike's balance to make a level 1 or 2 fight
-[ ] write up the numbers, on paper
+[x] write up the numbers, on paper
 [ ] optional second encounter/bossfight
   
 * Put the encounter in a World
@@ -62,7 +62,7 @@ MVT (Minimum Viable Thing)
 [ ] rebase scene on mvp system or recreate
 [ ] create enemies
     [ ] actors 
-    [ ] tokens
+    [x] tokens
     [ ] powers 
 [ ] optional second scene
 
