@@ -5,6 +5,12 @@
     "skipLibCheck": true,    
     "rootDir": "./src/",
     "outDir": "./dist/",
-    "types": ["foundry-pc-types"]
+    "types": ["foundry-pc-types"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES6",
+      "es2020.string"
+    ]
   }
 }
