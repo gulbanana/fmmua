@@ -139,8 +139,8 @@ export class PowerItem extends StrikeItem<PowerData> {
     }
 
     async use(actor: StrikeActor): Promise<void> {
-        await ChatMessage.create({
-            content: `${actor.name} uses power ${this.name}.`
-        });
+        let content = await renderTemplate("systems/fmmua/items/power-card.html", this.data)
+        let speaker = ChatMessage.getSpeaker({ actor });
+        await ChatMessage.create({ content, speaker });
     }
 }

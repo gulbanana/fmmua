@@ -2,7 +2,6 @@
 @import "./icons.scss";
 
 .fmmua {
-    @include palette;
     @import "./actors/actors.scss";
     @import "./items/items.scss";
 

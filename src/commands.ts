@@ -88,6 +88,7 @@ async function reset() {
         data: {
             target: "melee",
             range: 1,
+            damage: 2,
             text: "<p><b>Effect:</b> None.</p>"
         }
     });
@@ -99,6 +100,7 @@ async function reset() {
             source: "class",
             target: "ranged",
             range: 5,
+            damage: 2,
             text: "<p><b>Effect:</b> Target is pulled to an adjacent square.</p>"
         }
     });
@@ -145,6 +147,7 @@ async function reset() {
             usage: "encounter",
             target: "burst",
             range: 2,
+            damage: 2,
             text: `<p>You pull every enemy in the zone to a square adjacent to you. Mark any or all of them until the end of your next turn.</p>`
         }
     });

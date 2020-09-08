@@ -36,10 +36,10 @@ MVT (Minimum Viable Thing)
     [ ] command activation
     [x] data model
     [ ] item sheet
-    [ ] chat display
+    [x] chat display
         [x] scaffold & scope
         [x] template
-        [ ] insert
+        [x] insert
 [ ] feats
     [x] data model
     [ ] item sheet

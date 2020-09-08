@@ -1,5 +1,5 @@
 /* palette of colours used in various places - could use some rationalisation and redesign, but it's nice to have it look like the PDF */
-@mixin palette {    
+:root {    
     /* background values and, in fmmua, bios/notes */
     --green1-light: #CDE4CF;
     --green1-dark: #84BB87;    
