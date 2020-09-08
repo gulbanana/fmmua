@@ -1,9 +1,10 @@
 const { src, dest, series, parallel, watch: w } = require('gulp');
 const del = require('del');
 const path = require('path');
+const zip = require('gulp-zip');
+const concat = require('gulp-concat');
 const stripJsonComments = require('gulp-strip-json-comments');
 const ts = require("gulp-typescript");
-const zip = require('gulp-zip');
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
 
@@ -21,8 +22,9 @@ function compileTypescript() {
 }
 
 function compileSass() {
-    return src("./src/main.scss")
+    return src("src/**/*.scss")
         .pipe(sass().on('error', sass.logError))
+        .pipe(concat("main.css"))
         .pipe(dest("./dist"));
 }
 
