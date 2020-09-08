@@ -9,8 +9,8 @@ export function init() {
 
     // add a quick shortcut for a UI-based roll
     Hooks.on("renderChatLog", (_app: Application, html: JQuery<HTMLElement>, _data: any) => {
-        html.on("click", ".roll-type-select > label", () => RollDialog.run());
-        let icon = html[0].querySelector(".roll-type-select > label > i")!;
+        html.on("click", ".chat-control-icon", () => RollDialog.run());
+        let icon = html[0].querySelector(".chat-control-icon > i")!;
         icon.classList.remove("fa-dice-d20");
         icon.classList.add("fa-dice-d6");
     });
