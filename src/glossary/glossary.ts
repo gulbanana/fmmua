@@ -1,3 +1,11 @@
+import data from "./data.js";
+
+interface Entry {
+    displayName: string,
+    pattern: RegExp,
+    content: string
+}
+
 export function init() {    
     Hooks.on("renderChatMessage", onRenderChatMessage);
 
@@ -16,26 +24,27 @@ function onRenderChatMessage(_app: Application, html: JQuery<HTMLElement>, _data
     if (game.settings.get("fmmua", "glossaryChatLinks")) {    
         let content = html.find(".message-content");
         if (content.length > 0 && content[0] instanceof HTMLElement) {
-            walkDom(content[0]);
+            for (let entry of data) {
+                walkDom(entry, content[0]);
+            }
         }
     }
 }
 
-let dominated = new RegExp("incapacitated?|dominated?", "ig");
-
-function walkDom(node: HTMLElement) {
+function walkDom(entry: Entry, node: HTMLElement) {
     for (let child of node.childNodes) {
         if (child instanceof HTMLElement) {
-            walkDom(child);
+            walkDom(entry, child);
         } else if (child instanceof Text) {
-            insertLinks(node, child);
+            insertLinks(entry, node, child);
         }
     }
 }
 
-function insertLinks(parent: Element, child: Text) {
+function insertLinks(entry: Entry, parent: Element, child: Text) {
     let content = child.nodeValue!;
-    let matches = Array.from(content.matchAll(dominated));
+    let matches = Array.from(content.matchAll(entry.pattern));
+
     if (matches.length) {
         let replacement = document.createElement("span");
 
@@ -48,6 +57,7 @@ function insertLinks(parent: Element, child: Text) {
             let link = document.createElement("a");
             link.classList.add("fmmua-glossary");
             link.appendChild(document.createTextNode(value));
+            link.dataset["tooltip"] = entry.content;
             replacement.appendChild(link);
 
             position = match.index! + value.length;
@@ -56,7 +66,7 @@ function insertLinks(parent: Element, child: Text) {
         replacement.appendChild(document.createTextNode(suffix));
         
         parent.replaceChild(replacement, child);
-    }    
+    }
 }
 
 async function refreshChatLog() {
