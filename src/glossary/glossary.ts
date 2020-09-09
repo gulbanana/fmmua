@@ -67,7 +67,7 @@ async function refreshChatLog() {
         if (messageElement instanceof HTMLElement) {
             let messageId = messageElement.dataset["messageId"] || "";
             let message = game.messages.get(messageId);
-            let replacementQuery: any = await message?.render();
+            let replacementQuery = await message?.render();
             if (replacementQuery?.length > 0) {
                 logQuery[0].replaceChild(replacementQuery[0], messageElement);
             }

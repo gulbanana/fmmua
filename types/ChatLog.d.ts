@@ -1,3 +1,5 @@
+// not in foundry-pc-types; impl-copy
+
 /**
  * The Chat Log application displayed in the Sidebar
  * @extends {SidebarTab}

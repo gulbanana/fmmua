@@ -1,3 +1,5 @@
+// ui type is missing some properties
+
 declare let ui: {
 	notifications: Notifications;
 	tables: RollTableDirectory;
@@ -5,7 +7,5 @@ declare let ui: {
 	actors: ActorDirectory;
     windows: Application[];
     sidebar: Sidebar;
-    chat: ChatLog & {
-		element: JQuery;
-	}
+    chat: ChatLog;
 };

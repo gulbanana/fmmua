@@ -1,3 +1,5 @@
+// foundry-pc-types does not use Partial
+
 /**
  * Update a source object by replacing its keys and values with those from a target object.
  *

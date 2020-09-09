@@ -1,13 +1,11 @@
-// slight modification of foundry-pc-types which has no DataType param
-
 /**
  * An Abstract Base Class which defines a Placeable Object which represents an Entity placed on the Canvas
  */
-declare class PlaceableObject<DataType = any> extends PIXI.Container {
+declare class PlaceableObject extends PIXI.Container {
 	/**
 	 * The underlying data object which provides the basis for this placeable object
 	 */
-	data: DataType;
+	data: any;
 
 	/**
 	 * Retain a reference to the Scene within which this Placeable Object resides
@@ -48,7 +46,7 @@ declare class PlaceableObject<DataType = any> extends PIXI.Container {
 	 */
 	protected _sheet: FormApplication | null;
 
-	constructor(data: DataType, scene: Scene);
+	constructor(data: any, scene: Scene);
 
 	/* -------------------------------------------- */
 	/* Properties

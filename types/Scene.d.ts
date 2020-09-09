@@ -1,3 +1,5 @@
+// foundry-pc-types has an empty placeholder; impl-copy
+
 class Scene extends Entity {
     constructor(...args) {
       super(...args);

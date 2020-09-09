@@ -12,7 +12,7 @@ Hooks.once("init", function() {
     initActors();
     initItems();
     initCommands();
-}); 
+});
 
 Hooks.once("setup", function() {
     console.log("FMMUA: setup");
