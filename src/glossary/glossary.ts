@@ -8,7 +8,7 @@ export function init() {
         config: true,
         default: false,
         type: Boolean,
-        onChange: onSettingChanged
+        onChange: refreshChatLog
     });
 }
 
@@ -59,18 +59,18 @@ function insertLinks(parent: Element, child: Text) {
     }    
 }
 
-async function onSettingChanged(_: boolean) {
+async function refreshChatLog() {
     let logQuery = ui.chat.element.find("#chat-log");
-    if (logQuery.length > 0) {
-        for (let messageElement of logQuery[0].children) {
-            if (messageElement instanceof HTMLElement) {
-                let messageId = messageElement.dataset["messageId"]
-                let message = await game.messages.get(messageId||"");
-                let replacementQuery: any = await message?.render();
-                if (replacementQuery?.length > 0) {
-                    logQuery[0].replaceChild(replacementQuery[0], messageElement);
-                }
-            }            
-        }
+    if (logQuery.length == 0) return;
+
+    for (let messageElement of logQuery[0].children) {
+        if (messageElement instanceof HTMLElement) {
+            let messageId = messageElement.dataset["messageId"] || "";
+            let message = game.messages.get(messageId);
+            let replacementQuery: any = await message?.render();
+            if (replacementQuery?.length > 0) {
+                logQuery[0].replaceChild(replacementQuery[0], messageElement);
+            }
+        }            
     }    
 }
