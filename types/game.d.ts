@@ -5,5 +5,7 @@ declare let ui: {
 	actors: ActorDirectory;
     windows: Application[];
     sidebar: Sidebar;
-    chat: ChatLog;
+    chat: ChatLog & {
+		element: JQuery;
+	}
 };
