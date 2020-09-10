@@ -1,4 +1,4 @@
-import entries from "./entries.js";
+import categories from "./categories.js";
 import insertLinks from "./insertLinks.js";
 
 export default class GlossaryWindow extends Application {
@@ -23,7 +23,7 @@ export default class GlossaryWindow extends Application {
     getData(options?: any) {
         let data = super.getData(options);
 
-        let entry = entries.Statuses.concat(entries.Rules).filter(e => e.displayName === this.selectedEntryName)[0];
+        let entry = categories.flatMap(c => c.entries).filter(e => e.displayName === this.selectedEntryName)[0];
         
         data.displayName = entry.displayName;        
 
@@ -31,13 +31,13 @@ export default class GlossaryWindow extends Application {
         data.content = contents.map(p => `<p class="content">${p}</p>`).join("");
 
         data.categories = [];
-        for (let key in entries) {
+        for (let c of categories) {
             let category = 
             {
-                key,
+                key: c.displayName,
                 entries: [] as any[]
             };
-            for (let e of entries[key]) {
+            for (let e of c.entries) {
                 category.entries.push({
                     displayName: e.displayName,
                     selected: e == entry
@@ -50,13 +50,13 @@ export default class GlossaryWindow extends Application {
     }
 
     activateListeners(html: JQuery) {
-        let contents = html.find("p.content");
-        for (let p of contents) {
+        let contentQuery = html.find("p.content");
+        for (let p of contentQuery) {
             insertLinks(p, false, [this.selectedEntryName]);
         }
         
-        let categories = html.find(".category");
-        for (let c of categories) {
+        let categoryQuery = html.find(".category");
+        for (let c of categoryQuery) {
             c.addEventListener("click", _ev => {
                 this.selectedEntryName = c.dataset["entry"] || this.selectedEntryName;
                 this.render();

@@ -1,16 +1,10 @@
-import entries from "./entries.js";
+import categories, { Entry } from "./categories.js";
 import GlossaryWindow from "./GlossaryWindow.js";
 
-interface Entry {
-    displayName: string,
-    pattern: RegExp,
-    content: string | string[]
-}
-
 export default function insertLinks(node: HTMLElement, tooltip: boolean, skip?: string[]) {
-    for (let category of Object.getOwnPropertyNames(entries)) {
-        if (!skip?.includes(category)) {
-            for (let entry of entries[category]) {
+    for (let category of categories) {
+        if (!skip?.includes(category.displayName)) {
+            for (let entry of category.entries) {
                 if (!skip?.includes(entry.displayName)) {
                     insertEntryLinks(entry, node, tooltip);
                 }
@@ -38,10 +32,12 @@ function replaceContent(entry: Entry, parent: Element, child: Text, tooltip: boo
 
         let position = 0;
         for (let match of matches) {
-            let prefix = content.substring(position, match.index);
+            let prefix = content.substring(position, (match.index||0) + 1);
             replacement.appendChild(document.createTextNode(prefix));
 
             let value = match[0];
+            value = value.substring(1, value.length - 1);
+            console.log(value);
             
             let link = document.createElement("a");
             link.classList.add("fmmua-glossary");
@@ -60,7 +56,7 @@ function replaceContent(entry: Entry, parent: Element, child: Text, tooltip: boo
 
             replacement.appendChild(link);
 
-            position = match.index! + value.length;
+            position = match.index! + value.length + 1;
         }
         let suffix = content.substring(position);
         replacement.appendChild(document.createTextNode(suffix));
