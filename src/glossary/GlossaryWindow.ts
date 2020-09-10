@@ -7,8 +7,8 @@ export default class GlossaryWindow extends Application {
         options.title = game.i18n.localize("fmmua.glossary.windowTitle");
         options.id = "glossary-window";
         options.template = "systems/fmmua/glossary/GlossaryWindow.html";        
-        options.width = 566
-        options.height = 346;
+        options.width = 616
+        options.height = 396;
         options.resizable = true;
         options.scrollY = ["#categories", "#contents"]
         return options;
@@ -69,5 +69,14 @@ export default class GlossaryWindow extends Application {
                 });                
             }
         }
+    }
+
+    render(...args: any) {
+        if (this.element.length > 0) {
+            this.position.width = parseInt(this.element.css("width"), 10);
+            this.position.height = parseInt(this.element.css("height"), 10);
+        }
+
+        return super.render(args);
     }
 }
