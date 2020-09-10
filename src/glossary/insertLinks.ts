@@ -24,6 +24,10 @@ function insertEntryLinks(entry: Entry, node: HTMLElement, tooltip: boolean) {
 }
 
 function replaceContent(entry: Entry, parent: Element, child: Text, tooltip: boolean) {
+    if (entry.pattern == null) {
+        return;
+    }
+
     let content = child.nodeValue!;
     let matches = Array.from(content.matchAll(entry.pattern));
 
