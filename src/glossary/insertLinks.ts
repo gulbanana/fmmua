@@ -37,7 +37,6 @@ function replaceContent(entry: Entry, parent: Element, child: Text, tooltip: boo
 
             let value = match[0];
             value = value.substring(1, value.length - 1);
-            console.log(value);
             
             let link = document.createElement("a");
             link.classList.add("fmmua-glossary");
