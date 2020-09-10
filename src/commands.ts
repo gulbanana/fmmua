@@ -2,6 +2,7 @@ import RollDialog from "./dice/RollDialog.js";
 import StrikeActor from "./actors/StrikeActor.js";
 import StrikeData from "./actors/StrikeData.js";
 import { TraitItem, PowerItem } from "./items/items.js";
+import GlossaryWindow from "./glossary/GlossaryWindow.js";
 
 interface ChatData {
     user: string;
@@ -20,6 +21,9 @@ export function init() {
         if (command == "/sroll")
         {
             sroll(data, content.substring(7));
+            return false;
+        } else if (command == "/sglossary") {
+            new GlossaryWindow("Ally").render(true);
             return false;
         } else if (command == "/reset") {
             reset();
