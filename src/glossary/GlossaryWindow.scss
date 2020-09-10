@@ -1,5 +1,38 @@
 #glossary-window {
-    .content {
-        height: 7em;
+    .window-content {
+        padding: 0;
+        background: none;
+    }
+
+    #layout {
+        height: 100%;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 150px 1fr;
+    }
+
+    #categories {
+        height: 100%;
+        padding: 0 0 8px 8px;
+        overflow: hidden auto;
+        color: #f0f0e0;
+
+        h3 {
+            margin: 0.5rem 0;
+        }
+
+        [checked] {
+            color: #191813;
+            background: url(/ui/parchment.jpg) repeat;
+        }
+    }
+
+    #contents {
+        background: url(/ui/parchment.jpg) repeat;
+        height: 100%;
+        padding: 8px;
+        overflow: hidden auto;
+        min-width: calc(400px + (2 * 7px));
+        min-height: calc(8em + 1em + 1.5em + 0.5rem + 1em);
     }
 }

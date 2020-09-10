@@ -4,13 +4,17 @@ import GlossaryWindow from "./GlossaryWindow.js";
 interface Entry {
     displayName: string,
     pattern: RegExp,
-    content: string
+    content: string | string[]
 }
 
-export default function insertLinks(node: HTMLElement, skip?: string) {
-    for (let entry of entries) {
-        if (entry.displayName != skip) {
-            insertEntryLinks(entry, node, typeof skip == "undefined");
+export default function insertLinks(node: HTMLElement, tooltip: boolean, skip?: string[]) {
+    for (let category of Object.getOwnPropertyNames(entries)) {
+        if (!skip?.includes(category)) {
+            for (let entry of entries[category]) {
+                if (!skip?.includes(entry.displayName)) {
+                    insertEntryLinks(entry, node, tooltip);
+                }
+            }
         }
     }
 }
@@ -43,7 +47,12 @@ function replaceContent(entry: Entry, parent: Element, child: Text, tooltip: boo
             link.classList.add("fmmua-glossary");
             link.appendChild(document.createTextNode(value));
             if (tooltip) {
-                link.dataset["tooltip"] = entry.content;
+                if (typeof entry.content == "string") {
+                    link.dataset["tooltip"] = entry.content;
+                }
+                else {
+                    link.dataset["tooltip"] = entry.content[0] + " (click for more)";
+                }
             }
             link.addEventListener("click", _ev => {
                 new GlossaryWindow(entry.displayName).render(true);

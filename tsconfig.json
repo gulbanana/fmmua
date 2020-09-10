@@ -10,6 +10,7 @@
       "DOM",
       "DOM.Iterable",
       "ES6",
+      "es2017",
       "es2020.string"
     ]
   }

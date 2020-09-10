@@ -4,7 +4,7 @@ export function onRenderChatMessage(_app: Application, html: JQuery<HTMLElement>
     if (game.settings.get("fmmua", "glossaryChatLinks")) {    
         let content = html.find(".message-content");
         if (content.length > 0 && content[0] instanceof HTMLElement) {
-            insertLinks(content[0]);
+            insertLinks(content[0], true); // XXX skip Rules?
         }
     }
 }

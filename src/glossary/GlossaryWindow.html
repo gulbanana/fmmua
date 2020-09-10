@@ -1,4 +1,14 @@
-<div>
-    <h2 class="displayName">{{displayName}}</h2>
-    <p class="content">{{content}}</p>
+<div id="layout">
+    <div id="categories" class="flexcol">
+        {{#each categories}}
+            <h3>{{key}}</h3>
+            {{#each entries}}
+            <div {{checked selected}} class="category" data-entry="{{displayName}}">{{displayName}}</div>
+            {{/each}}
+        {{/each}}
+    </div>
+    <div id="contents">
+        <h2 class="displayName">{{displayName}}</h2>
+        {{{content}}}
+    </div>
 </div>
