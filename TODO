@@ -46,8 +46,10 @@ MVT (Minimum Viable Thing)
 [ ] encounters
     [ ] initiative
         - global formula? include automation for feats?
-    [ ] effect tracking
-[ ] remove debug commands (or limit to gm permission)
+    [ ] effect tracking?
+[ ] command system
+    [x] autohelp
+    [ ] remove debug commands (or limit to gm permission)
 
 * Create a combat encounter
 [x] write oneshot adventure
@@ -70,30 +72,31 @@ MVT (Minimum Viable Thing)
 
 * Post-MVP features
 [ ] glossary
-    [ ] application
-    [ ] write content (world-editable?)
-    [x] in chatted powers (currently all chat)
-    [ ] on sheets
+    [x] application
+    [x] write content
+    [x] in chat
+    [x] in app recursive
     [x] client config
+    [ ] world-editable
+    [ ] localizable
 [ ] compendium packs
     [ ] basic powers
         - add to new characters?
     [ ] common powers
     [ ] sample monsters?
 [ ] sheets
-    [ ] configure targets & modifiers
     [ ] tabbing and more narrative stuff (adventure/tactical sheet)
-        [ ] rollable skills
-        [ ] character creation?
+    [ ] rollable skills
+    [ ] character creation?
 [ ] scripts
     [ ] eval context
     [ ] power scripts (on use)
-    [ ] feat scripts (on prepareData)
+    [ ] feat scripts (on prepareData?)
     [ ] dice api should be accessible somewhere (on actor?)
 [ ] powers
+    [ ] configure targets & modifiers
     [ ] differentiate types (attack power with effect, trigger, etc)
-[ ] feats
-    [ ] levels
-[ ] roles
-    [ ] boost levels
+[ ] traits
+    [ ] feat levels
+    [ ] role boost levels
     [ ] power levels and advances

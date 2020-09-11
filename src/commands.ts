@@ -3,6 +3,7 @@ import StrikeActor from "./actors/StrikeActor.js";
 import StrikeData from "./actors/StrikeData.js";
 import { TraitItem, PowerItem } from "./items/items.js";
 import GlossaryWindow from "./glossary/GlossaryWindow.js";
+import glossaryCategories from "./glossary/categories.js";
 
 interface ChatData {
     user: string;
@@ -14,26 +15,75 @@ interface ChatData {
     }
 }
 
+type Command = {
+    param?: string,
+    help: string,
+    f: (data: ChatData, params: string) => void
+}
+
+let commands: Record<string, Command> = {
+    "/shelp": {
+        f: (data) => {
+            let helpText = "<h3>Strike Commands</h3><table>";
+            for (let commandName in commands) {
+                let command = commands[commandName];
+                let invoke = `<i>${commandName}</i>`;
+                if (command.param) {
+                    invoke = invoke + ` &lt;${command.param}&gt;`;
+                }
+                helpText += `<tr><td>${invoke}</td><td>${command.help}</td></tr>\n`;
+            }
+            helpText += "</table>";
+            ChatMessage.create({ 
+                content: helpText, 
+                speaker: data.speaker, 
+                whisper: [game.user]
+            });
+        },
+        help: "List available commands.",
+    },
+    "/sroll": {
+        param: "flavor",
+        f: (_data, flavor) => {
+            setTimeout(() => RollDialog.run(flavor));
+        },
+        help: "Roll Strike dice with semantic results."
+    },
+    "/sglossary": {
+        param: "entry",
+        f: (_data, entry) => {
+            let displayName = "Ally";
+            if (entry.length > 0) {
+                let entries = glossaryCategories.flatMap(c => c.entries);
+                for (let e of entries) {
+                    if (entry == e.displayName || (e.pattern != null && ` ${entry} `.match(e.pattern))) {
+                        displayName = e.displayName;
+                        break;
+                    }
+                }
+            }
+            new GlossaryWindow(displayName).render(true);
+        },
+        help: "Display rules text for a search term."
+    },
+    "/reset": {
+        f: () => {
+            reset();
+        },
+        help: "debug only - do not use"
+    }
+}
+
 export function init() {
     Hooks.on("chatMessage", (_chatLog: any, content: string, data: ChatData) => {
         let parts = content.split(" ");
-        let command = parts[0];
-        if (command == "/sroll")
-        {
-            sroll(data, content.substring(7));
-            return false;
-        } else if (command == "/sglossary") {
-            new GlossaryWindow("Ally").render(true);
-            return false;
-        } else if (command == "/reset") {
-            reset();
+        let commandName = parts[0];
+        if (Object.getOwnPropertyNames(commands).includes(commandName)) {
+            let command = commands[commandName];
+            command.f(data, content.substring(commandName.length + 1));
             return false;
         }
     });    
-}
-
-function sroll(_data: ChatData, flavor: string) {
-    setTimeout(() => RollDialog.run(flavor));
 }
 
 // debug
