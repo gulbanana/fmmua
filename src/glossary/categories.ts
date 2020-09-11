@@ -70,6 +70,15 @@ let categories = [
                 content: "When you have Ongoing X Damage, you take X damage at the start of your turn. There is one exception: if taking the damage would bring you down to 0 HP or less, you may take one final action (of any sort) before taking the damage. If that action removes the Status, you are saved and may continue your turn. Multiple instances of Ongoing Damage are cumulative, unless they are from the same source (the same power or trait). If a creature gains ongoing damage during its turn, it immediately takes that damage."
             },
             {
+                displayName: "Opportunity",
+                pattern: "opportunit(y|ies)",
+                content: [
+                    "Certain actions cause you to grant your opponents an Opportunity. When you provoke an Opportunity, your opponent takes the chance to strike at you, and you take damage. When you are granted an Opportunity, you may deal 2 damage to the enemy who granted it. This damage happens as an Interrupt, i.e. before the triggering action is resolved.",
+                    "<ul><li>When you make a ranged attack, you grant an Opportunity to every adjacent enemy. (Note that using a ranged Role Action does not grant an Opportunity.)</li><li>When you leave your square without shifting (see Movement) you grant an Opportunity to every adjacent enemy.</li><li>Some characters have special abilities which let them use Opportunities in a different way or gain Opportunities at different times. Such abilities are always explained in the specific rules for that creature or character.</li></ul>",
+                    "You may only take advantage of at most one Opportunity granted to you by each creature per turn."
+                ]
+            },
+            {
                 displayName: "Pull",
                 pattern: "pull",
                 content: "When you pull a creature, you move it the specified number of squares. Each square must bring it closer to you (i.e. reduce the distance between you). See Forced Movement."
@@ -78,6 +87,11 @@ let categories = [
                 displayName: "Push",
                 pattern: "push",
                 content: "When you push a creature, you move it the specified number of squares. Each square must move it farther from you (i.e. increase the distance between you). See Forced Movement."
+            },
+            {
+                displayName: "Reach N",
+                pattern: "reach( \\d+)?",
+                content: "When a creature has Reach N, it may make melee attacks against any creature within N squares. Leaving any square within a creature’s reach without shifting grants it an Opportunity, unless your movement brings you closer to it. You don’t give the thug a chance when you approach, but you do when you run away."
             },
             {
                 displayName: "Reaction",
@@ -111,9 +125,9 @@ let categories = [
             },
             {
                 displayName: "Zone",
-                pattern: "zone",
+                pattern: "zones?",
                 content: "A Zone is simply a region of the battlefield with an ongoing effect. Zones apply their effect or damage to a given target no more than once per round (i.e. once it has experienced the effect, it cannot experience it again until the start of its next turn, assuming it only has one turn per round). So moving in and out and in again is no diferent than moving in once. If a creature is forced into a Zone that deals damage or applies a negative effect, it may elect to roll a Saving Throw to roll to safety. If it succeeds, it falls Prone at the edge of the Zone. If it fails, the Forced Movement continues but it falls Prone anyway."
-            }
+            },
         ]
     },
     { 
@@ -207,6 +221,11 @@ let categories = [
                 content: "When Panicked on your turn, roll a die. On a 1, it is as though you were Dominated; on a 2, you must run away from whatever Panicked you as directly as possible, while making a Ranged Basic Attack against it with Disadvantage if it is within range; on a 3 or 4 you must take cover from the source of your fear, then make a Ranged Basic Attack against it if it is within range (if you are already behind cover, you must still move at least one square. If there is no cover within your speed, treat this as a 2); on a 5-6 you may take your turn normally, but only use Basic Attacks. After this roll and action have been resolved, you end your turn. Do not grant Opportunities for actions that are not under your control."
             },
             {
+                displayName: "Phasing",
+                pattern: "phasing",
+                content: "Phasing creatures can move through obstacles and terrain, but may not end their turn in an object."
+            },
+            {
                 displayName: "Prone",
                 pattern: "(knocked )?prone",
                 content: "All melee attacks against you while you are Prone have Advantage. You cannot take advantage of Opportunities nor Miss Triggers. You may not move nor shift normally. You must crawl or stand up as a Move Action. When you crawl, you move as though you were Slowed. Attacking while Prone grants Opportunities to all adjacent creatures. While Prone, treat Low Cover as Full Cover."
@@ -215,6 +234,11 @@ let categories = [
                 displayName: "Regenerate X",
                 pattern: "regenerate( \\d+)?",
                 content: "A creature with this Status Regenerates X Hit Points at the start of each of its turns. Regeneration generally does not combine with things that add to or subtract from the effectiveness of healing or regaining HP."
+            },
+            {
+                displayName: "Resist X",
+                pattern: "resist( \\d+)?( all?)",
+                content: "A creature that resists X damage totals all the damage it receives at any one time and subtracts X before reducing its Hit Points. So an attack that does damage on its damage line, immediately as an effect, and because of a Class or Role feature only has X subtracted from the total once, not three times. By contrast, an attack that does damage on its damage line and more damage later as an effect is resisted on both occasions. Resistances from multiple sources are cumulative, but not those from the same source."
             },
             {
                 displayName: "Restrained",
@@ -232,6 +256,11 @@ let categories = [
                 content: "A Stunned creature may not take actions except those labeled “No Action” nor take advantage of Opportunities, nor use Miss Triggers. It cannot flank."
             },
             {
+                displayName: "Vulnerable X",
+                pattern: "vulnerable( \\d+( all?))?",
+                content: "A creature that has Vulnerable X damage totals all the damage it receives at any one time and adds X before reducing its Hit Points. So an attack that does damage on its damage line, immediately as an effect, and because of a Class or Role feature only has X added to the total once, not three times. By contrast, an attack that does damage on its damage line and more damage later as an effect does the extra damage on both occasions. Vulnerabilities from multiple sources are cumulative, but not those from the same source. Usually creatures are only vulnerable to certain types of attacks, such as a robot having Vulnerable 2 to electric attacks. When any attack gives the target Vulnerability as an Effect, the Vulnerability does not apply to damage from that attack, but only to future damage."
+            },
+            {
                 displayName: "Weakened",
                 pattern: "weakened",
                 content: [
@@ -239,41 +268,6 @@ let categories = [
                     "If you are Weakened and your victim is Vulnerable to or Resists your damage, the Vulnerability or Resistance are added on <i>after</i> halving the damage."
                 ]
             }
-        ]
-    },
-    {
-        displayName: "Traits",
-        entries: [
-            {
-                displayName: "Darkvision",
-                pattern: "darkvision",
-                content: "Darkvision means that you can see in the dark. You ignore the restrictions for concealed creatures or those that cannot be seen, when those Statuses are caused by darkness. Most creatures with Darkvision are sensitive to rapid changes in light."
-            },
-            {
-                displayName: "Phasing",
-                pattern: "phasing",
-                content: "Phasing creatures can move through obstacles and terrain, but may not end their turn in an object."
-            },
-            {
-                displayName: "Reach N",
-                pattern: "reach( \\d+)?",
-                content: "When a creature has Reach N, it may make melee attacks against any creature within N squares. Leaving any square within a creature’s reach without shifting grants it an Opportunity, unless your movement brings you closer to it. You don’t give the thug a chance when you approach, but you do when you run away."
-            },
-            {
-                displayName: "Resist X",
-                pattern: "resist( \\d+)?( all?)",
-                content: "A creature that resists X damage totals all the damage it receives at any one time and subtracts X before reducing its Hit Points. So an attack that does damage on its damage line, immediately as an effect, and because of a Class or Role feature only has X subtracted from the total once, not three times. By contrast, an attack that does damage on its damage line and more damage later as an effect is resisted on both occasions. Resistances from multiple sources are cumulative, but not those from the same source."
-            },
-            {
-                displayName: "Tremorsense X",
-                pattern: "tremorsense( \\d+)?",
-                content: "Tremorsense X means that you can “see” using the vibrations in the ground. You can see the area around you and all creatures in contact with the ground within X squares regardless of intervening terrain. This allows you to ignore the restrictions for concealed creatures or those that cannot be seen usually, as long as they cause vibrations on the ground."
-            },
-            {
-                displayName: "Vulnerable X",
-                pattern: "vulnerable( \\d+( all?))?",
-                content: "A creature that has Vulnerable X damage totals all the damage it receives at any one time and adds X before reducing its Hit Points. So an attack that does damage on its damage line, immediately as an effect, and because of a Class or Role feature only has X added to the total once, not three times. By contrast, an attack that does damage on its damage line and more damage later as an effect does the extra damage on both occasions. Vulnerabilities from multiple sources are cumulative, but not those from the same source. Usually creatures are only vulnerable to certain types of attacks, such as a robot having Vulnerable 2 to electric attacks. When any attack gives the target Vulnerability as an Effect, the Vulnerability does not apply to damage from that attack, but only to future damage."
-            },
         ]
     },
     {
