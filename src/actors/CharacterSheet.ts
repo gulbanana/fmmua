@@ -147,24 +147,25 @@ export default class CharacterSheet extends ActorSheet<StrikeActorData, StrikeAc
             }
         });
 
-        // insane hack to get a bottom-right float
+        // mostly-functional hack to get a bottom-right float
         var textContainers = html.find(".power-card > .text");
         for (let textContainer of textContainers) {
-            floatCommandsToBottom(textContainer, "commands");
-            // repeat next microtask to push down to bottom if there's a new line formed by the float
-            setTimeout(() => {
-                floatCommandsToBottom(textContainer, "commands");
-            }, 0);    
+            var commands = textContainer.getElementsByClassName("commands")[0] as HTMLElement;
+            
+            let resizeFloat = () => {
+                let outerHeight = textContainer.offsetHeight;
+                commands.style.height = `${outerHeight}px`;
+                (commands.style as any).shapeOutside = `inset(${outerHeight-17}px 0 0 0)`;
+
+                if (outerHeight != textContainer.offsetHeight) {
+                    resizeFloat();
+                }
+            }
+
+            new ResizeObserver(resizeFloat).observe(textContainer);
+            resizeFloat();
         }
     }
-}
-
-function floatCommandsToBottom(container: HTMLElement, className: string) {
-    var commands = container.getElementsByClassName(className)[0] as HTMLElement;
-    var spacer = container.getElementsByClassName(className + "-spacer")[0] as HTMLElement;
-    var parentHeight = container.offsetHeight;
-    var childHeight = commands.offsetHeight;
-    spacer.style.height = (parentHeight-childHeight) + "px";
 }
 
 function returnsSource() {

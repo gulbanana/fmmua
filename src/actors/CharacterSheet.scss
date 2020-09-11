@@ -70,15 +70,10 @@
                 margin: 0 0 7px 0;                
                 position: relative;                
                 
-                .commands-spacer {
-                    float: right;
-                }
-
                 .commands {
                     float: right;
-                    clear: right;
                     display: flex;
-                    font-size: 14px;
+                    align-items: flex-end;
                 }
 
                 a {
