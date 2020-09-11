@@ -3,4 +3,17 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
     </header>
+
+    <div class="form-group">
+        <label>Kind</label>
+        <div class="form-fields">
+            <select name="data.source">
+                {{#select data.source}}
+                <option value=""></option>
+                <option value="role">Role Power</option>
+                <option value="class">Class Power</option>
+                {{/select}}
+            </select>
+        </div>
+    </div>
 </form>

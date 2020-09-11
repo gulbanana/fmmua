@@ -1,21 +1,16 @@
-import StrikeData from "./StrikeData.js";
+import StrikeActorData from "./StrikeActorData.js";
 import StrikeActor from "./StrikeActor.js";
-import StrikeItemData from "../items/StrikeData.js";
+import StrikeItemData from "../items/StrikeItemData.js";
 import PowerData from "../items/PowerData.js";
 
-class SheetSection {
-    traits: ItemData<StrikeItemData>[] = [];
-    powers: ItemData<StrikeItemData>[] = [];
-}
-
-type SheetData = ActorSheetData<StrikeData> & {
+type SheetData = ActorSheetData<StrikeActorData> & {
     feats: ItemData<StrikeItemData>[];
     role: ItemData<StrikeItemData>[]
     class: ItemData<StrikeItemData>[];
     powers: ItemData<PowerData>[];
 };
 
-export default class CharacterSheet extends ActorSheet<StrikeData, StrikeActor> {
+export default class CharacterSheet extends ActorSheet<StrikeActorData, StrikeActor> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet", "actor", "character"],
@@ -114,6 +109,7 @@ export default class CharacterSheet extends ActorSheet<StrikeData, StrikeActor> 
 
             this.actor.createOwnedItem({
                 type: itemType,
+                name: "New " + itemType.charAt(0).toUpperCase() + itemType.slice(1),
                 data: {
                     source: itemSource
                 }

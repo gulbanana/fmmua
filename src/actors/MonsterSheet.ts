@@ -1,7 +1,7 @@
-import StrikeData from "./StrikeData.js";
+import StrikeActorData from "./StrikeActorData.js";
 import StrikeActor from "./StrikeActor.js";
 
-export default class MonsterSheet extends ActorSheet<StrikeData, StrikeActor> {
+export default class MonsterSheet extends ActorSheet<StrikeActorData, StrikeActor> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
         classes: ["fmmua", "sheet", "actor", "monster"],

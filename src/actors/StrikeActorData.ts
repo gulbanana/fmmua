@@ -1,4 +1,4 @@
-export default interface StrikeData {
+export default interface StrikeActorData {
     notes: string;
     level: number;
     speed: number;

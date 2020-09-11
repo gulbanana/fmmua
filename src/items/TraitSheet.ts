@@ -1,17 +1,17 @@
-import TraitData from "./TraitData.js";
-import { TraitItem } from "./items.js";
+import StrikeItem from "./StrikeItem.js";
+import StrikeItemData from "./StrikeItemData.js";
 
-export default class TraitSheet extends ItemSheet<TraitData, TraitItem> {
+export default class TraitSheet extends ItemSheet<StrikeItemData, StrikeItem> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet"],
-            template: "systems/fmmua/items/TraitSheet.html"
+            template: "systems/fmmua/items/TraitSheet.html",
+            width: 600
         });
     }
 
     getData() {
         const data = super.getData();
-        console.log(this.item);
         return data;
     }
 }

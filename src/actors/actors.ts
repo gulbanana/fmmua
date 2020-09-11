@@ -1,7 +1,7 @@
 import StrikeActor from "./StrikeActor.js";
 import CharacterSheet from "./CharacterSheet.js";
 import MonsterSheet from "./MonsterSheet.js";
-import StrikeData from "./StrikeData.js";
+import StrikeActorData from "./StrikeActorData.js";
 
 export function init() {
     CONFIG.Actor.entityClass = StrikeActor as typeof Actor;  
@@ -14,7 +14,7 @@ export function init() {
     Hooks.on("updateToken", onUpdateToken);
 }
 
-async function onUpdateActor(entity: StrikeActor, data: ActorData<StrikeData>, _options: {render: boolean}, _userId: string) {
+async function onUpdateActor(entity: StrikeActor, data: ActorData<StrikeActorData>, _options: {render: boolean}, _userId: string) {
     if (typeof data?.data?.size === "object") {
         await entity.update({ token: data.data.size })
         for (let token of entity.getActiveTokens(true)) {
@@ -23,7 +23,7 @@ async function onUpdateActor(entity: StrikeActor, data: ActorData<StrikeData>, _
     }
 }
 
-async function onUpdateToken(_parent: Scene, _doc: TokenData, update: {_id: string, actorData: Partial<ActorData<StrikeData>>}, _options: {diff: boolean}, _userId: string) {
+async function onUpdateToken(_parent: Scene, _doc: TokenData, update: {_id: string, actorData: Partial<ActorData<StrikeActorData>>}, _options: {diff: boolean}, _userId: string) {
     if (typeof update.actorData?.data?.size === "object") {
         let token = canvas.tokens.get(update._id);
         await token.update(update.actorData.data.size);

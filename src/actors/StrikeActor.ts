@@ -1,12 +1,12 @@
-import StrikeData from "./StrikeData.js";
-import { PowerItem } from "../items/items.js";
+import StrikeActorData from "./StrikeActorData.js";
+import StrikeItem from "../items/StrikeItem.js";
 
-export default class StrikeActor extends Actor<StrikeData> {
-    constructor(data: ActorData<StrikeData>, options: any) {
+export default class StrikeActor extends Actor<StrikeActorData> {
+    constructor(data: ActorData<StrikeActorData>, options: any) {
         super(data, options);
     }
 
-    static async create(data: Partial<ActorData<StrikeData>>, options = {}): Promise<StrikeActor> {
+    static async create(data: Partial<ActorData<StrikeActorData>>, options = {}): Promise<StrikeActor> {
         // this will be filled out later, but we want to set defaults for some of it
         (data.token as Partial<TokenData>) = data.token || {};
 
@@ -40,9 +40,9 @@ export default class StrikeActor extends Actor<StrikeData> {
         return super.create(data, options) as Promise<StrikeActor>;
     }
 
-    getPower(powerName: string): PowerItem | null {
-        let result = this.items.find((i: Item) => i.name === powerName);
-        if (result instanceof PowerItem) {
+    getPower(powerName: string): StrikeItem | null {
+        let result = this.items.find((i: Item) => i.name === powerName) as StrikeItem | null;
+        if (result != null && result.type == "power") {
             return result;
         } else {
             return null;

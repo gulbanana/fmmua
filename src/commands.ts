@@ -1,9 +1,9 @@
 import RollDialog from "./dice/RollDialog.js";
 import StrikeActor from "./actors/StrikeActor.js";
-import StrikeData from "./actors/StrikeData.js";
-import { TraitItem, PowerItem } from "./items/items.js";
+import StrikeActorData from "./actors/StrikeActorData.js";
 import GlossaryWindow from "./glossary/GlossaryWindow.js";
 import glossaryCategories from "./glossary/categories.js";
+import StrikeItem from "./items/StrikeItem.js";
 
 interface ChatData {
     user: string;
@@ -103,31 +103,31 @@ async function reset() {
         await item.delete();
     }
 
-    let toughnessFeat = await TraitItem.create({
+    let toughnessFeat = await StrikeItem.createTrait({
         name: "Toughness",
         data: {
             source: "feat",
-            description: "+3 to max HP. You Resist 1 damage against anything other than attacks and Opportunities (e.g. against damaging Zones or Ongoing Damage)."
+            text: "<p>+3 to max HP. You Resist 1 damage against anything other than attacks and Opportunities (e.g. against damaging Zones or Ongoing Damage).</p>"
         }
     });
 
-    let stickinessBoost = await TraitItem.create({
+    let stickinessBoost = await StrikeItem.createTrait({
         name: "Stickiness Boost",
         data: {
             source: "role",
-            description: "When an enemy grants you an Opportunity, it takes 1 additional damage."
+            text: "<p>When an enemy grants you an Opportunity, it takes 1 additional damage.</p>"
         }
     });
 
-    let openingFeature = await TraitItem.create({
+    let openingFeature = await StrikeItem.createTrait({
         name: "Find an opening",
         data: {
             source: "class",
-            description: "When you attack the target of your Duel, you may spend any number of points of its Focus. If you hit, increase your damage by one per point spent."
+            text: "<p>When you attack the target of your Duel, you may spend any number of points of its Focus. If you hit, increase your damage by one per point spent.</p>"
         }
     });
 
-    let rallyPower = await PowerItem.create({
+    let rallyPower = await StrikeItem.createPower({
         name: "Rally",
         data: {
             action: "none",
@@ -137,7 +137,7 @@ async function reset() {
         }
     });
     
-    let meleeBasicPower = await PowerItem.create({
+    let meleeBasicPower = await StrikeItem.createPower({
         name: "Melee Basic Attack",
         data: {
             target: "melee",
@@ -148,7 +148,7 @@ async function reset() {
     });
 
 
-    let gohPower = await PowerItem.create({
+    let gohPower = await StrikeItem.createPower({
         name: "Get Over Here",
         data: {
             source: "class",
@@ -159,7 +159,7 @@ async function reset() {
         }
     });
 
-    let markPower = await PowerItem.create({
+    let markPower = await StrikeItem.createPower({
         name: "Mark",
         data: {
             source: "role",
@@ -171,7 +171,7 @@ async function reset() {
         }
     });
 
-    let duelPower = await PowerItem.create({
+    let duelPower = await StrikeItem.createPower({
         name: "Duel",
         data: {
             source: "class",            
@@ -182,7 +182,7 @@ async function reset() {
         }
     });
 
-    let changePower = await PowerItem.create({
+    let changePower = await StrikeItem.createPower({
         name: "Change Target",
         data: {
             source: "class",            
@@ -193,7 +193,7 @@ async function reset() {
         }
     });
 
-    let cagiPower = await PowerItem.create({
+    let cagiPower = await StrikeItem.createPower({
         name: "Come and Get It!",
         data: {
             source: "role",
@@ -206,7 +206,7 @@ async function reset() {
         }
     });
 
-    let pdPower = await PowerItem.create({
+    let pdPower = await StrikeItem.createPower({
         name: "Perfect Defense",
         data: {
             source: "class",
@@ -228,7 +228,7 @@ async function reset() {
         data: {
             class: "Duelist",
             role: "Defender"
-        } as StrikeData
+        } as StrikeActorData
     });
     let heroData = duplicate(hero.data).token;
     let heroPosition = {x: 9*300, y: 7*300, actorLink: true};
