@@ -21,9 +21,12 @@
     "fmmua.actor.traits": "Traits",
     "fmmua.controls.add": "Add",
     "fmmua.controls.delete": "Delete",
+    "fmmua.controls.display": "Display",
     "fmmua.controls.edit": "Edit",
+    "fmmua.controls.use": "Use",
     "fmmua.error.PowerNotFound": "Character {actor} does not have a power named {power}.",
     "fmmua.error.ItemIdNotFound": "Character {actor} does not have an item with id {item}.",
+    "fmmua.error.ItemIsNotPower": "This item is not a Power and cannot be used.",
     "fmmua.glossary.windowTitle": "Glossary",
     "fmmua.settings.glossaryChatLinks": "Glossary Chat Links",
     "fmmua.settings.glossaryChatLinksHint": "Display help text for game concepts in chat messages."

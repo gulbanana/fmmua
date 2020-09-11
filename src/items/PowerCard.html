@@ -37,6 +37,9 @@
         {{/if}}
     </div>
     <div class="text">
+        {{#if @partial-block}}
+            {{> @partial-block }}
+        {{/if}}
         {{{data.text}}}
     </div>
 </div>

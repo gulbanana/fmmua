@@ -9,5 +9,5 @@ export function init() {
     Items.registerSheet("fmmua", TraitSheet, { types: ["trait"], makeDefault: true });
     Items.registerSheet("fmmua", PowerSheet, { types: ["power"], makeDefault: true });
 
-    loadTemplates(["systems/fmmua/items/power-card.html"]);
+    loadTemplates(["systems/fmmua/items/PowerCard.html"]);
 }

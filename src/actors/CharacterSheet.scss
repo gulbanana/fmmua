@@ -35,7 +35,7 @@
     
     .trait {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         img {
             background: url(/ui/parchment.jpg) repeat;
         }
@@ -70,12 +70,17 @@
                 margin: 0 0 7px 0;                
                 position: relative;                
                 
-                .commands {
-                    position: absolute;
-                    bottom: 7px;
-                    right: 0;
-                    display: flex;
+                .commands-spacer {
+                    float: right;
                 }
+
+                .commands {
+                    float: right;
+                    clear: right;
+                    display: flex;
+                    font-size: 14px;
+                }
+
                 a {
                     margin-right: 0.5em;
                 }

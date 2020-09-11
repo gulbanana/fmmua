@@ -2,6 +2,7 @@ import StrikeActorData from "./StrikeActorData.js";
 import StrikeActor from "./StrikeActor.js";
 import StrikeItemData from "../items/StrikeItemData.js";
 import PowerData from "../items/PowerData.js";
+import StrikeItem from "../items/StrikeItem.js";
 
 type SheetData = ActorSheetData<StrikeActorData> & {
     feats: ItemData<StrikeItemData>[];
@@ -115,7 +116,55 @@ export default class CharacterSheet extends ActorSheet<StrikeActorData, StrikeAc
                 }
             });
         });
+
+        html.find('.item-display').click(ev => {
+            const container = $(ev.currentTarget).parents(".item");
+            const itemId = container.data("itemId");
+            const item = this.actor.getOwnedItem(itemId);
+
+            if (item == null) {
+                ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
+                    actor: this.actor.name,
+                    item: itemId
+                }));
+            } else {
+                item.display(this.actor);
+            }
+        });
+
+        html.find('.item-use').click(ev => {
+            const container = $(ev.currentTarget).parents(".item");
+            const itemId = container.data("itemId");
+            const item = this.actor.getOwnedItem(itemId);
+
+            if (item == null) {
+                ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
+                    actor: this.actor.name,
+                    item: itemId
+                }));
+            } else {
+                item.use(this.actor);
+            }
+        });
+
+        // insane hack to get a bottom-right float
+        var textContainers = html.find(".power-card > .text");
+        for (let textContainer of textContainers) {
+            floatCommandsToBottom(textContainer, "commands");
+            // repeat next microtask to push down to bottom if there's a new line formed by the float
+            setTimeout(() => {
+                floatCommandsToBottom(textContainer, "commands");
+            }, 0);    
+        }
     }
+}
+
+function floatCommandsToBottom(container: HTMLElement, className: string) {
+    var commands = container.getElementsByClassName(className)[0] as HTMLElement;
+    var spacer = container.getElementsByClassName(className + "-spacer")[0] as HTMLElement;
+    var parentHeight = container.offsetHeight;
+    var childHeight = commands.offsetHeight;
+    spacer.style.height = (parentHeight-childHeight) + "px";
 }
 
 function returnsSource() {

@@ -40,8 +40,12 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         return super.create(data, options) as Promise<StrikeActor>;
     }
 
-    getPower(powerName: string): StrikeItem | null {
-        let result = this.items.find((i: Item) => i.name === powerName) as StrikeItem | null;
+    getOwnedItem(itemId: string): StrikeItem | null {
+        return super.getOwnedItem(itemId) as StrikeItem | null;
+    }
+
+    getPower(name: string): StrikeItem | null {
+        let result = this.items.find((i: Item) => i.name === name) as StrikeItem | null;
         if (result != null && result.type == "power") {
             return result;
         } else {
@@ -61,5 +65,12 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         }
 
         await power.use(this);
+    }
+
+    async display(name: string): Promise<void> {
+        let traitOrPower = this.items.find((i: Item) => i.name === name) as StrikeItem | null;
+        if (traitOrPower != null) {
+            await traitOrPower.display(this);
+        }
     }
 }

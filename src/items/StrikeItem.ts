@@ -1,6 +1,7 @@
 import StrikeItemData from "./StrikeItemData.js";
 import PowerData from "./PowerData.js";
 import StrikeActor from "../actors/StrikeActor.js";
+import TraitData from "./TraitData.js";
 
 export default class StrikeItem extends Item<StrikeItemData> {
     static create(data: Partial<ItemData<Partial<StrikeItemData>>>, options = {}) {
@@ -11,12 +12,14 @@ export default class StrikeItem extends Item<StrikeItemData> {
                     name: "New Trait",
                     img: "icons/svg/book.svg"
                 }, { overwrite: false });
+                break;
         
             case "power":
                 mergeObject(data, {
                     name: "New Power",
                     img: "icons/svg/dice-target.svg"
                 }, { overwrite: false });
+                break;
         }
 
         return super.create(data, options) as Promise<StrikeItem>;
@@ -40,6 +43,11 @@ export default class StrikeItem extends Item<StrikeItemData> {
         switch (this.type) {
             case "power":
                 this.preparePowerData();
+                break;
+
+            case "trait":
+                this.prepareTraitData();
+                break;
         }
     }
 
@@ -121,12 +129,47 @@ export default class StrikeItem extends Item<StrikeItemData> {
         }        
     }
 
+    prepareTraitData() {        
+        const itemData = this.data;
+        const traitData = itemData.data as TraitData;
+
+        switch (traitData.source) {
+            case "class":
+                traitData.kind = "class-feature";
+                traitData.kindText = "Class Feature";
+                break;
+
+            case "role":
+                traitData.kind = "role-boost";
+                traitData.kindText = "Role Boost";
+                break;
+
+            case "feat":
+                traitData.kind = "other";
+                traitData.kindText = "Feat";
+                break;
+
+            default:
+                traitData.kind = "other";
+                traitData.kindText = "Trait";
+        }
+    }
+
+    async display(actor: StrikeActor): Promise<void> {
+        let content = await renderTemplate(this.type == "power" ? "systems/fmmua/items/PowerCard.html" : "systems/fmmua/items/TraitCard.html", this.data)
+        let speaker = ChatMessage.getSpeaker({ actor });
+        await ChatMessage.create({ content, speaker });
+    }
+
+    // XXX this one should do targetting and run macros
     async use(actor: StrikeActor): Promise<void> {
-        switch (this.type) {
-            case "power":
-                let content = await renderTemplate("systems/fmmua/items/power-card.html", this.data)
-                let speaker = ChatMessage.getSpeaker({ actor });
-                await ChatMessage.create({ content, speaker });
-        }        
+        if (this.type != "power") {
+            ui.notifications.error(game.i18n.localize("fmmua.errors.ItemIsNotPower"));
+            return;
+        }
+
+        let content = await renderTemplate("systems/fmmua/items/PowerCard.html", this.data)
+        let speaker = ChatMessage.getSpeaker({ actor });
+        await ChatMessage.create({ content, speaker });
     }
 }
