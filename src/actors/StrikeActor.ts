@@ -1,5 +1,6 @@
 import StrikeActorData from "./StrikeActorData.js";
 import StrikeItem from "../items/StrikeItem.js";
+import * as dice from "../dice/dice.js";
 
 export default class StrikeActor extends Actor<StrikeActorData> {
     constructor(data: ActorData<StrikeActorData>, options: any) {
@@ -72,5 +73,21 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         if (traitOrPower != null) {
             await traitOrPower.display(this);
         }
+    }
+
+    rollAttack({advantage, disadvantage}: {advantage?: boolean, disadvantage?: boolean} = {}) {
+        return dice.attackRoll(advantage || false, disadvantage || false, `${this.name} rolls to hit.`);
+    }
+
+    rollSavingThrow({advantage, disadvantage}: {advantage?: boolean, disadvantage?: boolean} = {}) {
+        return dice.savingThrow(advantage || false, disadvantage || false, `${this.name} rolls to save.`);
+    }
+
+    rollSkill(name: string, {advantage, disadvantage}: {advantage?: boolean, disadvantage?: boolean} = {}) {
+        return dice.skillRoll(advantage || false, disadvantage || false, false, `${this.name} rolls ${name}.`);
+    }
+
+    rollUnskilled(name: string, {advantage, disadvantage}: {advantage?: boolean, disadvantage?: boolean} = {}) {
+        return dice.skillRoll(advantage || false, disadvantage || false, true, `${this.name} rolls ${name} (unskilled).`);
     }
 }
