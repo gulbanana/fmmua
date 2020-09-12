@@ -32,54 +32,11 @@
         --section-border: var(--blue2-border);
         --section-header: var(--blue2-dark);
     }
-    
-    .trait {
-        display: flex;
-        align-items: flex-start;
-        img {
-            background: url(/ui/parchment.jpg) repeat;
-        }
-        h4 {
-           flex: 1;
-           margin: 0;
-           padding: 0 0.5em 0 0.5em;
-           white-space: nowrap;
-           overflow: hidden;
-           text-overflow: ellipsis;
-        }
-        a {
-            margin-right: 0.5em;
-        }
-    }
 
     .powers {
         --section-background: white;
         --section-border: #999;
         --section-header: rgba(0, 0, 0, 0.1);
         flex: 1;
-        
-        .cards {
-            padding: 7px 7px 0 7px;
-
-            column-count: auto;
-            column-width: 350px;
-            column-gap: 7px;
-
-            .power {
-                break-inside: avoid;
-                margin: 0 0 7px 0;                
-                position: relative;                
-                
-                .commands {
-                    float: right;
-                    display: flex;
-                    align-items: flex-end;
-                }
-
-                a {
-                    margin-right: 0.5em;
-                }
-            }
-        }
     }
 }

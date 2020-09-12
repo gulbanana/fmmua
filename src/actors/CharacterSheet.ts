@@ -1,8 +1,7 @@
 import StrikeActorData from "./StrikeActorData.js";
-import StrikeActor from "./StrikeActor.js";
 import StrikeItemData from "../items/StrikeItemData.js";
 import PowerData from "../items/PowerData.js";
-import StrikeItem from "../items/StrikeItem.js";
+import StrikeActorSheet from "./StrikeActorSheet.js";
 
 type SheetData = ActorSheetData<StrikeActorData> & {
     feats: ItemData<StrikeItemData>[];
@@ -11,7 +10,7 @@ type SheetData = ActorSheetData<StrikeActorData> & {
     powers: ItemData<PowerData>[];
 };
 
-export default class CharacterSheet extends ActorSheet<StrikeActorData, StrikeActor> {
+export default class CharacterSheet extends StrikeActorSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet", "actor", "character"],
@@ -66,105 +65,6 @@ export default class CharacterSheet extends ActorSheet<StrikeActorData, StrikeAc
         })
 
         return data;
-    }
-
-    activateListeners(html: JQuery<HTMLElement>) {
-        super.activateListeners(html);
-
-        html.find('.item-edit').click(ev => {
-            const container = $(ev.currentTarget).parents(".item");
-            const itemId = container.data("itemId");
-            const item = this.actor.getOwnedItem(itemId);
-
-            if (item == null) {
-                ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                    actor: this.actor.name,
-                    item: itemId
-                }));
-            } else {
-                item.sheet.render(true);
-            }
-        });
-
-        html.find('.item-delete').click(ev => {
-            const container = $(ev.currentTarget).parents(".item");
-            const itemId = container.data("itemId");
-            const item = this.actor.getOwnedItem(itemId);
-
-            if (item == null) {
-                ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                    actor: this.actor.name,
-                    item: itemId
-                }));
-            } else {
-                container.slideUp(200, () => {
-                    this.actor.deleteOwnedItem(itemId);
-                });
-            }
-        });
-
-        html.find('.item-add').click(async ev => {
-            const container = $(ev.currentTarget).parents(".items");
-            const itemType = container.data("itemType");
-            const itemSource = container.data("itemSource");
-
-            this.actor.createOwnedItem({
-                type: itemType,
-                name: "New " + itemType.charAt(0).toUpperCase() + itemType.slice(1),
-                data: {
-                    source: itemSource
-                }
-            });
-        });
-
-        html.find('.item-display').click(ev => {
-            const container = $(ev.currentTarget).parents(".item");
-            const itemId = container.data("itemId");
-            const item = this.actor.getOwnedItem(itemId);
-
-            if (item == null) {
-                ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                    actor: this.actor.name,
-                    item: itemId
-                }));
-            } else {
-                item.display(this.actor);
-            }
-        });
-
-        html.find('.item-use').click(ev => {
-            const container = $(ev.currentTarget).parents(".item");
-            const itemId = container.data("itemId");
-            const item = this.actor.getOwnedItem(itemId);
-
-            if (item == null) {
-                ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                    actor: this.actor.name,
-                    item: itemId
-                }));
-            } else {
-                item.use(this.actor);
-            }
-        });
-
-        // mostly-functional hack to get a bottom-right float
-        var textContainers = html.find(".power-card > .text");
-        for (let textContainer of textContainers) {
-            var commands = textContainer.getElementsByClassName("commands")[0] as HTMLElement;
-            
-            let resizeFloat = () => {
-                let outerHeight = textContainer.offsetHeight;
-                commands.style.height = `${outerHeight}px`;
-                (commands.style as any).shapeOutside = `inset(${outerHeight-17}px 0 0 0)`;
-
-                if (outerHeight != textContainer.offsetHeight) {
-                    resizeFloat();
-                }
-            }
-
-            new ResizeObserver(resizeFloat).observe(textContainer);
-            resizeFloat();
-        }
     }
 }
 

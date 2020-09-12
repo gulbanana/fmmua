@@ -122,7 +122,9 @@ export default class StrikeItem extends Item<StrikeItemData> {
             powerData.subtypeText = "No Action";
         }
 
-        if ((powerData.source === "class" || powerData.source === "role") && powerData.usage !== "custom") {
+        if (this.isOwned && this.actor?.data.type == "monster") {
+            powerData.kind = "monster-power";
+        } else if ((powerData.source === "class" || powerData.source === "role") && powerData.usage !== "custom") {
             (powerData.kind as string) = powerData.source + "-" + powerData.usage;
         } else {
             powerData.kind = "other";
@@ -133,7 +135,10 @@ export default class StrikeItem extends Item<StrikeItemData> {
         const itemData = this.data;
         const traitData = itemData.data as TraitData;
 
-        switch (traitData.source) {
+        if (this.isOwned && this.actor?.data.type == "monster") {
+            traitData.kind = "monster-trait";
+            traitData.kindText = "Trait";
+        } else switch (traitData.source) {
             case "class":
                 traitData.kind = "class-feature";
                 traitData.kindText = "Class Feature";
@@ -153,6 +158,8 @@ export default class StrikeItem extends Item<StrikeItemData> {
                 traitData.kind = "other";
                 traitData.kindText = "Trait";
         }
+
+        traitData.plainText = traitData.text.replace(/<\/?p>/g, "");
     }
 
     async display(actor: StrikeActor): Promise<void> {

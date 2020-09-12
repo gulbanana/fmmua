@@ -45,8 +45,15 @@
         }
     }
 
+    &.kind-monster-trait {
+        background: var(--orange3-dark);
+        .text {
+            background: var(--orange3-light);
+        }
+    }
+
     &.kind-other {
-        background: var(--orange2-dark);
+        background: var(--orange2-border);
         .text {
             background: var(--orange2-light);
         }

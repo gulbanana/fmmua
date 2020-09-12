@@ -1,13 +1,19 @@
 .fmmua.sheet.actor.monster {
     .bg-stat {
-        background: var(--monster-even);
+        background: var(--orange3-very-light);
     }
 
-    .traits, .powers {
-        --section-background: var(--monster-odd);
-        --section-header: var(--monster-header);
-        --section-border: var(--monster-matching-border);
+    .traits {
+        --section-background: var(--orange3-light);
+        --section-header: var(--orange3-dark);
+        --section-border: var(--orange3-border);
     }    
+
+    .powers {
+        --section-background: white;
+        --section-border: #999;
+        --section-header: rgba(0, 0, 0, 0.1);
+    }
 
     .misc {
         --section-background: var(--green1-light);

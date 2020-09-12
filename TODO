@@ -3,20 +3,22 @@ MVT (Minimum Viable Thing)
 
 * Create the System
 [x] strike dice rolls (variants - skill, combat, saving throw)
+    [x] core
+    [x] gui
+    [x] command
+    [x] macro api (via actor)
 [x] actor data modelling
     [x] character
     [x] monster
     [x] token config
 [ ] actor sheets 
-    [ ] character
+    [x] character
         [x] numbers/names
-        [ ] powers
-            [x] drag/drop
+        [x] powers
             [x] add
             [x] remove
             [x] edit
-            [ ] activate 
-            [ ] make macro
+            [x] display/activate
             [x] power source sorting
         [x] traits
             [x] feats
@@ -25,12 +27,16 @@ MVT (Minimum Viable Thing)
             [x] add
             [x] remove
             [x] edit
+            [x] display/activate
         [x] either reject or display invalid items
-    [ ] monster
+    [x] monster
         [x] numbers/names
-        [ ] traits
-        [ ] powers
+        [x] traits
+        [x] powers
         [x] notes
+    [ ] owned items
+        [x] drop in
+        [ ] drag out
 [ ] powers    
     [x] macro activation
     [ ] command activation
@@ -40,9 +46,9 @@ MVT (Minimum Viable Thing)
         [x] scaffold & scope
         [x] template
         [x] insert
-[ ] feats
+[x] feats
     [x] data model
-    [ ] item sheet
+    [x] item sheet
 [ ] encounters
     [ ] initiative
         - global formula? include automation for feats?
@@ -88,11 +94,10 @@ MVT (Minimum Viable Thing)
     [ ] tabbing and more narrative stuff (adventure/tactical sheet)
     [ ] rollable skills
     [ ] character creation?
-[ ] scripts
+[ ] scripts ("macros"?)
     [ ] eval context
     [ ] power scripts (on use)
     [ ] feat scripts (on prepareData?)
-    [ ] dice api should be accessible somewhere (on actor?)
 [ ] powers
     [ ] configure targets & modifiers
     [ ] differentiate types (attack power with effect, trigger, etc)

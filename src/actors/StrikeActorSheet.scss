@@ -64,20 +64,57 @@
 
     .trait {
         display: flex;
+        align-items: flex-start;
         padding-left: 0.5em;
+
         > .name {
             font-weight: 600;
             &::after {
                 content: ":\00a0";
             }
         }
+
         > .text {
             flex: 1;
-            > p:first-child {
-                margin-top: 0;
+            overflow: hidden;
+            > p {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &:first-child {
+                    margin-top: 0;
+                }
+                &:last-child {
+                    margin-bottom: 0;    
+                }
             }
-            > p:last-child {
-                margin-bottom: 0;
+        }
+
+        > a {
+            margin-right: 0.5em;
+        }
+    }
+
+    .cards {
+        padding: 7px 7px 0 7px;
+
+        column-count: auto;
+        column-width: 350px;
+        column-gap: 7px;
+
+        .item {
+            break-inside: avoid;
+            margin: 0 0 7px 0;                
+            position: relative;                
+            
+            .commands {
+                float: right;
+                display: flex;
+                align-items: flex-end;
+            }
+
+            a {
+                margin-right: 0.5em;
             }
         }
     }
