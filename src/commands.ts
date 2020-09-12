@@ -4,6 +4,7 @@ import StrikeActorData from "./actors/StrikeActorData.js";
 import GlossaryWindow from "./glossary/GlossaryWindow.js";
 import glossaryCategories from "./glossary/categories.js";
 import StrikeItem from "./items/StrikeItem.js";
+import PowerData from "./items/PowerData.js";
 
 interface ChatData {
     user: string;
@@ -36,7 +37,12 @@ let commands: Record<string, Command> = {
             helpText += "</table>";
             ChatMessage.create({ 
                 content: helpText, 
-                speaker: data.speaker, 
+                speaker: {
+                    scene: data.speaker.scene,
+                    actor: data.speaker.actor,
+                    token: data.speaker.token,
+                    alias: "FMMUA"
+                }, 
                 whisper: [game.user]
             });
         },
@@ -65,6 +71,39 @@ let commands: Record<string, Command> = {
             new GlossaryWindow(displayName).render(true);
         },
         help: "Display rules text for a search term."
+    },
+    "/spower": {
+        param: "name",
+        f: (data, name) => {
+            if (canvas.tokens.controlled.length < 1) {
+                ui.notifications.warn("No controlled tokens.");
+                return;
+            } 
+            let actor = canvas.tokens.controlled[0].actor as StrikeActor;
+            
+            if (name.length > 0) {
+                actor.use(name);
+            } else {
+                let helpText = `<h3>Powers for ${actor.name}</h3><table>`;
+                let powers = Array.from<StrikeItem>(actor.items.filter((i: Item) => i.type == "power")).sort((a, b) => a.name.localeCompare(b.name));
+                for (let p of powers) {
+                    let data = p.data.data as PowerData;
+                    helpText += `<tr><td>${p.name}</td><td>${data.usage}</td><td>${data.action}</td></tr>\n`;
+                }
+                helpText += "</table>";
+                ChatMessage.create({ 
+                    content: helpText, 
+                    speaker: {
+                        scene: data.speaker.scene,
+                        actor: data.speaker.actor,
+                        token: data.speaker.token,
+                        alias: "FMMUA"
+                    }, 
+                    whisper: [game.user]
+                });
+            }
+        },
+        help: "Use one of the controlled token's powers, or list available powers."
     },
     "/reset": {
         f: () => {

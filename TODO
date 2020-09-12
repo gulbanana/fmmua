@@ -39,7 +39,7 @@ MVT (Minimum Viable Thing)
         [ ] drag out
 [ ] powers    
     [x] macro activation
-    [ ] command activation
+    [x] command activation
     [x] data model
     [ ] item sheet
     [x] chat display
