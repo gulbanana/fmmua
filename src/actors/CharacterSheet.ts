@@ -66,6 +66,18 @@ export default class CharacterSheet extends StrikeActorSheet {
 
         return data;
     }
+
+    activateListeners(html: JQuery) {
+        super.activateListeners(html);
+
+        if (this._canDragStart(".item.power")) {
+            let handler = (ev: DragEvent) => this._onDragStart(ev);
+            html.find('.item.power').each((_index, div) => {
+              div.setAttribute("draggable", "true");
+              div.addEventListener("dragstart", handler, false);
+            });
+        }
+    }
 }
 
 function returnsSource() {
