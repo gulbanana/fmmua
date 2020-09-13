@@ -8,6 +8,7 @@ export default interface PowerData extends StrikeItemData {
     damage: number | null;
     customType: string | null;
     customSubtype: string | null;
+    customImage: string | null;
 
     /* derived */
     kind: "class-at-will" | "class-encounter" | "role-at-will" | "role-encounter" | "monster-power" | "other";

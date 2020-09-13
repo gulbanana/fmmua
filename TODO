@@ -46,6 +46,7 @@ MVT (Minimum Viable Thing)
         [x] scaffold & scope
         [x] template
         [x] insert
+    [ ] model targets in more detail - melee burst, ranged burst, optional ranged
 [x] feats
     [x] data model
     [x] item sheet

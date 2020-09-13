@@ -31,12 +31,12 @@ async function onHotbarDrop(_hotbar: any, data: DropData, slot: number): Promise
     let power = data.data;
     let script = `actor?.use("${power.name}")`;
     let macro = game.macros.entities.find(m => (m.name === power.name) && (m.command === script));
-    
+
     if (!macro) {
       macro = await Macro.create({
         name: power.name,
         type: "script",
-        img: power.img,
+        img: power.data.customImage || power.img,
         command: script,
         flags: { "fmmua.power": true }
       });

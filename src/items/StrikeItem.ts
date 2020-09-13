@@ -128,7 +128,11 @@ export default class StrikeItem extends Item<StrikeItemData> {
             (powerData.kind as string) = powerData.source + "-" + powerData.usage;
         } else {
             powerData.kind = "other";
-        }        
+        }
+        
+        if (powerData.customImage == null) {
+            powerData.customImage = this.prepareImage();
+        }
     }
 
     prepareTraitData() {        
@@ -160,6 +164,35 @@ export default class StrikeItem extends Item<StrikeItemData> {
         }
 
         traitData.plainText = traitData.text.replace(/<\/?p>/g, "");
+    }
+
+    // XXX use explosion.svg for something
+    prepareImage() {
+        let powerData = this.data.data as PowerData;
+        if (powerData.action == "attack") {
+            if (powerData.target == "melee") {
+                return "icons/svg/combat.svg";
+            } else {
+                return "icons/svg/acid.svg";
+            }
+        } else if (powerData.action == "role" ) {
+            return "icons/svg/blood.svg";
+        } else if (powerData.action == "reaction" || powerData.action == "interrupt") {
+            return "icons/svg/lightning.svg";
+        } else {
+            return "icons/svg/dice-target.svg";
+        }
+    }
+
+    update(data: any, options: any) {
+        let customImage = data["data.customImage"];
+        if (typeof customImage === "string") {
+            if (customImage === this.prepareImage()) {
+                data["data.customImage"] = null;
+            }
+        }
+
+        return super.update(data, options);
     }
 
     async display(actor: StrikeActor): Promise<void> {

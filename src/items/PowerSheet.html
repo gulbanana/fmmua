@@ -1,6 +1,6 @@
 <form class="item-sheet {{cssClass}}" autocomplete="off">
     <header class="sheet-header">
-        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
+        <img src="{{item.data.customImage}}" data-edit="data.customImage" title="{{item.name}}" height="64" width="64"/>
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
     </header>
 
@@ -12,6 +12,22 @@
                 <option value=""></option>
                 <option value="role">Role Power</option>
                 <option value="class">Class Power</option>
+                {{/select}}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Action</label>
+        <div class="form-fields">
+            <select name="data.action">
+                {{#select data.action}}
+                <option value="none"></option>
+                <option value="attack">Attack</option>
+                <option value="role">Role Action</option>
+                <option value="move">Move Action</option>
+                <option value="reaction">Reaction</option>
+                <option value="interrupt">Interrupt</option>
                 {{/select}}
             </select>
         </div>
