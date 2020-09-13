@@ -34,9 +34,9 @@ MVT (Minimum Viable Thing)
         [x] traits
         [x] powers
         [x] notes
-    [ ] owned items
+    [x] owned items
         [x] drop in
-        [ ] drag out
+        [x] drag out (though only macro seems useful)
 [ ] powers    
     [x] macro activation
     [x] command activation
@@ -46,7 +46,6 @@ MVT (Minimum Viable Thing)
         [x] scaffold & scope
         [x] template
         [x] insert
-    [ ] model targets in more detail - melee burst, ranged burst, optional ranged
 [x] feats
     [x] data model
     [x] item sheet

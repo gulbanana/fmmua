@@ -13,8 +13,8 @@ export default class MonsterSheet extends StrikeActorSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet", "actor", "monster"],
-            width: 610,
-            height: 810,
+            width: 600,
+            height: 857,
             template: "systems/fmmua/actors/MonsterSheet.html"
         });
     }

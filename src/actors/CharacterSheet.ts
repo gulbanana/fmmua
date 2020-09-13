@@ -14,8 +14,8 @@ export default class CharacterSheet extends StrikeActorSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet", "actor", "character"],
-            width: 1200,
-            height: 900,
+            width: 1000,
+            height: 700,
             template: "systems/fmmua/actors/CharacterSheet.html"
         });
     }
