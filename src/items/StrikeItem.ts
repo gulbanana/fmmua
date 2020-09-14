@@ -131,8 +131,9 @@ export default class StrikeItem extends Item<StrikeItemData> {
             (powerData.kind as string) = key + "-" + powerData.usage;
         }
         
+        this.data.img = this.prepareImage();
         if (powerData.customImage == null) {
-            powerData.customImage = this.prepareImage();
+            powerData.customImage = this.data.img;
         }
     }
 
@@ -190,7 +191,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
         if (typeof customImage === "string") {
             if (customImage === this.prepareImage()) {
                 data["data.customImage"] = null;
-            }
+            } 
         }
 
         return super.update(data, options);
