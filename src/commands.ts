@@ -109,11 +109,15 @@ let commands: Record<string, Command> = {
         f: () => {
             reset();
         },
-        help: "debug only - do not use"
+        help: "debug - use only in test worlds"
     }
 }
 
 export function init() {
+    if (game.world.name != "test-world") {
+        delete commands["/reset"];
+    }
+
     Hooks.on("chatMessage", (_chatLog: any, content: string, data: ChatData) => {
         let parts = content.split(" ");
         let commandName = parts[0];

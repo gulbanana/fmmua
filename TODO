@@ -54,9 +54,13 @@ MVT (Minimum Viable Thing)
         - global formula? include automation for feats?
     [ ] strikes
     [ ] effect tracking?
-[ ] command system
+[x] command system
     [x] autohelp
-    [ ] remove debug commands (or limit to gm permission)
+    [x] remove debug commands (or limit to gm permission)
+[ ] character creation
+    [ ] default powers
+    [ ] token config 
+    [ ] ownership/visibility
 
 * Create a combat encounter
 [x] write oneshot adventure
@@ -68,7 +72,7 @@ MVT (Minimum Viable Thing)
 [x] create scene 
     [x] map
     [x] walls & lighting
-[ ] rebase scene on mvp system or recreate
+[x] rebase scene on mvp system or recreate
 [ ] create enemies
     [ ] actors 
     [x] tokens
