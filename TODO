@@ -11,7 +11,7 @@ MVT (Minimum Viable Thing)
     [x] character
     [x] monster
     [x] token config
-[ ] actor sheets 
+[x] actor sheets 
     [x] character
         [x] numbers/names
         [x] powers
@@ -46,6 +46,7 @@ MVT (Minimum Viable Thing)
         [x] scaffold & scope
         [x] template
         [x] insert
+    [ ] compendium of common powers
 [x] feats
     [x] data model
     [x] item sheet
