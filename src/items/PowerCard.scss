@@ -93,18 +93,25 @@
             background: var(--red1-light);
         }
     }
+    
+    &.kind-feat-at-will {
+        background: var(--green2-dark);
+        .text {
+            background: var(--green2-light);
+        }
+    }
+    
+    &.kind-feat-encounter {
+        background: var(--orange2-border);
+        .text {
+            background: var(--orange2-light);
+        }
+    }
 
     &.kind-monster-power {
         background: var(--orange3-dark);
         .text {
             background: var(--orange3-light);
-        }
-    }
-
-    &.kind-other {
-        background: var(--orange2-border);
-        .text {
-            background: var(--orange2-light);
         }
     }
 }

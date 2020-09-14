@@ -124,10 +124,11 @@ export default class StrikeItem extends Item<StrikeItemData> {
 
         if (this.isOwned && this.actor?.data.type == "monster") {
             powerData.kind = "monster-power";
-        } else if ((powerData.source === "class" || powerData.source === "role") && powerData.usage !== "custom") {
-            (powerData.kind as string) = powerData.source + "-" + powerData.usage;
+        } else if (powerData.usage == "custom") {
+            powerData.kind = "other-encounter";
         } else {
-            powerData.kind = "other";
+            let key = powerData.action == "role" ? "role" : powerData.source;
+            (powerData.kind as string) = key + "-" + powerData.usage;
         }
         
         if (powerData.customImage == null) {

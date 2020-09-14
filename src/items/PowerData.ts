@@ -11,7 +11,7 @@ export default interface PowerData extends StrikeItemData {
     customImage: string | null;
 
     /* derived */
-    kind: "class-at-will" | "class-encounter" | "role-at-will" | "role-encounter" | "monster-power" | "other";
+    kind: "class-at-will" | "class-encounter" | "role-at-will" | "role-encounter" | "other-at-will" | "other-encounter" | "monster-power";
     actionIcon: string | null;
     rangeIcon: string;
     usageText: string;

@@ -169,6 +169,7 @@ async function reset() {
     let rallyPower = await StrikeItem.createPower({
         name: "Rally",
         data: {
+            source: "feat",
             action: "none",
             usage: "encounter",
             text: `<p><b>Special:</b> You may only use this on your turn, but you may use at any point in your turn, even while Incapacitated, Dominated, or under any other Status.</p>
@@ -179,6 +180,7 @@ async function reset() {
     let meleeBasicPower = await StrikeItem.createPower({
         name: "Melee Basic Attack",
         data: {
+            source: "feat",
             target: "melee",
             range: 1,
             damage: 2,
@@ -186,6 +188,35 @@ async function reset() {
         }
     });
 
+    let rangedBasicPower = await StrikeItem.createPower({
+        name: "Ranged Basic Attack",
+        data: {
+            source: "feat",
+            target: "ranged",
+            range: 5,
+            damage: 2,
+            text: "<p><b>Effect:</b> None.</p>"
+        }
+    });
+
+    let chargePower = await StrikeItem.createPower({
+        name: "Charge",
+        data: {
+            source: "feat",
+            text: "<p>Move up to your speed to a square adjacent a creature and make a Melee Basic Attack against it. Each square of movement must bring you closer to the target. You cannot Charge through Difficult Terrain.</p>"
+        }
+    });
+
+    let assessPower = await StrikeItem.createPower({
+        name: "Assess",
+        data: {
+            source: "feat",
+            action: "role",
+            range: 1,
+            damage: 2,
+            text: "<p>Roll a die and ask the GM that many questions from the lists below.</p><p>About an enemy:</p><ul><li>How many Hit Points does it have?</li></ul><p>About the encounter:</p><ul></ul>"
+        }
+    });
 
     let gohPower = await StrikeItem.createPower({
         name: "Get Over Here",
@@ -275,6 +306,10 @@ async function reset() {
     await hero.createOwnedItem(toughnessFeat);
     await hero.createOwnedItem(rallyPower);
     await hero.createOwnedItem(meleeBasicPower);
+    await hero.createOwnedItem(rangedBasicPower);
+    await hero.createOwnedItem(chargePower);
+    await hero.createOwnedItem(assessPower);
+
     await hero.createOwnedItem(openingFeature);    
     await hero.createOwnedItem(duelPower);
     await hero.createOwnedItem(pdPower);    
