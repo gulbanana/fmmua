@@ -83,6 +83,7 @@ MVT (Minimum Viable Thing)
     [x] in chat
     [x] in app recursive
     [x] client config
+    [ ] fix tooltip display bug
     [ ] world-editable
     [ ] localizable
 [ ] compendium packs

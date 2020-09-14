@@ -80,12 +80,12 @@ let categories = [
             },
             {
                 displayName: "Pull",
-                pattern: "pull",
+                pattern: "pull(s|ed)?",
                 content: "When you pull a creature, you move it the specified number of squares. Each square must bring it closer to you (i.e. reduce the distance between you). See Forced Movement."
             },
             {
                 displayName: "Push",
-                pattern: "push",
+                pattern: "push(es|ed)?",
                 content: "When you push a creature, you move it the specified number of squares. Each square must move it farther from you (i.e. increase the distance between you). See Forced Movement."
             },
             {
@@ -105,13 +105,28 @@ let categories = [
             },
             {
                 displayName: "Saving Throw",
-                pattern: "saving throw|save ends",
+                pattern: "saving throws?|save ends",
                 content: "Roll a die. On a 4-6 you succeed, on a 1-3 you fail. Statuses that are denoted “save ends” mean that you get to roll a Saving Throw at the end of your turn, but some powers or abilities might grant you a Saving Throw earlier than that."
             },
             {
                 displayName: "Slide",
-                pattern: "slide",
+                pattern: "slid(e|es)?",
                 content: "When you slide a creature, you move it the specified number of squares in any direction or combination of directions you like. See Forced Movement."
+            },
+            {
+                displayName: "Strikes",
+                pattern: "strikes?",
+                content: [
+                    "When you are first Bloodied in a combat, you take a Strike. When you are first reduced to 0HP or below, take two Strikes, and take one Strike each time thereafter. If you are Taken Out, take a Strike. When you roll a 1 on an attack, take a Strike.",
+                    "After each combat, Strikes determine what Condition if any your character gets:",
+                    "<table><tbody><tr><td></td><th>Post-Combat Strikes</th></tr><tr><th>0-1</th><td>No Condition</td></tr><tr><th>2-3</th><td>Winded</td></tr><tr><th>4</th><td>Exhausted</td></tr><tr><th>5+</th><td>Injured</td></tr></tbody></table>",
+                    "Depending on the circumstances of the combat, at the GM’s discretion you may receive different Conditions. For instance, if you were fighting a mummy, the GM may tell you that instead of Injured, you are Cursed. The mechanical effects are equivalent, but recovery may require different Skills."
+                ]
+            },
+            {
+                displayName: "Taken Out",
+                pattern: "taken out",
+                content: "When you are reduced to negative 5 HP, you are Taken Out. You’re out of the combat for good, although you can come back to consciousness and regain your Hit Points after the combat just like anyone else."
             },
             {
                 displayName: "Teleport",
@@ -120,7 +135,7 @@ let categories = [
             },
             {
                 displayName: "Throw",
-                pattern: "(?<!saving )throw",
+                pattern: "(?<!saving )throw(n|s)?",
                 content: "Throw is identical to Push except that it ignores most terrain and creatures between the start and end of the Push. See Forced Movement."
             },
             {
@@ -203,7 +218,10 @@ let categories = [
             {
                 displayName: "Incapacitated",
                 pattern: "incapacitated",
-                content: "When you are Incapacitated, you fall Prone and are Stunned. Marks, Grabs, and other Statuses you are actively maintaining end."
+                content: [
+                    "When you are reduced to 0 HP or below, you are Incapacitated. If you regain Hit Points while below zero, you first set your Hit Points to zero and then regain the specified amount. While you have 0 HP or fewer and are Incapacitated, each time you start your turn you make a Comeback Roll: roll a die; on a 1 or 2 you lose two Hit Points (this cannot be resisted or reduced), but on a 5 or 6 you regain one Hit Point (first setting your Hit Points to zero, as described above).",
+                    "When you are Incapacitated, you fall Prone and are Stunned. Marks, Grabs, and other Statuses you are actively maintaining end."
+                ]
             },
             {
                 displayName: "Invisible",
