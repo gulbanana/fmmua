@@ -82,6 +82,17 @@
         {{#each role as |t|}}
             {{> trait t}}
         {{/each}}
+        {{#if groupedPowers}}
+        <h3 class="items" data-item-type="power" data-item-source="role">
+            {{localize "fmmua.actor.rolePowers"}}
+            <a class="item-add" title="{{localize "fmmua.controls.add"}}"><i class="fas fa-plus"></i></a>
+        </h3>
+        <div class="cards">
+            {{#each rolePowers as |p|}}
+                {{> power p}}
+            {{/each}}
+        </div>
+        {{/if}}
     </section>
 
     <section class="items klass" data-item-type="trait" data-item-source="class">
@@ -92,17 +103,46 @@
         {{#each class as |t|}}
             {{> trait t}}
         {{/each}}
-    </section>
-
-    <section class="items powers" data-item-type="power">
-        <h3>
-            {{localize "fmmua.actor.powers"}}
+        {{#if groupedPowers}}
+        <h3 class="items" data-item-type="power" data-item-source="class">
+            {{localize "fmmua.actor.classPowers"}}
             <a class="item-add" title="{{localize "fmmua.controls.add"}}"><i class="fas fa-plus"></i></a>
         </h3>
         <div class="cards">
-            {{#each powers as |p|}}
+            {{#each classPowers as |p|}}
                 {{> power p}}
             {{/each}}
         </div>
+        {{/if}}
     </section>
+
+    {{#if groupedPowers}}
+    {{#if otherPowers}}
+        <section class="items otherPowers" data-item-type="power">
+            <h3>
+                {{localize "fmmua.actor.otherPowers"}}
+                <a class="item-add" title="{{localize "fmmua.controls.add"}}"><i class="fas fa-plus"></i></a>
+            </h3>
+            <div class="cards">
+                {{#each otherPowers as |p|}}
+                    {{> power p}}
+                {{/each}}
+            </div>
+        </section>
+    {{/if}}
+    {{/if}}
+
+    {{#if ungroupedPowers}}
+        <section class="items powers" data-item-type="power">
+            <h3>
+                {{localize "fmmua.actor.powers"}}
+                <a class="item-add" title="{{localize "fmmua.controls.add"}}"><i class="fas fa-plus"></i></a>
+            </h3>
+            <div class="cards">
+                {{#each powers as |p|}}
+                    {{> power p}}
+                {{/each}}
+            </div>
+        </section>
+    {{/if}}
 </form>

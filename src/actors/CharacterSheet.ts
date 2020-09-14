@@ -12,6 +12,9 @@ type SheetData = ActorSheetData<StrikeActorData> & {
     powers: ItemData<PowerData>[];
     
     groupedPowers: boolean;
+    otherPowers: ItemData<PowerData>[];
+    rolePowers: ItemData<PowerData>[];
+    classPowers: ItemData<PowerData>[];    
 };
 
 export default class CharacterSheet extends StrikeActorSheet {
@@ -31,6 +34,9 @@ export default class CharacterSheet extends StrikeActorSheet {
         data.role = [];
         data.class = [];
         data.powers = [];
+        data.classPowers = [];
+        data.rolePowers = [];
+        data.otherPowers = [];
 
         data.items.forEach((item: ItemData<StrikeItemData>) => {
             switch (item.type) {
@@ -55,7 +61,22 @@ export default class CharacterSheet extends StrikeActorSheet {
                     break;
 
                 case "power":
-                    data.powers.push(item as ItemData<PowerData>);
+                    let power = item as ItemData<PowerData>;
+                    data.powers.push(power);
+
+                    switch (item.data.source) {
+                        case "class":
+                            data.classPowers.push(power);
+                            break;
+
+                        case "role":
+                            data.rolePowers.push(power);
+                            break;
+
+                        default:
+                            data.otherPowers.push(power);
+                            break;
+                    }                    
                     break;
             }
         });

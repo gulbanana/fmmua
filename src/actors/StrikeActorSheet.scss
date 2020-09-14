@@ -15,6 +15,9 @@
                 margin-bottom: 0;
                 background: var(--section-header);
                 border-bottom: 2px solid var(--section-border);
+                &:not(:first-of-type) {
+                    border-top: 2px solid var(--section-border);
+                }
             }
 
             .editor-content, .tox-edit-area {
@@ -100,6 +103,7 @@
     }
 
     .cards {
+        background: white;
         padding: 7px 7px 0 7px;
 
         column-count: auto;
@@ -108,7 +112,7 @@
 
         .item {
             break-inside: avoid;
-            margin: 0 0 7px 0;                
+            padding: 0 0 7px 0;                
             position: relative;                
             
             .commands {

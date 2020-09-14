@@ -33,10 +33,13 @@
         --section-header: var(--blue2-dark);
     }
 
-    .powers {
+    .powers, .otherPowers {
         --section-background: white;
         --section-border: #999;
         --section-header: rgba(0, 0, 0, 0.1);
+    }
+
+    .powers {
         flex: 1;
     }
 }
