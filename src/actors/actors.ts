@@ -12,6 +12,23 @@ export function init() {
 
     Hooks.on("updateActor", onUpdateActor);
     Hooks.on("updateToken", onUpdateToken);
+
+    game.settings.register("fmmua", "actorsGroupPowers", {
+        name: "fmmua.settings.actorsGroupPowers",
+        hint: "fmmua.settings.actorsGroupPowersHint",
+        scope: "client",
+        config: true,
+        default: false,
+        type: Boolean,
+        onChange: () => {
+            for (let key in ui.windows) {
+                let app = ui.windows[key];
+                if (app instanceof CharacterSheet) {
+                    app.render();
+                }
+            }
+        }
+    });
 }
 
 async function onUpdateActor(entity: StrikeActor, data: ActorData<StrikeActorData>, _options: {render: boolean}, _userId: string) {

@@ -7,7 +7,11 @@ type SheetData = ActorSheetData<StrikeActorData> & {
     feats: ItemData<StrikeItemData>[];
     role: ItemData<StrikeItemData>[]
     class: ItemData<StrikeItemData>[];
+    
+    ungroupedPowers: boolean;
     powers: ItemData<PowerData>[];
+    
+    groupedPowers: boolean;
 };
 
 export default class CharacterSheet extends StrikeActorSheet {
@@ -63,6 +67,9 @@ export default class CharacterSheet extends StrikeActorSheet {
                 return 0;
             }
         })
+
+        data.groupedPowers = game.settings.get("fmmua", "actorsGroupPowers");
+        data.ungroupedPowers = !data.groupedPowers;
 
         return data;
     }
