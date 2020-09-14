@@ -37,13 +37,9 @@ export default class MonsterSheet extends StrikeActorSheet {
             }
         });
 
-        data.powers.sort((a, b) => powerSort(a) - powerSort(b));
+        data.powers.sort(this.comparePowers);
         data.traits.sort((a, b) => a.name.localeCompare(b.name));
 
         return data;
     }
-}
-
-function powerSort(item: ItemData<PowerData>): number {
-    return (item.data.usage == "at-will") ? 0 : 1;
 }

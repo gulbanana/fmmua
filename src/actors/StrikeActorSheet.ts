@@ -1,5 +1,6 @@
 import StrikeActorData from "./StrikeActorData.js";
 import StrikeActor from "./StrikeActor.js";
+import PowerData from "../items/PowerData.js";
 
 // base class with common listeners for item management
 export default class StrikeActorSheet extends ActorSheet<StrikeActorData, StrikeActor> {
@@ -101,5 +102,66 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
         } else {
             item.use(this.actor);
         }
+    }
+
+    comparePowers(a: ItemData<PowerData>, b: ItemData<PowerData>): number {
+        let result = sourceToKey(a.data) - sourceToKey(b.data);
+        if (result != 0) return result;
+
+        result = usageToKey(a.data) - usageToKey(b.data);
+        if (result != 0) return result;
+
+        result = actionToKey(a.data) - actionToKey(b.data);
+        if (result != 0) return result;
+
+        return a.name.localeCompare(b.name);
+    }
+}
+
+function sourceToKey(power: PowerData) {
+    switch (power.source) {
+        case null:
+            return 0;
+        
+        case "feat":
+            return 0;
+
+        case "role":
+            return 1;
+
+        case "class":
+            return 2;        
+    }
+}
+
+function usageToKey(power: PowerData) {
+    switch (power.usage) {
+        case "custom":
+            return 0;
+
+        case "encounter":
+            return 1;
+
+        case "at-will":
+            return 2;
+    }
+}
+
+function actionToKey(power: PowerData) {
+    switch (power.action) {
+        case "none":
+            return -1;
+        case "free":
+            return 0;
+        case "move":
+            return 1;
+        case "role":          
+            return 2;
+        case "attack":
+            return 3;
+        case "interrupt":
+            return 4;
+        case "reaction":
+            return 5;
     }
 }

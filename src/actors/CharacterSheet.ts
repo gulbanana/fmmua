@@ -81,13 +81,10 @@ export default class CharacterSheet extends StrikeActorSheet {
             }
         });
 
-        data.powers.sort((a, b) => {
-            if (sortBySource(a.data.source) < sortBySource(b.data.source)) {
-                return -1;
-            } else {
-                return 0;
-            }
-        })
+        data.powers.sort(this.comparePowers);
+        data.classPowers.sort(this.comparePowers);
+        data.rolePowers.sort(this.comparePowers);
+        data.otherPowers.sort(this.comparePowers);
 
         data.groupedPowers = game.settings.get("fmmua", "actorsGroupPowers");
         data.ungroupedPowers = !data.groupedPowers;
@@ -105,25 +102,5 @@ export default class CharacterSheet extends StrikeActorSheet {
               div.addEventListener("dragstart", handler, false);
             });
         }
-    }
-}
-
-function returnsSource() {
-    return ({} as PowerData).source;
-}
-
-function sortBySource(source: ReturnType<typeof returnsSource>) {
-    switch (source) {
-        case "feat":
-            return 0;
-
-        case "role":
-            return 1;
-
-        case "class":
-            return 2;
-
-        default:
-            return -1;
     }
 }
