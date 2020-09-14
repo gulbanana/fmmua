@@ -15,9 +15,6 @@
                 margin-bottom: 0;
                 background: var(--section-header);
                 border-bottom: 2px solid var(--section-border);
-                &:not(:first-of-type) {
-                    border-top: 2px solid var(--section-border);
-                }
             }
 
             .editor-content, .tox-edit-area {
@@ -33,6 +30,17 @@
                         top: 2px;
                         font-size: 14px;
                     }
+                }
+            }
+
+            > .items {
+                border-top: 2px solid var(--section-border);
+            }
+
+            .overlay-ne {
+                > a {
+                    padding: 0 0.5em;
+                    background: white;
                 }
             }
         }
