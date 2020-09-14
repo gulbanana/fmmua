@@ -15,9 +15,14 @@
       "templates": ["programmability"],
       "action": "attack",
       "usage": "at-will",
-      "target": null,
-      "range": 0,
-      "damage": 0,
+      "targets": [
+        {
+          "mode": "ranged",
+          "range": 5,
+          "burst": false
+        }
+      ],
+      "damage": 2,
       "customType": null,
       "customSubtype": null,
       "customImage": null

@@ -17,17 +17,14 @@
                 {{data.subtypeText}}
             </div>
         {{else}}
-            {{#if data.hasTarget}}
+            {{#if data.target}}
                 <div class="target">
                     <span>
-                        <i class="qfas qfa-{{data.rangeIcon}}"></i>
-                        {{#if data.hasRange}}
-                        {{data.range}}
-                        {{/if}}
+                        {{{data.target}}}
                     </span>
                     <span>
-                    {{#if data.hasDamage}}
-                        <i class="fas fa-tint"></i>{{data.damage}}
+                    {{#if data.damage}}
+                        <i class="fas fa-tint"></i> {{data.damage}}
                     {{/if}}
                     </span>
                 </div>

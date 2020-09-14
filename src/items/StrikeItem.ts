@@ -92,23 +92,25 @@ export default class StrikeItem extends Item<StrikeItemData> {
                 break;
         }
 
-        powerData.hasTarget = typeof powerData.target === "string";
-        powerData.hasRange = powerData.target !== "melee";
-        switch (powerData.target) {     
-            case "melee":
-                powerData.rangeIcon = "axe";
-                break;
+        powerData.target = "";
+        for (let t of powerData.targets) {
+            if (powerData.target != "") {
+                powerData.target = powerData.target + "/";
+            }
 
-            case "ranged":
-                powerData.rangeIcon = "bow-arrow";
-                break;
+            if (t.burst) {
+                powerData.target = powerData.target + `<i class="qfas qfa-bullseye"></i> ${t.burst}`;
+                if (t.mode == "ranged") {
+                    powerData.target = powerData.target + " ";
+                }
+            }
 
-            case "burst":
-                powerData.rangeIcon = "bullseye";
-                break;
+            if (t.mode == "ranged") {
+                powerData.target = powerData.target + `<i class="qfas qfa-bow-arrow"></i> ${t.range}`;
+            } else if (!t.burst) {
+                powerData.target = powerData.target + `<i class="qfas qfa-axe"></i>`;
+            }
         }
-
-        powerData.hasDamage = powerData.action === "attack" && typeof powerData.damage === "number" && powerData.damage > 0;
 
         if (powerData.customSubtype != null) {
             powerData.subtypeText = powerData.customSubtype;

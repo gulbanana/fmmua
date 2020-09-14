@@ -181,9 +181,7 @@ async function reset() {
         name: "Melee Basic Attack",
         data: {
             source: "feat",
-            target: "melee",
-            range: 1,
-            damage: 2,
+            targets: [ { mode: "melee" } ],
             text: "<p><b>Effect:</b> None.</p>"
         }
     });
@@ -192,9 +190,6 @@ async function reset() {
         name: "Ranged Basic Attack",
         data: {
             source: "feat",
-            target: "ranged",
-            range: 5,
-            damage: 2,
             text: "<p><b>Effect:</b> None.</p>"
         }
     });
@@ -203,6 +198,8 @@ async function reset() {
         name: "Charge",
         data: {
             source: "feat",
+            targets: [],
+            damage: 0,
             text: "<p>Move up to your speed to a square adjacent a creature and make a Melee Basic Attack against it. Each square of movement must bring you closer to the target. You cannot Charge through Difficult Terrain.</p>"
         }
     });
@@ -212,8 +209,8 @@ async function reset() {
         data: {
             source: "feat",
             action: "role",
-            range: 1,
-            damage: 2,
+            targets: [],
+            damage: 0,
             text: "<p>Roll a die and ask the GM that many questions from the lists below.</p>" +
                   "<p>About an enemy:</p><ul><li>How many Hit Points does it have?</li><li>How would you summarize its powers?</li><li>What are its special traits?</li><li>Is it carrying anything strange or unique?</li></ul>" + 
                   "<p>About the encounter:</p><ul><li>Who is really in charge?</li><li>What can I use against the enemies?</li><li>What can they use against me?</li><li>Are there hidden doors or traps?</li><li>Are there hidden enemies?</li></ul>"
@@ -224,9 +221,6 @@ async function reset() {
         name: "Get Over Here",
         data: {
             source: "class",
-            target: "ranged",
-            range: 5,
-            damage: 2,
             text: "<p><b>Effect:</b> Target is pulled to an adjacent square.</p>"
         }
     });
@@ -236,8 +230,7 @@ async function reset() {
         data: {
             source: "role",
             action: "role",
-            target: "ranged",
-            range: 5,
+            damage: 0,
             text: `<p>Target is Marked by you until the end of its next turn.</p>
 <p>(At level 4, Mark two targets in range. At level 8, three targets.)</p>`
         }
@@ -249,6 +242,8 @@ async function reset() {
             source: "class",            
             action: "free",
             usage: "encounter",
+            targets: [],
+            damage: 0,
             text: `<p>Target one creature within 10 squares. Until the end of the encounter, when you attack the target, any 2s on your dice are treated as though they were 4s (6s at level 5).</p>
 <p><b>Special:</b> This power recharges when its target is Taken Out.</p>`
         }
@@ -260,6 +255,8 @@ async function reset() {
             source: "class",            
             action: "attack",
             usage: "at-will",
+            targets: [],
+            damage: 0,
             text: `<p>Make a Basic Attack against a creature. Then change the target of Duel to that creature.</p>
 <p><b>Clarification:</b> If you make this attack multiple times at once (for instance, as a Blaster), you may choose which target to change your Duel to after resolving the attacks. You may only ever have one target of Duel.</p>`
         }
@@ -271,9 +268,7 @@ async function reset() {
             source: "role",
             action: "role",
             usage: "encounter",
-            target: "burst",
-            range: 2,
-            damage: 2,
+            targets: [ { mode: "melee", burst: 2 } ],
             text: `<p>You pull every enemy in the zone to a square adjacent to you. Mark any or all of them until the end of your next turn.</p>`
         }
     });
@@ -284,8 +279,7 @@ async function reset() {
             source: "class",
             action: "attack",
             usage: "encounter",
-            target: "melee",
-            range: 1,
+            targets: [ { mode: "melee" } ],
             damage: 3,
             text: `<p><b>Effect:</b> Target has Disadvantage to attack you. It makes a Saving Throw against this Status each time it hits you with an attack.</p>`
         }
@@ -326,5 +320,36 @@ async function reset() {
     let villain = await StrikeActor.create({name: "Villain", type: "monster"});
     let villainData = duplicate(villain.data).token;
     let villainPosition = {x: 11*300, y: 7*300};
+
+    let iaPower = await StrikeItem.createPower({
+        name: "Inspiring Attack",
+        data: {
+            action: "attack",
+            usage: "at-will",
+            targets: [ 
+                { mode: "melee" },
+                { mode: "ranged", range: 5 }
+            ],
+            damage: 2,
+            text: `<p><b>Effect:</b> One ally regains 2 HP (or a damaged Goon recovers).</p>`
+        }
+    });
+
+    let slPower = await StrikeItem.createPower({
+        name: "Slowdown",
+        data: {
+            action: "attack",
+            usage: "at-will",
+            targets: [ 
+                { mode: "ranged", range: 10, burst: 2 }
+            ],
+            damage: 1,
+            text: `<p><b>Effect:</b> Target is Immobilized until the end of its next turn. (L6+: save ends).</p>`
+        }
+    });
+
+    await villain.createOwnedItem(iaPower);
+    await villain.createOwnedItem(slPower);
+
     await Token.create(mergeObject(villainData, villainPosition, {inplace: true}));
 }
