@@ -214,7 +214,9 @@ async function reset() {
             action: "role",
             range: 1,
             damage: 2,
-            text: "<p>Roll a die and ask the GM that many questions from the lists below.</p><p>About an enemy:</p><ul><li>How many Hit Points does it have?</li></ul><p>About the encounter:</p><ul></ul>"
+            text: "<p>Roll a die and ask the GM that many questions from the lists below.</p>" +
+                  "<p>About an enemy:</p><ul><li>How many Hit Points does it have?</li><li>How would you summarize its powers?</li><li>What are its special traits?</li><li>Is it carrying anything strange or unique?</li></ul>" + 
+                  "<p>About the encounter:</p><ul><li>Who is really in charge?</li><li>What can I use against the enemies?</li><li>What can they use against me?</li><li>Are there hidden doors or traps?</li><li>Are there hidden enemies?</li></ul>"
         }
     });
 
