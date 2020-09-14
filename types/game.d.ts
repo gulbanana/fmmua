@@ -12,7 +12,7 @@ declare let ui: {
 	tables: RollTableDirectory;
 	combat: CombatTracker;
 	actors: ActorDirectory;
-    windows: Application[];
+    windows: Record<number, Application>; // not an array!
     sidebar: Sidebar;
     chat: ChatLog;
 };
