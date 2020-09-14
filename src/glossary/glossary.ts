@@ -8,7 +8,7 @@ export function init() {
         hint: "fmmua.settings.glossaryChatLinksHint",
         scope: "client",
         config: true,
-        default: false,
+        default: true,
         type: Boolean,
         onChange: chat.refreshLog
     });
