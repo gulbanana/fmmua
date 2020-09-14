@@ -53,6 +53,7 @@ MVT (Minimum Viable Thing)
 [ ] encounters
     [ ] initiative
         - global formula? include automation for feats?
+    [ ] strikes
     [ ] effect tracking?
 [ ] command system
     [x] autohelp
