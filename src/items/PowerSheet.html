@@ -1,4 +1,4 @@
-<form class="item-sheet {{cssClass}}" autocomplete="off">
+<form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
         <img src="{{item.data.customImage}}" data-edit="data.customImage" title="{{item.name}}" height="64" width="64"/>
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
@@ -40,9 +40,9 @@
         <div class="form-fields">
             <select name="data.usage">
                 {{#select data.usage}}
+                <option value="custom"></option>
                 <option value="at-will">At-Will</option>
-                <option value="encounter">Encounter</option>
-                <option value="custom">Custom</option>
+                <option value="encounter">Encounter</option>                
                 {{/select}}
             </select>
         </div>
@@ -51,48 +51,41 @@
     <div class="form-group">
         <label>Custom Usage</label>
         <div class="form-fields">
-            <input type="text" name="data.customType" value="{{data.customType}}">
+            <input type="text" name="data.customUsage" value="{{data.customUsage}}">
         </div>
     </div>
 
     <div class="form-group">
-        <label>Result</label>
+        <label>Target</label>
         <div class="form-fields">
-            <label for="t1melee">Melee</label>
-            <input type="checkbox" name="t1melee" value="{{t1melee}}">
-            
-            <label>Range</label>
-            <input class="box2" type="text">
+            <div class="stat-row">
+                <div class="pair">
+                    <label for="tMelee">Melee</label>
+                    <input type="checkbox" name="tMelee" {{checked tMelee}}>
+                </div>
+                
+                <div class="pair">
+                    <label>Range</label>
+                    <input class="box2" type="text" name="tRange" value="{{tRange}}" data-dtype="Number">
+                </div>
 
-            <label>Burst</label>
-            <input class="box2" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label></label>
-        <div class="form-fields">
-            <label for="t2melee">Melee</label>
-            <input type="checkbox" name="t2melee" value="{{t2melee}}">
-            
-            <label>Range</label>
-            <input class="box2" type="text">
+                <div class="pair">
+                    <label>Burst Size</label>
+                    <input class="box2" type="text" name="tBurst" value="{{tBurst}}" data-dtype="Number">
+                </div>
 
-            <label>Burst</label>
-            <input class="box2" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label></label>
-        <div class="form-fields">
-            <label>Damage</label>
-            <input class="box2" type="text" name="data.damage" value="{{data.damage}}">
+                <div class="pair">
+                    <label>Damage</label>
+                    <input class="box2" type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number">
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
-        <label>Custom Result</label>
+        <label>Custom Target</label>
         <div class="form-fields">
-            <input type="text" name="data.customSubtype" value="{{data.customSubtype}}">
+            <input type="text" name="data.customTarget" value="{{data.customTarget}}">
         </div>
     </div>
 

@@ -7,9 +7,11 @@
     }
     input.box2 {
         width: 2em;
+        max-width: 2em;
     }
     input.box10 {
         width: 10em;
+        max-width: 10em;
     }
     
     .editor {
@@ -19,6 +21,30 @@
         }
         .tox-toolbar-overlord,.tox-toolbar__primary {
             background: none;
+        }
+    }
+
+    .stat-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .pair {
+        white-space: nowrap;
+        
+        margin-right: 1em;
+        &:last-child {
+            margin-right: 0;
+        }
+
+        & > label {
+            padding-right: 0.5em;
+        }
+        
+        & > input {
+            border: 1px solid #A9A9A9;
         }
     }
 }

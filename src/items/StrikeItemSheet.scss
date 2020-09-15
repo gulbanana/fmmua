@@ -1,13 +1,11 @@
-.fmmua .item-sheet {
-    display: flex;
-    flex-direction: column;
+.fmmua.sheet.item {
+    form {
+        display: flex;
+        flex-direction: column;
 
-    > *:last-child {
-        flex: 1;
-    }
-
-    .form-fields, .editor-field {
-        flex: 10;
+        > *:last-child {
+            flex: 1;
+        }
     }
 
     // similar to five <select>s
@@ -16,5 +14,5 @@
         border: 1px solid #7a7971;
         border-radius: 3px;
         background: rgba(0, 0, 0, 0.05);
-    }
+    }   
 }

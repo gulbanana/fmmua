@@ -19,12 +19,12 @@
         {
           "mode": "ranged",
           "range": 5,
-          "burst": false
+          "burst": 0
         }
       ],
       "damage": 2,
-      "customType": null,
-      "customSubtype": null,
+      "customUsage": null,
+      "customTarget": null,
       "customImage": null
     }
   },

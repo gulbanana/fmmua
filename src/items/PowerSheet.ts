@@ -1,16 +1,17 @@
 import StrikeItem from "./StrikeItem.js";
 import StrikeItemData from "./StrikeItemData.js";
-import PowerData from "./PowerData.js";
+import PowerData, { Target } from "./PowerData.js";
 
 type SheetData = ItemSheetData<PowerData> & {
-    t1melee: boolean;
-    t2melee: boolean;
+    tMelee: boolean;
+    tRange: string;
+    tBurst: string;
 };
 
 export default class PowerSheet extends ItemSheet<StrikeItemData, StrikeItem> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["fmmua", "sheet"],
+            classes: ["fmmua", "sheet", "item", "power"],
             template: "systems/fmmua/items/PowerSheet.html",
             width: 600
         });
@@ -19,24 +20,66 @@ export default class PowerSheet extends ItemSheet<StrikeItemData, StrikeItem> {
     getData() {
         const data = super.getData() as SheetData;
 
-        data.t1melee = true;
+        data.tMelee = false;
+        data.tRange = "";
+        data.tBurst = "";
+
+        for (let t of data.data.targets) {
+            if (t.mode == "melee") {
+                data.tMelee = true;
+            } else {
+                data.tRange = t.range.toString();
+            }
+            data.tBurst = t.burst?.toString() || "";
+        }
 
         return data;
+    }
+
+    activateListeners(html: JQuery) {
+        super.activateListeners(html);
+                
+        let usage = html.find<HTMLSelectElement>("select[name=data\\.usage]")[0];
+        let customUsage = html.find<HTMLInputElement>("input[name=data\\.customUsage]")[0];
+
+        usage.addEventListener("change", _ev => {
+            if (usage.value !== "custom") {
+                customUsage.value = "";
+            }
+        });
+
+        customUsage.addEventListener("change", _ev => {
+            if (customUsage.value) {
+                usage.value = "custom";
+            }
+        });
     }
 
     _getSubmitData(updateData={}): any {
         let data = super._getSubmitData(updateData);
 
-        // store nulls for "no override", though other code should be changed to ignore empty strings
-        if (data["data.customType"] === "") {
-            data["data.customType"] = null;
+        let meleeInput = this.form.querySelector<HTMLInputElement>("input[name=tMelee]");
+        let rangeInput = this.form.querySelector<HTMLInputElement>("input[name=tRange]");
+        let burstInput = this.form.querySelector<HTMLInputElement>("input[name=tBurst]");
+
+        let targets: Target[] = [];
+        
+        if (meleeInput?.checked) {
+            targets.push({
+                mode: "melee",
+                burst: burstInput?.value ? parseInt(burstInput?.value) : undefined
+            });
+        } 
+
+        if (rangeInput?.value) {
+            targets.push({
+                mode: "ranged",
+                range: parseInt(rangeInput?.value || "0"),
+                burst: burstInput?.value ? parseInt(burstInput?.value) : undefined
+            });
         }
 
-        if (data["data.customSubtype"] === "") {
-            data["data.customSubtype"] = null;
-        }
-
-        // read this.form, set targets array (full data duplicate)
+        data["data.targets"] = targets;
 
         return data;
     }

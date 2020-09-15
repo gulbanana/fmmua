@@ -88,7 +88,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
                 break;
 
             case "custom":
-                powerData.usageText = powerData.customType || "Custom";
+                powerData.usageText = powerData.customUsage || "Custom";
                 break;
         }
 
@@ -112,8 +112,8 @@ export default class StrikeItem extends Item<StrikeItemData> {
             }
         }
 
-        if (powerData.customSubtype != null) {
-            powerData.subtypeText = powerData.customSubtype;
+        if (powerData.customTarget) {
+            powerData.subtypeText = powerData.customTarget;
         } else if (powerData.action === "free") {
             powerData.subtypeText = "Free Action";
         } else if (powerData.action === "reaction") {
@@ -136,6 +136,16 @@ export default class StrikeItem extends Item<StrikeItemData> {
         this.data.img = this.prepareImage();
         if (powerData.customImage == null) {
             powerData.customImage = this.data.img;
+        }
+
+        for (let target of powerData.targets) {
+            if (target.burst === 0) {
+                target.burst = undefined;
+            }
+        }
+
+        if (powerData.damage === 0) {
+            powerData.damage = undefined;
         }
     }
 
