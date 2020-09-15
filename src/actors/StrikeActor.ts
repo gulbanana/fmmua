@@ -15,7 +15,8 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         // has tactical template
         if (data.type === "character" || data.type === "monster") {
             mergeObject(data.token, {
-                displayBars: CONST.TOKEN_DISPLAY_MODES.ALWAYS, // XXX or maybe Hover?
+                displayBars: CONST.TOKEN_DISPLAY_MODES.HOVER,
+                displayName: CONST.TOKEN_DISPLAY_MODES.HOVER,
                 bar1: {
                     attribute: "hp"
                 }

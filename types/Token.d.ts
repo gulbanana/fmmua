@@ -8,7 +8,7 @@ declare interface TokenData {
     name: string;
     x: number;
     y: number;
-    displayName: string;
+    displayName: number;
     img: string;
     width: number;
     height: number;
