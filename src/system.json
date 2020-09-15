@@ -2,7 +2,7 @@
     "name": "fmmua",
     "title": "FMMUA - Foundry Strike",
     "description": "<a href='https://www.strikerpg.com/'>https://www.strikerpg.com/</a> for Foundry VTT.",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "author": "Thomas Castiglione",
     "scripts": [],
     "esmodules": ["main.js"],
@@ -13,7 +13,7 @@
         "label": "Common Powers",
         "system": "fmmua",
         "module": "fmmua",
-        "path": "packs/common-powers.db",
+        "path": "packs/commonPowers.db",
         "entity": "Item"
       }
     ],
