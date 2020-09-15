@@ -170,57 +170,6 @@ async function reset() {
         }
     });
 
-    let rallyPower = await StrikeItem.createPower({
-        name: "Rally",
-        data: {
-            source: "feat",
-            action: "none",
-            usage: "encounter",
-            text: `<p><b>Special:</b> You may only use this on your turn, but you may use at any point in your turn, even while Incapacitated, Dominated, or under any other Status.</p>
-<p>Spend an Action Point. Regain 4 Hit Points and regain the use of one Encounter Power from your Class (i.e. not a Role Action) you have expended.</p>`
-        }
-    });
-    
-    let meleeBasicPower = await StrikeItem.createPower({
-        name: "Melee Basic Attack",
-        data: {
-            source: "feat",
-            targets: [ { mode: "melee" } ],
-            text: "<p><b>Effect:</b> None.</p>"
-        }
-    });
-
-    let rangedBasicPower = await StrikeItem.createPower({
-        name: "Ranged Basic Attack",
-        data: {
-            source: "feat",
-            text: "<p><b>Effect:</b> None.</p>"
-        }
-    });
-
-    let chargePower = await StrikeItem.createPower({
-        name: "Charge",
-        data: {
-            source: "feat",
-            targets: [],
-            damage: 0,
-            text: "<p>Move up to your speed to a square adjacent a creature and make a Melee Basic Attack against it. Each square of movement must bring you closer to the target. You cannot Charge through Difficult Terrain.</p>"
-        }
-    });
-
-    let assessPower = await StrikeItem.createPower({
-        name: "Assess",
-        data: {
-            source: "feat",
-            action: "role",
-            targets: [],
-            damage: 0,
-            text: "<p>Roll a die and ask the GM that many questions from the lists below.</p>" +
-                  "<p>About an enemy:</p><ul><li>How many Hit Points does it have?</li><li>How would you summarize its powers?</li><li>What are its special traits?</li><li>Is it carrying anything strange or unique?</li></ul>" + 
-                  "<p>About the encounter:</p><ul><li>Who is really in charge?</li><li>What can I use against the enemies?</li><li>What can they use against me?</li><li>Are there hidden doors or traps?</li><li>Are there hidden enemies?</li></ul>"
-        }
-    });
-
     let gohPower = await StrikeItem.createPower({
         name: "Get Over Here",
         data: {
@@ -304,18 +253,14 @@ async function reset() {
     let heroPosition = {x: 9*300, y: 7*300, actorLink: true};
 
     await hero.createOwnedItem(toughnessFeat);
-    await hero.createOwnedItem(rallyPower);
-    await hero.createOwnedItem(meleeBasicPower);
-    await hero.createOwnedItem(rangedBasicPower);
-    await hero.createOwnedItem(chargePower);
-    await hero.createOwnedItem(assessPower);
 
     await hero.createOwnedItem(openingFeature);    
     await hero.createOwnedItem(duelPower);
     await hero.createOwnedItem(pdPower);    
     await hero.createOwnedItem(changePower);
-    await hero.createOwnedItem(gohPower);
+
     await hero.createOwnedItem(stickinessBoost);    
+    await hero.createOwnedItem(gohPower);    
     await hero.createOwnedItem(cagiPower);
     await hero.createOwnedItem(markPower);    
 

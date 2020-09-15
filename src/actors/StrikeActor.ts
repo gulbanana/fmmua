@@ -1,13 +1,14 @@
 import StrikeActorData from "./StrikeActorData.js";
 import StrikeItem from "../items/StrikeItem.js";
 import * as dice from "../dice/dice.js";
+import StrikeItemData from "../items/StrikeItemData.js";
 
 export default class StrikeActor extends Actor<StrikeActorData> {
     constructor(data: ActorData<StrikeActorData>, options: any) {
         super(data, options);
     }
 
-    static async create(data: Partial<ActorData<StrikeActorData>>, options = {}): Promise<StrikeActor> {
+    static async create(data: Partial<ActorData<StrikeActorData> & { items: ItemData<StrikeItemData>[] }>, options = {}): Promise<StrikeActor> {
         // this will be filled out later, but we want to set defaults for some of it
         (data.token as Partial<TokenData>) = data.token || {};
 
@@ -32,6 +33,12 @@ export default class StrikeActor extends Actor<StrikeActorData> {
             
             data.permission = data.permission || {};
             data.permission["default"] = CONST.ENTITY_PERMISSIONS.OBSERVER;
+            
+            if (!data.items) {
+                let commonPowersPack = game.packs.get("fmmua.commonPowers") as Compendium;
+                let commonPowers = await commonPowersPack.getContent() as Item[];
+                data.items = commonPowers.map(item => item.data);
+            }
         } else if (data.type === "monster") {
             mergeObject(data.token, {
                 disposition: CONST.TOKEN_DISPOSITIONS.HOSTILE

@@ -7,7 +7,16 @@
     "scripts": [],
     "esmodules": ["main.js"],
     "styles": ["main.css"],
-    "packs": [],
+    "packs": [
+      {
+        "name": "commonPowers",
+        "label": "Common Powers",
+        "system": "fmmua",
+        "module": "fmmua",
+        "path": "packs/common-powers.db",
+        "entity": "Item"
+      }
+    ],
     "languages": [
       {
         "lang": "en",
