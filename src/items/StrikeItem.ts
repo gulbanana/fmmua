@@ -92,23 +92,23 @@ export default class StrikeItem extends Item<StrikeItemData> {
                 break;
         }
 
-        powerData.target = "";
+        powerData.targetHtml = "";
         for (let t of powerData.targets) {
-            if (powerData.target != "") {
-                powerData.target = powerData.target + "/";
+            if (powerData.targetHtml != "") {
+                powerData.targetHtml = powerData.targetHtml + "/";
             }
 
             if (t.burst) {
-                powerData.target = powerData.target + `<i class="qfas qfa-bullseye"></i> ${t.burst}`;
+                powerData.targetHtml = powerData.targetHtml + `<i class="qfas qfa-bullseye"></i> ${t.burst}`;
                 if (t.mode == "ranged") {
-                    powerData.target = powerData.target + " ";
+                    powerData.targetHtml = powerData.targetHtml + " ";
                 }
             }
 
             if (t.mode == "ranged") {
-                powerData.target = powerData.target + `<i class="qfas qfa-bow-arrow"></i> ${t.range}`;
+                powerData.targetHtml = powerData.targetHtml + `<i class="qfas qfa-bow-arrow"></i> ${t.range}`;
             } else if (!t.burst) {
-                powerData.target = powerData.target + `<i class="qfas qfa-axe"></i>`;
+                powerData.targetHtml = powerData.targetHtml + `<i class="qfas qfa-axe"></i>`;
             }
         }
 
@@ -174,7 +174,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
     prepareImage() {
         let powerData = this.data.data as PowerData;
         if (powerData.action == "attack") {
-            if (powerData.target == "melee") {
+            if (powerData.targets.length == 0 || powerData.targets[0].mode == "melee") {
                 return "icons/svg/combat.svg";
             } else {
                 return "icons/svg/acid.svg";

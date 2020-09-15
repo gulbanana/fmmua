@@ -24,5 +24,5 @@ export default interface PowerData extends StrikeItemData {
     rangeIcon: string;
     usageText: string;
     subtypeText: string |  null;
-    target: string;
+    targetHtml: string;
 }

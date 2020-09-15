@@ -5,14 +5,14 @@
     </header>
 
     <div class="form-group">
-        <label>Kind</label>
+        <label>Source</label>
         <div class="form-fields">
             <select name="data.source">
                 {{#select data.source}}
                 <option value=""></option>                
                 <option value="role">Role Power</option>
                 <option value="class">Class Power</option>
-                <option value="feat">Other Power</option>
+                <option value="feat">Common Power</option>
                 {{/select}}
             </select>
         </div>
@@ -24,13 +24,82 @@
             <select name="data.action">
                 {{#select data.action}}
                 <option value="none"></option>
-                <option value="attack">Attack</option>
+                <option value="free">Free Action</option>
+                <option value="move">Move Action</option>                
                 <option value="role">Role Action</option>
-                <option value="move">Move Action</option>
+                <option value="attack">Attack</option>
                 <option value="reaction">Reaction</option>
                 <option value="interrupt">Interrupt</option>
                 {{/select}}
             </select>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Usage</label>
+        <div class="form-fields">
+            <select name="data.usage">
+                {{#select data.usage}}
+                <option value="at-will">At-Will</option>
+                <option value="encounter">Encounter</option>
+                <option value="custom">Custom</option>
+                {{/select}}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Custom Usage</label>
+        <div class="form-fields">
+            <input type="text" name="data.customType" value="{{data.customType}}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Result</label>
+        <div class="form-fields">
+            <label for="t1melee">Melee</label>
+            <input type="checkbox" name="t1melee" value="{{t1melee}}">
+            
+            <label>Range</label>
+            <input class="box2" type="text">
+
+            <label>Burst</label>
+            <input class="box2" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label></label>
+        <div class="form-fields">
+            <label for="t2melee">Melee</label>
+            <input type="checkbox" name="t2melee" value="{{t2melee}}">
+            
+            <label>Range</label>
+            <input class="box2" type="text">
+
+            <label>Burst</label>
+            <input class="box2" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label></label>
+        <div class="form-fields">
+            <label>Damage</label>
+            <input class="box2" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Custom Result</label>
+        <div class="form-fields">
+            <input type="text" name="data.customSubtype" value="{{data.customSubtype}}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Text</label>
+        <div class="editor-field">
+            {{editor content=data.text target="data.text" button=false owner=owner editable=editable}}
         </div>
     </div>
 </form>
