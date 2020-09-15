@@ -180,12 +180,15 @@ export default class StrikeItem extends Item<StrikeItemData> {
         traitData.plainText = traitData.text.replace(/<\/?p>/g, "");
     }
 
-    // XXX use explosion.svg for something
     prepareImage() {
         let powerData = this.data.data as PowerData;
         if (powerData.action == "attack") {
-            if (powerData.targets.length == 0 || powerData.targets[0].mode == "melee") {
-                return "icons/svg/combat.svg";
+            if (powerData.targets.length == 0 || powerData.targets.filter(t => t.mode == "melee").length > 0) {
+                if (powerData.targets.filter(t => t.mode == "melee" && t.burst)) {
+                    return "icons/svg/explosion.svg";
+                } else {
+                    return "icons/svg/combat.svg";
+                }
             } else {
                 return "icons/svg/acid.svg";
             }
