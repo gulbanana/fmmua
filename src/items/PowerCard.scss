@@ -101,7 +101,7 @@
         }
     }
     
-    &.kind-feat-encounter {
+    &.kind-feat-encounter, &.kind-other-at-will, &.kind-other-encounter {
         background: var(--orange2-border);
         .text {
             background: var(--orange2-light);
