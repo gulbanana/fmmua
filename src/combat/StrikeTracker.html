@@ -76,11 +76,11 @@
                 </div>
             </div>
 
-            {{!-- {{#if ../user.isGM}} --}}
             <div class="token-resource">
-                <span class="resource">{{this.resource}}</span>
+                {{#each this.resources}}
+                <span class="resource" style="--resource-color: {{this.color}}" title="{{this.tooltip}}">{{this.value}}</span>
+                {{/each}}                
             </div>
-            {{!-- {{/if}} --}}
 
             <div class="token-initiative">
                 {{#if this.hasRolled}}

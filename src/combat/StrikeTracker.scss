@@ -1,0 +1,9 @@
+#combat {
+    .token-resource {
+        flex: unset !important;
+        > .resource {
+            margin-right: 1em;
+            color: var(--resource-color);
+        }
+    }
+}
