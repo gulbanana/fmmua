@@ -6,13 +6,14 @@ export default interface StrikeActorData {
         value: number;
         max: number;
     };
-    ap: {
-        value: number;
-        max: number;
-    };
     // character
     class?: string;
     role?: string;
+    ap?: {
+        value: number;
+        max: number;
+    };
+    strikes: number;    
     // monster
     rank?: "Stooge" | "Goon" | "Standard" | "Elite" | "Champion",
     size?: {

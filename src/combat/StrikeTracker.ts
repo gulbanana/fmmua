@@ -12,6 +12,19 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
 
         for (let t of result.turns) {
             t.resources = [];      
+                let strikes = this.trackedResources[t.tokenId]?.["strikes.value"];
+                if (strikes) {
+                    let text = "";
+                    for (let i = 0; i < strikes; i++) {
+                        text = text + "❗";
+                    }
+                    t.resources.push({
+                        tooltip: "Strikes",
+                        value: text,
+                        color: "inherit"
+                    });      
+                }
+            
                 let ap = this.trackedResources[t.tokenId]?.["ap.value"];                
                 if (ap) {
                     t.resources.push({
@@ -43,7 +56,7 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
         const combat = this.combat;
         if ( !combat ) return this.trackedResources = {};
         
-        const keys = ["hp.value", "hp.max", "ap.value"];
+        const keys = ["hp.value", "hp.max", "ap.value", "strikes.value"];
 
         this.trackedResources = combat.turns.reduce((obj: Record<string, any>, t) => {
             if ( !t.token ) return obj;

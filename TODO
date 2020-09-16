@@ -52,10 +52,11 @@ MVT (Minimum Viable Thing)
 [ ] encounters
     [x] initiative
     [x] act on multiple (duplicate combatants)
-    [ ] multiple resources
+    [x] multiple resources
         [x] hp
         [x] ap
-        [ ] strikes
+        [x] strikes
+        [ ] miss tokens?
 [x] command system
     [x] autohelp
     [x] remove debug commands (or limit to gm permission)

@@ -44,12 +44,6 @@ export default class StrikeActor extends Actor<StrikeActorData> {
             mergeObject(data.token, {
                 disposition: CONST.TOKEN_DISPOSITIONS.HOSTILE
             }, { overwrite: false });
-
-            if (data.data === undefined) {
-                data.data = {} as StrikeActorData;
-            }
-
-            data.data.ap = {value: 0, max: 0};
         }
 
         return super.create(data, options) as Promise<StrikeActor>;

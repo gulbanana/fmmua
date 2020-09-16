@@ -37,24 +37,32 @@
       "tactical": {
         "level": 1,
         "speed": 6,
+        "size": {
+          "width": 1,
+          "height": 1
+        },
         "hp": {
           "value": 10,
           "max": 10
         },
-        "ap": {
-          "value": 1,
-          "max": 3
-        },
-        "size": {
-          "width": 1,
-          "height": 1
+        "missTokens": {
+          "value": 0,
+          "max": 0
         }
       }
     },
     "character": {
       "templates": ["common", "tactical"],
       "class": "",
-      "role": ""
+      "role": "",
+      "ap": {
+        "value": 1,
+        "max": 3
+      },
+      "strikes": {
+        "value": 0,
+        "max": 0
+      }
     },
     "monster": {
       "templates": ["common", "tactical"],
