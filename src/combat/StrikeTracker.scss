@@ -1,9 +1,20 @@
 #combat {
-    .token-resource {
-        flex: unset !important;
-        > .resource {
-            margin-right: 1em;
-            color: var(--resource-color);
+    li.combatant {
+        .token-resource {
+            flex: unset !important;
+            > .resource {
+                margin-right: 1em;
+                color: var(--resource-color);
+            }
+        }
+        .roll {
+            background: none;
+            font-size: 28px;
+            width: 20px;
+            margin: 0 8px 0 12px;
+            &:hover {
+                background: none;
+            }
         }
     }
 }
