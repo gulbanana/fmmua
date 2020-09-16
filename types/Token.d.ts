@@ -117,6 +117,7 @@ declare class Token extends PlaceableObject<TokenData> {
     lightSource: SightLayerSource|null;
 
     constructor(data: TokenData, scene: Scene);
+    constructor(token: Token);
   
     /** @override */
     static get embeddedName(): string;
