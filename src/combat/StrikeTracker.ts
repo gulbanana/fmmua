@@ -11,41 +11,48 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
         let result = await super.getData(options);
 
         for (let t of result.turns) {
-            t.resources = [];      
-                let strikes = this.trackedResources[t.tokenId]?.["strikes.value"];
-                if (strikes) {
-                    let text = "";
-                    for (let i = 0; i < strikes; i++) {
-                        text = text + "❗";
-                    }
-                    t.resources.push({
-                        tooltip: "Strikes",
-                        value: text,
-                        color: "inherit"
-                    });      
-                }
-            
-                let ap = this.trackedResources[t.tokenId]?.["ap.value"];                
-                if (ap) {
-                    t.resources.push({
-                        tooltip: "Action Points",
-                        value: ap,
-                        color: "gold"
-                    });      
-                }
+            t.resources = [];   
 
-                let hp = this.trackedResources[t.tokenId]?.["hp.value"];
-                let maxHp = this.trackedResources[t.tokenId]?.["hp.max"];
+            let strikes = this.trackedResources[t.tokenId]?.["strikes.value"];
+            if (strikes) {
+                let text = "";
+                for (let i = 0; i < strikes; i++) {
+                    text = text + "❗";
+                }
                 t.resources.push({
-                    tooltip: "HP",
-                    value: hp,
-                    color: hp > (maxHp/2) ? "lightgreen" : 
-                           hp > 0 ? "green" :
-                           "red"
-                });
+                    tooltip: game.i18n.localize("fmmua.actor.strikes"),
+                    value: text,
+                    color: "inherit"
+                });      
+            }
+        
+            let ap = this.trackedResources[t.tokenId]?.["ap.value"];                
+            if (ap) {
+                t.resources.push({
+                    tooltip: game.i18n.localize("fmmua.actor.ap"),
+                    value: ap,
+                    color: "gold"
+                });      
+            }
 
-                // #aa0200 dark red
-                // #18520b dark green
+            let mt = this.trackedResources[t.tokenId]?.["mt.value"];
+            if (mt) {
+                t.resources.push({
+                    tooltip: game.i18n.localize("fmmua.actor.mt"),
+                    value: mt,
+                    color: "mediumorchid"
+                });      
+            }
+
+            let hp = this.trackedResources[t.tokenId]?.["hp.value"];
+            let maxHp = this.trackedResources[t.tokenId]?.["hp.max"];
+            t.resources.push({
+                tooltip: game.i18n.localize("fmmua.actor.hp"),
+                value: hp,
+                color: hp > (maxHp/2) ? "lightgreen" : 
+                        hp > 0 ? "green" :
+                        "red"
+            });
         }
 
         return result;
@@ -56,7 +63,7 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
         const combat = this.combat;
         if ( !combat ) return this.trackedResources = {};
         
-        const keys = ["hp.value", "hp.max", "ap.value", "strikes.value"];
+        const keys = ["hp.value", "hp.max", "ap.value", "mt.value", "strikes.value"];
 
         this.trackedResources = combat.turns.reduce((obj: Record<string, any>, t) => {
             if ( !t.token ) return obj;

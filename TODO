@@ -49,14 +49,14 @@ MVT (Minimum Viable Thing)
 [x] feats
     [x] data model
     [x] item sheet
-[ ] encounters
+[x] encounters
     [x] initiative
     [x] act on multiple (duplicate combatants)
     [x] multiple resources
         [x] hp
         [x] ap
         [x] strikes
-        [ ] miss tokens?
+        [x] miss tokens
 [x] command system
     [x] autohelp
     [x] remove debug commands (or limit to gm permission)
