@@ -56,7 +56,6 @@ MVT (Minimum Viable Thing)
         [x] hp
         [x] ap
         [ ] strikes
-    
 [x] command system
     [x] autohelp
     [x] remove debug commands (or limit to gm permission)
@@ -85,6 +84,10 @@ MVT (Minimum Viable Thing)
 * Run a game
 
 * Post-MVP features
+[ ] summoner features - owned monsters
+    [ ] players create monster with player ownership
+    [ ] allow deleting dropped tokens (including character token?)
+    [ ] sourced monster powers use character colours
 [ ] glossary
     [x] application
     [x] write content
