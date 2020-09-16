@@ -50,10 +50,13 @@ MVT (Minimum Viable Thing)
     [x] data model
     [x] item sheet
 [ ] encounters
-    [ ] initiative
-        - global formula? include automation for feats?
-    [ ] strikes
-    [ ] effect tracking?
+    [x] initiative
+    [x] act on multiple (duplicate combatants)
+    [ ] multiple resources
+        [x] hp
+        [x] ap
+        [ ] strikes
+    
 [x] command system
     [x] autohelp
     [x] remove debug commands (or limit to gm permission)

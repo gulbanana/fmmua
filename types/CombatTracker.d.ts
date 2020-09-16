@@ -24,9 +24,17 @@ declare class CombatTracker<T extends Combat = Combat> extends SidebarTab {
     initialize(options?: {combat?: Combat|null, render?: boolean});
 
     /**
-   * Update the value of tracked resources which are reported for each combatant
-   */
+     * Update the value of tracked resources which are reported for each combatant
+     */
     updateTrackedResources(): Record<string, Record<string, number>>;
 
+  /**
+   * Get the sidebar directory entry context options
+   */
+    _getEntryContextOptions(): {
+        name: string;
+        icon: string;
+        callback: (li: JQuery) => void
+    }[];
     // more methods missing
 }

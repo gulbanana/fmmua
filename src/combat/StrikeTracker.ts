@@ -58,5 +58,15 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
         // Synchronize updates with the pop-out tracker
         if ( this._popout ) this._popout.trackedResources = this.trackedResources;
         return this.trackedResources;
+    }
+
+    _getEntryContextOptions() {
+        var contextMenu = super._getEntryContextOptions();
+        contextMenu.push({
+            name: game.i18n.localize("fmmua.combat.CombatantDuplicate"),
+            icon: '<i class="fas fa-dice-d6"></i>',
+            callback: li => this.combat?.duplicateCombatant(li.data('combatant-id'))
+        })
+        return contextMenu;
       }
 }

@@ -22,6 +22,7 @@
     "fmmua.actor.size": "Size",
     "fmmua.actor.speed": "Speed",
     "fmmua.actor.traits": "Traits",
+    "fmmua.combat.CombatantDuplicate": "Duplicate Combatant",
     "fmmua.controls.add": "Add",
     "fmmua.controls.addTrait": "Add Trait",
     "fmmua.controls.addPower": "Add Power",

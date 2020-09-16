@@ -9,4 +9,5 @@ type Combatant = {
 
 declare interface Combat {
     turns: Combatant[];
+    deleteCombatant(id: string, options?: any): Promise<string>;
 }
