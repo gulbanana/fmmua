@@ -18,7 +18,7 @@ export function init() {
         hint: "fmmua.settings.actorsGroupPowersHint",
         scope: "client",
         config: true,
-        default: false,
+        default: true,
         type: Boolean,
         onChange: () => {
             for (let key in ui.windows) {
