@@ -23,23 +23,34 @@ export default class StrikeActor extends Actor<StrikeActorData> {
             }, { overwrite: false });
         }
 
+        // defaults for PCs only
         if (data.type === "character") {
             mergeObject(data.token, {
-                vision: true,
-                dimSight: 6,
-                brightSight: 0,
-                actorLink: true,
-                disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY
+                actorLink: true
             }, { overwrite: false });
-            
-            data.permission = data.permission || {};
-            data.permission["default"] = CONST.ENTITY_PERMISSIONS.OBSERVER;
-            
+                        
             if (!data.items) {
                 let commonPowersPack = game.packs.get("fmmua.commonPowers") as Compendium;
                 let commonPowers = await commonPowersPack.getContent() as Item[];
                 data.items = commonPowers.map(item => item.data);
             }
+        } else if (data.type === "monster") {
+            mergeObject(data.token, {
+                actorLink: false
+            }, { overwrite: false });
+        }
+
+        // defaults for both PCs and owned monsters 
+        if (data.type === "character" || !game.user.isGM) {
+            mergeObject(data.token, {
+                disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+                vision: true,
+                dimSight: 6,
+                brightSight: 0
+            }, { overwrite: false });
+
+            data.permission = data.permission || {};
+            data.permission["default"] = CONST.ENTITY_PERMISSIONS.OBSERVER;
         } else if (data.type === "monster") {
             mergeObject(data.token, {
                 disposition: CONST.TOKEN_DISPOSITIONS.HOSTILE

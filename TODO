@@ -86,7 +86,7 @@ MVT (Minimum Viable Thing)
 
 * Post-MVP features
 [ ] summoner features - owned monsters
-    [ ] players create monster with player ownership
+    [x] players create monster with player ownership
     [ ] allow deleting dropped tokens (including character token?)
     [ ] sourced monster powers use character colours
 [ ] glossary
