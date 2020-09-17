@@ -11,10 +11,11 @@
         
         > a {
             white-space: nowrap;
+            color: #005B97;
             //text-decoration: underline;
 
-            &.active::before {
-                content: "> ";
+            &.active {
+                text-shadow: 0 0 10px #FFF200;
             }
         }
     }
