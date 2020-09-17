@@ -119,7 +119,6 @@ MVT (Minimum Viable Thing)
     [ ] power levels and advances
 
 * Bugfixes
-[ ] sidebar tooltip display 
-[ ] role encounter powers colour (like feats/rally)
-[ ] allow burst size entry without a mode - make it melee
-[ ] truncate long power titles
+- sidebar tooltip display 
+- role encounter powers colour (like feats/rally)
+- allow burst size entry without a mode - make it melee

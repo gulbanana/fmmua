@@ -12,6 +12,10 @@
 
     & > .action {
         grid-area: action;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 0.5em;
 
         .qfas {
             margin-right: 0.25em;
@@ -32,6 +36,11 @@
 
             grid-template-columns: 1fr 1fr;
             grid-template-areas: 'range damage';
+
+            & > span {
+                white-space: nowrap;
+                padding-right: 0.5em;
+            }
         }
     }
 
