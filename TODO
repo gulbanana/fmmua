@@ -85,10 +85,10 @@ MVT (Minimum Viable Thing)
 * Run a game
 
 * Post-MVP features
-[ ] summoner features - owned monsters
+[x] summoner features - owned monsters
     [x] players create monster with player ownership
     [x] sourced monster powers use character colours
-    [ ] allow deleting dropped tokens (including character token?)
+    [x] allow deleting dropped tokens (including character token?)
 [ ] glossary
     [x] application
     [x] write content

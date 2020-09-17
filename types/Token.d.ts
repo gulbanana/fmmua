@@ -122,6 +122,7 @@ declare class Token extends PlaceableObject<TokenData> {
     /** @override */
     static get embeddedName(): string;
   
+    // XXX some of these should be on Entity
     /**
      * A Boolean flag for whether the current game User has permission to control this token
      */
