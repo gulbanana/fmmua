@@ -27,7 +27,7 @@
         display: grid;
         grid-template-areas: 'bg-skills og-skills notes kit'
                              'bg-skills og-skills rep kit'
-                             'bg-skills og-skills costs costs';
+                             'bg-skills fallback costs costs';
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: 2fr 3fr auto;
         grid-column-gap: 1em;
@@ -48,6 +48,10 @@
 
         > .origin-skills {
             grid-area: og-skills;
+        }
+
+        > .fallback {
+            grid-area: fallback;
         }
 
         > .motivation-notes {
