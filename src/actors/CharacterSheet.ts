@@ -96,6 +96,7 @@ export default class CharacterSheet extends StrikeActorSheet {
     activeTab: string = "adventure";
 
     activateListeners(html: JQuery) {
+        this.activatedTactical = false;
         super.activateListeners(html, true);
 
         let tabs = new Tabs({
