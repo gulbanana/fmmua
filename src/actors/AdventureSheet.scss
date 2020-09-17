@@ -98,4 +98,21 @@
             flex: 1;
         }
     }
+    
+    .rollable {
+        display: grid;
+        grid-template-columns: 1fr auto;
+
+        > input {
+            grid-area: 1 / 1 / 2 / 3;
+            width: 100%;
+        }
+
+        > a {
+            grid-area: 1 / 2 / 2 / 3;
+            align-self: center;
+            padding-right: 0.5em;
+            z-index: 1;
+        }
+    }
 }

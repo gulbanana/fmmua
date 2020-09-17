@@ -21,10 +21,13 @@ export default class RollDialog extends Dialog {
         this.options.classes = ["fmmua", "dialog"];
     }
 
-    static async run(flavor?: string): Promise<void> {
+    static async run(flavor?: string, type?: RollTag): Promise<void> {
         let data = this.defaults;
-        if (typeof flavor === "string" && flavor.length > 0) {
+        if (flavor) {
             data.flavor = flavor;
+        }
+        if (type) {
+            data.type = type;
         }
 
         const content = await renderTemplate("systems/fmmua/dice/RollDialog.html", data);

@@ -2,6 +2,7 @@ import CharacterData from "./CharacterData.js";
 import StrikeItemData from "../items/StrikeItemData.js";
 import PowerData from "../items/PowerData.js";
 import StrikeActorSheet from "./StrikeActorSheet.js";
+import RollDialog from "../dice/RollDialog.js";
 
 type SheetData = ActorSheetData<CharacterData> & {
     feats: ItemData<StrikeItemData>[];
@@ -92,10 +93,12 @@ export default class CharacterSheet extends StrikeActorSheet {
         return data;
     }
 
+    activatedAdventure: boolean = false;
     activatedTactical: boolean = false;
     activeTab: string = "adventure";
 
     activateListeners(html: JQuery) {
+        this.activatedAdventure = false;
         this.activatedTactical = false;
         super.activateListeners(html, true);
 
@@ -123,11 +126,40 @@ export default class CharacterSheet extends StrikeActorSheet {
         }
     }
 
+    activateAdventureListeners(html: JQuery) {
+        html.find('.skill-roll').click(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), false, true));
+        html.find('.skill-roll').contextmenu(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), true, true));
+        html.find('.unskilled-roll').click(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), false, false));
+        html.find('.unskilled-roll').contextmenu(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), true, false));
+    }
+
     onChangeTab(_: unknown, _tabs: Tabs, active: string) {
         this.activeTab = active;
-        if (!this.activatedTactical && active === "tactical") {
+        if (active === "tactical" && !this.activatedTactical) {
             this.activateTacticalListeners($(this.form));
             this.activatedTactical = true;
+        } else if (active === "adventure" && !this.activatedAdventure) {
+            this.activateAdventureListeners($(this.form));
+            this.activatedAdventure = true;
+        }
+    }
+
+    onSkillRoll(html: JQuery, dialog: boolean, skilled: boolean) {
+        const skillName = html.val();
+        if (typeof skillName == "string" && skillName) {
+            if (dialog) { 
+                if (skilled) {
+                    RollDialog.run(`${this.actor.name} rolls ${skillName}.`);
+                } else {
+                    RollDialog.run(`${this.actor.name} rolls ${skillName} (unskilled).`, "unskilled");
+                }
+            } else {
+                if (skilled) {
+                    this.actor.rollSkill(skillName);
+                } else {
+                    this.actor.rollUnskilled(skillName);
+                }                
+            }
         }
     }
 
