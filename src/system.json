@@ -2,7 +2,7 @@
     "name": "fmmua",
     "title": "FMMUA - Foundry Strike",
     "description": "<a href='https://www.strikerpg.com/'>https://www.strikerpg.com/</a> for Foundry VTT.",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "author": "Thomas Castiglione",
     "scripts": [],
     "esmodules": ["main.js"],
@@ -34,6 +34,6 @@
     "compatibleCoreVersion": "0.7.2",
     "url": "https://github.com/gulbanana/fmmua/",
     "manifest": "https://raw.githubusercontent.com/gulbanana/fmmua/master/src/system.json",
-    "download": "https://github.com/gulbanana/fmmua/releases/download/v0.2.5/fmmua.zip"
+    "download": "https://github.com/gulbanana/fmmua/releases/download/v0.2.6/fmmua.zip"
   }
   
