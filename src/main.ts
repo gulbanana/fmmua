@@ -10,6 +10,7 @@ let handlers: MessageHandler[] = [];
 Hooks.once("init", function() {
     console.log("FMMUA: begin init");  
 
+    // init subsystems
     initActors(handlers);    
     initCombat();
     initCommands();
@@ -17,7 +18,11 @@ Hooks.once("init", function() {
     initGlossary();
     initItems();
 
+    // subscribe to socket messages
     game.socket.on("system.fmmua", onMessage);
+
+    // patch bugs
+    FormApplication.prototype.close = patchedClose;
 
     console.log("FMMUA: end init");
 });
@@ -26,4 +31,28 @@ function onMessage(message: StrikeMessage) {
     for (let handler of handlers) {
         handler(message);
     }
+}
+
+// foundry 0.7.2 does not await submit() or super.close(), leading to a race condition
+async function patchedClose(this: FormApplication & { submit(): Promise<FormApplication> }, options: any={}) {
+    if ( !this.rendered ) return;
+
+    // Optionally trigger a save
+    const submit = options.hasOwnProperty("submit") ? options.submit : this.options.submitOnClose;
+    if ( submit ) await this.submit(); // patch 1
+
+    // Close any open FilePicker instances
+    this.filepickers.forEach(fp => {
+        if ( fp.app ) fp.app.close();
+    });
+    this.filepickers = [];
+
+    // Close any open MCE editors
+    Object.values(this.editors).forEach((ed: any) => {
+        if ( ed.mce ) ed.mce.destroy();
+    });
+    this.editors = {};
+
+    // Close the application itself
+    await Application.prototype.close.bind(this)(); // patch 2
 }
