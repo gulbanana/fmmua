@@ -95,7 +95,6 @@ MVT (Minimum Viable Thing)
     [x] in chat
     [x] in app recursive
     [x] client config
-    [ ] fix tooltip display bug
     [ ] world-editable
     [ ] localizable
 [ ] compendium packs
@@ -110,6 +109,7 @@ MVT (Minimum Viable Thing)
     [ ] eval context
     [ ] power scripts (on use)
     [ ] feat scripts (on prepareData?)
+    [ ] dice api which allows the advantage/etc choices in ui
 [ ] powers
     [ ] configure targets & modifiers
     [ ] differentiate types (attack power with effect, trigger, etc)
@@ -117,3 +117,9 @@ MVT (Minimum Viable Thing)
     [ ] feat levels
     [ ] role boost levels
     [ ] power levels and advances
+
+* Bugfixes
+[ ] sidebar tooltip display 
+[ ] role encounter powers colour (like feats/rally)
+[ ] allow burst size entry without a mode - make it melee
+[ ] truncate long power titles
