@@ -8,3 +8,9 @@
         align-items: center;
     }
 }
+
+// TinyMCE creates <strong> elements, which in firefox are "font-weight: bolder", doing nothing in the context of the chatlog's explicit weights
+// normalize them to what Chrome (and therefore Electron) does 
+strong {
+    font-weight: bold;
+}
