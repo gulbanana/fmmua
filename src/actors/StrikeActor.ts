@@ -25,6 +25,7 @@ export default class StrikeActor extends Actor<StrikeActorData> {
 
         // defaults for PCs only
         if (data.type === "character") {
+            data.name = data.name || "New Character";
             mergeObject(data.token, {
                 actorLink: true
             }, { overwrite: false });
@@ -35,6 +36,7 @@ export default class StrikeActor extends Actor<StrikeActorData> {
                 data.items = commonPowers.map(item => item.data);
             }
         } else if (data.type === "monster") {
+            data.name = data.name || "New Monster";
             mergeObject(data.token, {
                 actorLink: false
             }, { overwrite: false });
