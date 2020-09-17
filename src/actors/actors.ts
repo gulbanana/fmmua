@@ -10,6 +10,8 @@ export function init(handlers: MessageHandler[]) {
     Actors.registerSheet("fmmua", CharacterSheet, { types: ["character"], makeDefault: true });
     Actors.registerSheet("fmmua", MonsterSheet, { types: ["monster"], makeDefault: true });
 
+    loadTemplates(["systems/fmmua/actors/AdventureSheet.html", "systems/fmmua/actors/TacticalSheet.html"]);
+
     game.settings.register("fmmua", "actorsGroupPowers", {
         name: "fmmua.settings.actorsGroupPowers",
         hint: "fmmua.settings.actorsGroupPowersHint",

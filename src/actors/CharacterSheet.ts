@@ -92,8 +92,26 @@ export default class CharacterSheet extends StrikeActorSheet {
         return data;
     }
 
+    activatedTactical: boolean = false;
+    activeTab: string = "adventure";
+
     activateListeners(html: JQuery) {
-        super.activateListeners(html);
+        super.activateListeners(html, true);
+
+        let tabs = new Tabs({
+            navSelector: ".tab-headers", 
+            contentSelector: ".tab-content",
+            initial: this.activeTab,
+            callback: this.onChangeTab.bind(this)
+        });
+
+        tabs.bind(html[0]);
+
+        this.onChangeTab(null, tabs, tabs.active);
+    }
+
+    activateTacticalListeners(html: JQuery) {
+        super.activateTacticalListeners(html);
 
         if (this._canDragStart(".item.power")) {
             let handler = (ev: DragEvent) => this._onDragStart(ev);
@@ -101,6 +119,14 @@ export default class CharacterSheet extends StrikeActorSheet {
               div.setAttribute("draggable", "true");
               div.addEventListener("dragstart", handler, false);
             });
+        }
+    }
+
+    onChangeTab(_: unknown, _tabs: Tabs, active: string) {
+        this.activeTab = active;
+        if (!this.activatedTactical && active === "tactical") {
+            this.activateTacticalListeners($(this.form));
+            this.activatedTactical = true;
         }
     }
 }

@@ -4,9 +4,14 @@ import PowerData from "../items/PowerData.js";
 
 // base class with common listeners for item management
 export default class StrikeActorSheet extends ActorSheet<StrikeActorData, StrikeActor> {
-    activateListeners(html: JQuery<HTMLElement>) {
+    activateListeners(html: JQuery<HTMLElement>, skipTactical?: boolean) {
         super.activateListeners(html);
+        if (!skipTactical) {
+            this.activateTacticalListeners(html);
+        }
+    }
 
+    activateTacticalListeners(html: JQuery) {
         html.find('.item-add').click(ev => this.onItemAdd($(ev.currentTarget).parents(".items")));
         html.find('.item-delete').click(ev => this.onItemDelete($(ev.currentTarget).parents(".item")));
         html.find('.item-display').click(ev => this.onItemDisplay($(ev.currentTarget).parents(".item")));

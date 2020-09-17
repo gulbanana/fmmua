@@ -1,5 +1,6 @@
 {    
     "fmmua.actor.ap": "Action Points",
+    "fmmua.actor.background": "Background",
     "fmmua.actor.class": "Class",
     "fmmua.actor.classFeatures": "Class Features",
     "fmmua.actor.classPowers": "Class Features and Powers",
@@ -8,6 +9,7 @@
     "fmmua.actor.level": "Level",
     "fmmua.actor.mt": "Miss Tokens",
     "fmmua.actor.monsterNotes": "Notes",
+    "fmmua.actor.origin": "Origin",
     "fmmua.actor.otherPowers": "Other Powers",
     "fmmua.actor.powers": "Powers",
     "fmmua.actor.notesOrBiography": "Notes/Bio",
@@ -24,6 +26,7 @@
     "fmmua.actor.speed": "Speed",
     "fmmua.actor.strikes": "Strikes",
     "fmmua.actor.traits": "Traits",
+    "fmmua.actor.wealth": "Wealth",
     "fmmua.combat.CombatantDuplicate": "Duplicate Combatant",
     "fmmua.controls.add": "Add",
     "fmmua.controls.addTrait": "Add Trait",

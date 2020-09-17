@@ -1,0 +1,151 @@
+<div class="stats">
+    <div class="stat-row">
+        <div class="pair">
+            <label>{{localize "fmmua.actor.class"}}</label>
+            <input type="text" class="box10 bg-class" name="data.class" value="{{data.class}}">
+        </div>
+
+        <div class="pair">
+            <label>{{localize "fmmua.actor.role"}}</label>
+            <input type="text" class="box10 bg-role" name="data.role" value="{{data.role}}">
+        </div>
+    </div>
+</div>
+
+<div class="stats">
+    <div class="stat-row">
+        <div class="pair">
+            <label>{{localize "fmmua.actor.hp"}}</label>
+            <input type="text" class="box2 bg-choice" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
+            /
+            <input type="text" class="box2 bg-choice" name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
+        </div>
+
+        <div class="pair">
+            <label>{{localize "fmmua.actor.speed"}}</label>
+            <input type="text" class="box2 bg-choice" name="data.speed" value="{{data.speed}}" data-dtype="Number">
+        </div>
+        
+        <div class="pair">
+            <label>{{localize "fmmua.actor.mt"}}</label>
+            <input type="text" class="box2 bg-choice" name="data.mt.value" value="{{data.mt.value}}" data-dtype="Number">
+        </div>
+
+        <div class="pair">
+            <label>{{localize "fmmua.actor.strikes"}}</label>
+            <input type="text" class="box2 bg-choice" name="data.strikes.value" value="{{data.strikes.value}}" data-dtype="Number">
+        </div>
+    </div>
+</div>
+
+{{#*inline "trait"}}
+    <div class="item trait" data-item-id="{{_id}}">
+        <div class="name">{{name}}</div>
+        <div class="text" title="{{data.plainText}}">{{{data.text}}}</div>
+        <a class="item-display" title="{{localize "fmmua.controls.display"}}"><i class="fas fa-eye"></i></a>
+        <a class="item-edit" title="{{localize "fmmua.controls.edit"}}"><i class="fas fa-edit"></i></a>            
+        <a class="item-control item-delete" title="{{localize "fmmua.controls.delete"}}"><i class="fas fa-trash"></i></a>
+    </div>
+{{/inline}}
+
+{{#*inline "power"}}
+    <div class="item power" data-item-id="{{_id}}">
+        {{#> "systems/fmmua/items/PowerCard.html"}}
+            <div class="commands">
+                <a class="item-use" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+                <a class="item-edit" title="{{localize "fmmua.controls.edit"}}"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="{{localize "fmmua.controls.delete"}}"><i class="fas fa-trash"></i></a>
+            </div>
+        {{/"systems/fmmua/items/PowerCard.html"}}
+    </div>
+{{/inline}}
+
+<section class="items feats" data-item-type="trait" data-item-source="feat">
+    <h3>
+        {{localize "fmmua.actor.feats"}}
+        <a class="item-add" title="{{localize "fmmua.controls.addTrait"}}"><i class="fas fa-plus"></i></a>
+    </h3>
+    {{#each feats as |t|}}
+        {{> trait t}}
+    {{/each}}
+</section>
+
+<section class="items role" data-item-type="trait" data-item-source="role">
+    <h3>
+        {{#if groupedPowers}}
+        {{localize "fmmua.actor.rolePowers"}}
+        {{else}}
+        {{localize "fmmua.actor.roleBoosts"}}
+        {{/if}}
+        <a class="item-add" title="{{localize "fmmua.controls.addTrait"}}"><i class="fas fa-plus"></i></a>
+    </h3>
+    {{#each role as |t|}}
+        {{> trait t}}
+    {{/each}}
+    {{#if groupedPowers}}
+        <div class="items overlay-ne" data-item-type="power" data-item-source="role">
+            <a class="item-add" title="{{localize "fmmua.controls.addPower"}}"><i class="fas fa-plus"></i></a>
+            <div class="cards">
+                {{#each rolePowers as |p|}}
+                    {{> power p}}
+                {{/each}}
+            </div>
+        </div>
+    {{/if}}
+</section>
+
+<section class="items klass" data-item-type="trait" data-item-source="class">
+    <h3>
+        {{#if groupedPowers}}
+            {{localize "fmmua.actor.classPowers"}}
+        {{else}}
+            {{localize "fmmua.actor.classFeatures"}}
+        {{/if}}            
+        <a class="item-add" title="{{localize "fmmua.controls.addTrait"}}"><i class="fas fa-plus"></i></a>
+    </h3>
+    {{#each class as |t|}}
+        {{> trait t}}
+    {{/each}}
+    {{#if groupedPowers}}
+        <div class="items overlay-ne" data-item-type="power" data-item-source="class">
+            <a class="item-add" title="{{localize "fmmua.controls.addPower"}}"><i class="fas fa-plus"></i></a>
+            <div class="cards">
+                {{#each classPowers as |p|}}
+                    {{> power p}}
+                {{/each}}
+            </div>
+        </div>
+    {{/if}}
+</section>
+
+{{#if groupedPowers}}
+    {{#if otherPowers}}
+        <section class="items otherPowers" data-item-type="power">
+            <h3>
+                {{localize "fmmua.actor.otherPowers"}}                
+            </h3>
+            <div class="overlay-ne">
+                <a class="item-add" title="{{localize "fmmua.controls.addPower"}}"><i class="fas fa-plus"></i></a>
+                <div class="cards">
+                    {{#each otherPowers as |p|}}
+                        {{> power p}}
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+    {{/if}}
+{{/if}}
+
+{{#if ungroupedPowers}}
+    <section class="items powers" data-item-type="power">
+        <h3>
+            {{localize "fmmua.actor.powers"}}
+            <a class="item-add" title="{{localize "fmmua.controls.addPower"}}"><i class="fas fa-plus"></i></a>
+        </h3>
+        <div class="cards">
+            {{#each powers as |p|}}
+                {{> power p}}
+            {{/each}}
+        </div>
+    </section>
+{{/if}}
