@@ -11,6 +11,7 @@
         
         > a {
             white-space: nowrap;
+            //text-decoration: underline;
 
             &.active::before {
                 content: "> ";
@@ -18,51 +19,19 @@
         }
     }
 
-    .bg-background {
-        background: var(--green1-light);
+    article.tab-content {
+        flex: 1;
     }
 
     .bg-choice {
         background: var(--blue1-light);
     }
 
-    .bg-class {
-        background: var(--blue2-light);
+    .bg-choice-alt {
+        background: var(--blue1-dark);
     }
 
-    .bg-origin {
-        background: var(--orange1-light);
-    }
-
-    .bg-role {
-        background: var(--red1-light);
-    }
-
-    .feats {
-        --section-background: var(--orange2-light);
-        --section-border: var(--orange2-border);
-        --section-header: var(--orange2-dark);
-    }    
-
-    .role {
-        --section-background: var(--red1-light);
-        --section-border: var(--red1-border);
-        --section-header: var(--red1-dark);
-    }
-
-    .klass {
-        --section-background: var(--blue2-light);
-        --section-border: var(--blue2-border);
-        --section-header: var(--blue2-dark);
-    }
-
-    .powers, .otherPowers {
-        --section-background: white;
-        --section-border: #999;
-        --section-header: rgba(0, 0, 0, 0.1);
-    }
-
-    .powers {
-        flex: 1;
+    .fg-choice {
+        color: var(--blue1-dark);
     }
 }

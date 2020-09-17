@@ -1,0 +1,37 @@
+.fmmua.sheet.actor.character {
+    .bg-class {
+        background: var(--blue2-light);
+    }
+
+    .bg-role {
+        background: var(--red1-light);
+    }
+
+    .feats {
+        --section-background: var(--orange2-light);
+        --section-border: var(--orange2-border);
+        --section-header: var(--orange2-dark);
+    }    
+
+    .role {
+        --section-background: var(--red1-light);
+        --section-border: var(--red1-border);
+        --section-header: var(--red1-dark);
+    }
+
+    .klass {
+        --section-background: var(--blue2-light);
+        --section-border: var(--blue2-border);
+        --section-header: var(--blue2-dark);
+    }
+
+    .powers, .otherPowers {
+        --section-background: white;
+        --section-border: #999;
+        --section-header: rgba(0, 0, 0, 0.1);
+    }
+
+    .powers {
+        flex: 1;
+    }
+}

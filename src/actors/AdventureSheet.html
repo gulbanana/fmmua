@@ -1,13 +1,129 @@
-<div class="stats">
-    <div class="stat-row">
-        <div class="pair">
-            <label>{{localize "fmmua.actor.background"}}</label>
-            <input type="text" class="box10 bg-background" name="data.background" value="{{data.background}}">
-        </div>
+<section class="adventure-layout">
+    <div class="background-skills">
+        <h2>Background</h2>
+        <p class="notes">Gives Skills (at most two of which may go to Wealth), and your first Trick.</p>
+        <input type="text" class="box-full bg-background" name="data.background" value="{{data.background}}">
+        <p class="notes">
+            For first level characters, fill in your basic details: 
+            <span class="fg-background">Green</span> cells come from your Background, and 
+            <span class="fg-origin">Orange</span> from your Origin.
+            <span class="fg-choice">Blue</span> cells are your choice!
+        </p>
 
-        <div class="pair">
-            <label>{{localize "fmmua.actor.origin"}}</label>
-            <input type="text" class="box10 bg-origin" name="data.origin" value="{{data.origin}}">
+        <h2>Skills</h2>
+        <p class="notes">Use Skills to perform actions within the game world.</p>
+        <input type="text" class="box-full bg-background">
+        <input type="text" class="box-full bg-background-alt">
+        <input type="text" class="box-full bg-background">
+        <input type="text" class="box-full bg-background-alt">
+        <input type="text" class="box-full bg-background">
+        <input type="text" class="box-full bg-background-alt">
+        <input type="text" class="box-full bg-origin">
+        <input type="text" class="box-full bg-origin-alt">
+        <input type="text" class="box-full bg-choice" placeholder="L1">
+        <p class="notes">Earn additional Skills through succeeding at Unskilled tasks.</p>
+        <input type="text" class="box-full bg-choice">
+        <input type="text" class="box-full bg-choice-alt">
+        <input type="text" class="box-full bg-choice">
+        <input type="text" class="box-full bg-choice-alt">
+        <input type="text" class="box-full bg-choice">
+        <input type="text" class="box-full bg-choice-alt">
+        <input type="text" class="box-full bg-choice">
+    </div>
+
+    <div class="origin-skills">
+        <h2>Origin</h2>
+        <p class="notes">Gives two Skills (one of which may go to Wealth) and one Complication.</p>
+        <input type="text" class="box-full bg-origin" name="data.origin" value="{{data.origin}}">
+
+        <h2>Complications</h2>
+        <p class="notes">Use Complications to create Twists in the story and earn Action Points.</p>
+        <input type="text" class="box-full bg-origin">
+        <input type="text" class="box-full bg-choice" placeholder="L1">
+        <input type="text" class="box-full bg-choice-alt" placeholder="L4">
+        <input type="text" class="box-full bg-choice" placeholder="L8">
+
+        <h2>Tricks</h2>
+        <p class="notes">Spend an Action Point and use your Trick to auto-succeed on a task.</p>
+        <input type="text" class="box-full bg-background">
+        <input type="text" class="box-full bg-choice" placeholder="L1">
+        <input type="text" class="box-full bg-choice-alt" placeholder="L2">
+        <input type="text" class="box-full bg-choice" placeholder="L6">
+        <input type="text" class="box-full bg-choice-alt" placeholder="L10">
+
+        <h2>Fallback</h2>
+        <p class="notes">Use your Fallback to reverse Twists once per session. Gain at first level-up.</p>
+        <input type="text" class="box-full bg-choice" placeholder="L2*"></span>
+    </div>
+
+    <div class="motivation-notes col-fill">
+        <h2>Motivation & Notes</h2>
+        <textarea class="bg-choice"></textarea>
+    </div>
+
+    <div class="items-rep col-fill">
+        <h2>Items, Relationships and Reputations</h2>
+        <textarea class="bg-choice"></textarea>
+    </div>
+
+    <div class="kit col-fill">
+        <h2>Kit Advances</h2>
+        <div class="advances">
+            <textarea class="bg-choice" placeholder="Base"></textarea>
+            <textarea class="bg-choice-alt" placeholder="L1"></textarea>
+            <textarea class="bg-choice" placeholder="L3"></textarea>
+            <textarea class="bg-choice-alt" placeholder="L5"></textarea>
+            <textarea class="bg-choice" placeholder="L7"></textarea>
+            <textarea class="bg-choice-alt" placeholder="L9"></textarea>
         </div>
+    </div>
+
+    <div class="costs">
+        <h2>Current Costs</h2>
+        <p class="notes">Track Conditions suffered, Favors owed, and Flaws in items or information.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Minor Conditions</td>
+                    <th colspan="2">Major Conditions</td>
+                    <th>Flaws and Favors</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>Angry/Minor Mental</td>
+                    <td><input type="checkbox"></td>
+                    <td>Injured</td>
+                    <td><input type="text" class="box-full bg-choice"></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>Winded</td>
+                    <td><input type="checkbox"></td>
+                    <td>Sick</td>
+                    <td><input type="text" class="box-full bg-choice-alt"></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>Exhausted</td>
+                    <td><input type="checkbox"></td>
+                    <td>Major Mental</td>
+                    <td><input type="text" class="box-full bg-choice"></td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><input type="checkbox"></td>
+                    <td>Lost Confidence:</td>
+                    <td rowspan="2"><input type="checkbox"></td>
+                    <td>Other Major:</td>
+                    <td><input type="text" class="box-full bg-choice-alt"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="box-full"></td>
+                    <td><input type="text" class="box-full"></td>
+                    <td><input type="text" class="box-full bg-choice"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
