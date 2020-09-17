@@ -124,7 +124,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
             powerData.subtypeText = "No Action";
         }
 
-        if (this.isOwned && this.actor?.data.type == "monster") {
+        if (this.isOwned && this.actor?.data.type == "monster" && !powerData.source) {
             powerData.kind = "monster-power";
         } else if (powerData.usage == "custom") {
             powerData.kind = "other-encounter";
