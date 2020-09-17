@@ -1,9 +1,9 @@
-import StrikeActorData from "./StrikeActorData.js";
+import CharacterData from "./CharacterData.js";
 import StrikeItemData from "../items/StrikeItemData.js";
 import PowerData from "../items/PowerData.js";
 import StrikeActorSheet from "./StrikeActorSheet.js";
 
-type SheetData = ActorSheetData<StrikeActorData> & {
+type SheetData = ActorSheetData<CharacterData> & {
     feats: ItemData<StrikeItemData>[];
     role: ItemData<StrikeItemData>[]
     class: ItemData<StrikeItemData>[];
@@ -129,5 +129,33 @@ export default class CharacterSheet extends StrikeActorSheet {
             this.activateTacticalListeners($(this.form));
             this.activatedTactical = true;
         }
+    }
+
+    _getSubmitData(updateData={}): any {
+        let data = super._getSubmitData(updateData);
+        let actorData = (this.actor.data.data as CharacterData);
+
+        this.readArray(data, "skills", 16);
+        this.readArray(data, "complications", 4);
+        this.readArray(data, "tricks", 5);
+
+        return data;
+    }
+    
+    readArray(data: Record<string, any>, name: { [P in keyof CharacterData]: CharacterData[P] extends string[] ? P : never }[keyof CharacterData], max: number) {        
+        let array = duplicate(this.actor.character[name]);
+        while (array.length < max) {
+            array.push("");
+        }
+
+        for (let i = 0; i < max; i++) {
+            let arrayInput = this.form.querySelector<HTMLInputElement>(`input[name=data\\.${name}\\[${i}\\]]`);
+            if (arrayInput != null) {
+                delete data[`data.${name}[${i}]`];
+                array[i] = arrayInput.value;
+            }
+        }
+
+        data[`data.${name}`] = array;
     }
 }

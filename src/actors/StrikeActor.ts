@@ -1,7 +1,9 @@
-import StrikeActorData from "./StrikeActorData.js";
-import StrikeItem from "../items/StrikeItem.js";
 import * as dice from "../dice/dice.js";
+import StrikeItem from "../items/StrikeItem.js";
 import StrikeItemData from "../items/StrikeItemData.js";
+import StrikeActorData from "./StrikeActorData.js";
+import CharacterData from "./CharacterData.js";
+import MonsterData from "./MonsterData.js";
 
 export default class StrikeActor extends Actor<StrikeActorData> {
     constructor(data: ActorData<StrikeActorData>, options: any) {
@@ -60,6 +62,21 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         }
 
         return super.create(data, options) as Promise<StrikeActor>;
+    }
+
+    // prepareData() {
+    //     super.prepareData();
+    //     if (this.data.type == "character") {
+    //         let characterData = this.data.data as CharacterData;
+    //     }
+    // }
+
+    get character(): CharacterData {
+        return this.data.data as CharacterData;
+    }
+
+    get monster(): MonsterData {
+        return this.data.data as MonsterData;
     }
 
     getOwnedItem(itemId: string): StrikeItem | null {

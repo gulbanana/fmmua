@@ -1,6 +1,6 @@
 import RollDialog from "./dice/RollDialog.js";
 import StrikeActor from "./actors/StrikeActor.js";
-import StrikeActorData from "./actors/StrikeActorData.js";
+import CharacterData from "./actors/CharacterData.js";
 import GlossaryWindow from "./glossary/GlossaryWindow.js";
 import glossaryCategories from "./glossary/categories.js";
 import StrikeItem from "./items/StrikeItem.js";
@@ -246,8 +246,11 @@ async function reset() {
         },
         data: {
             class: "Duelist",
-            role: "Defender"
-        } as StrikeActorData
+            role: "Defender",
+            background: "Born on a Mountain",
+            origin: "Raised in a Cave",
+            skills: ["Trucking"]
+        } as CharacterData
     });
     let heroData = duplicate(hero.data).token;
     let heroPosition = {x: 9*300, y: 7*300, actorLink: true};

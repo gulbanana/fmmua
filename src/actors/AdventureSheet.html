@@ -12,23 +12,23 @@
 
         <h2>Skills</h2>
         <p class="notes">Use Skills to perform actions within the game world.</p>
-        <input type="text" class="box-full bg-background">
-        <input type="text" class="box-full bg-background-alt">
-        <input type="text" class="box-full bg-background">
-        <input type="text" class="box-full bg-background-alt">
-        <input type="text" class="box-full bg-background">
-        <input type="text" class="box-full bg-background-alt">
-        <input type="text" class="box-full bg-origin">
-        <input type="text" class="box-full bg-origin-alt">
-        <input type="text" class="box-full bg-choice" placeholder="L1">
+        <input type="text" name="data.skills[0]" value="{{lookup data.skills 0}}" class="box-full bg-background">
+        <input type="text" name="data.skills[1]" value="{{lookup data.skills 1}}" value="{{lookup data.skills 1}}" class="box-full bg-background-alt">
+        <input type="text" name="data.skills[2]" value="{{lookup data.skills 2}}" class="box-full bg-background">
+        <input type="text" name="data.skills[3]" value="{{lookup data.skills 3}}" class="box-full bg-background-alt">
+        <input type="text" name="data.skills[4]" value="{{lookup data.skills 4}}" class="box-full bg-background">
+        <input type="text" name="data.skills[5]" value="{{lookup data.skills 5}}" class="box-full bg-background-alt">
+        <input type="text" name="data.skills[6]" value="{{lookup data.skills 6}}" class="box-full bg-origin">
+        <input type="text" name="data.skills[7]" value="{{lookup data.skills 7}}" class="box-full bg-origin-alt">
+        <input type="text" name="data.skills[8]" value="{{lookup data.skills 8}}" class="box-full bg-choice" placeholder="L1">
         <p class="notes">Earn additional Skills through succeeding at Unskilled tasks.</p>
-        <input type="text" class="box-full bg-choice">
-        <input type="text" class="box-full bg-choice-alt">
-        <input type="text" class="box-full bg-choice">
-        <input type="text" class="box-full bg-choice-alt">
-        <input type="text" class="box-full bg-choice">
-        <input type="text" class="box-full bg-choice-alt">
-        <input type="text" class="box-full bg-choice">
+        <input type="text" name="data.skills[9]" value="{{lookup data.skills 9}}" class="box-full bg-choice">
+        <input type="text" name="data.skills[10]" value="{{lookup data.skills 10}}" class="box-full bg-choice-alt">
+        <input type="text" name="data.skills[11]" value="{{lookup data.skills 11}}" class="box-full bg-choice">
+        <input type="text" name="data.skills[12]" value="{{lookup data.skills 12}}" class="box-full bg-choice-alt">
+        <input type="text" name="data.skills[13]" value="{{lookup data.skills 13}}" class="box-full bg-choice">
+        <input type="text" name="data.skills[14]" value="{{lookup data.skills 14}}" class="box-full bg-choice-alt">
+        <input type="text" name="data.skills[15]" value="{{lookup data.skills 15}}" class="box-full bg-choice">
     </div>
 
     <div class="origin-skills">
@@ -38,32 +38,32 @@
 
         <h2>Complications</h2>
         <p class="notes">Use Complications to create Twists in the story and earn Action Points.</p>
-        <input type="text" class="box-full bg-origin">
-        <input type="text" class="box-full bg-choice" placeholder="L1">
-        <input type="text" class="box-full bg-choice-alt" placeholder="L4">
-        <input type="text" class="box-full bg-choice" placeholder="L8">
+        <input type="text" name="data.complications[0]" value="{{lookup data.complications 0}}" class="box-full bg-origin">
+        <input type="text" name="data.complications[1]" value="{{lookup data.complications 1}}" class="box-full bg-choice" placeholder="L1">
+        <input type="text" name="data.complications[2]" value="{{lookup data.complications 2}}" class="box-full bg-choice-alt" placeholder="L4">
+        <input type="text" name="data.complications[3]" value="{{lookup data.complications 3}}" class="box-full bg-choice" placeholder="L8">
 
         <h2>Tricks</h2>
         <p class="notes">Spend an Action Point and use your Trick to auto-succeed on a task.</p>
-        <input type="text" class="box-full bg-background">
-        <input type="text" class="box-full bg-choice" placeholder="L1">
-        <input type="text" class="box-full bg-choice-alt" placeholder="L2">
-        <input type="text" class="box-full bg-choice" placeholder="L6">
-        <input type="text" class="box-full bg-choice-alt" placeholder="L10">
+        <input type="text" name="data.tricks[0]" value="{{lookup data.tricks 0}}" class="box-full bg-background">
+        <input type="text" name="data.tricks[1]" value="{{lookup data.tricks 1}}" class="box-full bg-choice" placeholder="L1">
+        <input type="text" name="data.tricks[2]" value="{{lookup data.tricks 2}}" class="box-full bg-choice-alt" placeholder="L2">
+        <input type="text" name="data.tricks[3]" value="{{lookup data.tricks 3}}" class="box-full bg-choice" placeholder="L6">
+        <input type="text" name="data.tricks[4]" value="{{lookup data.tricks 4}}" class="box-full bg-choice-alt" placeholder="L10">
 
         <h2>Fallback</h2>
         <p class="notes">Use your Fallback to reverse Twists once per session. Gain at first level-up.</p>
-        <input type="text" class="box-full bg-choice" placeholder="L2*"></span>
+        <input type="text" class="box-full bg-choice" placeholder="L2*" name="data.fallback" value="{{data.fallback}}"></span>
     </div>
 
     <div class="motivation-notes col-fill">
         <h2>Motivation & Notes</h2>
-        <textarea class="bg-choice"></textarea>
+        <textarea class="bg-choice" name="data.notes">{{data.notes}}</textarea>
     </div>
 
     <div class="items-rep col-fill">
         <h2>Items, Relationships and Reputations</h2>
-        <textarea class="bg-choice"></textarea>
+        <textarea class="bg-choice" name="data.relationships">{{data.relationships}}</textarea>
     </div>
 
     <div class="kit col-fill">
