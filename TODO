@@ -102,9 +102,12 @@ MVT (Minimum Viable Thing)
     [ ] classes and roles
     [ ] sample monsters?
 [ ] sheets
-    [ ] tabbing and more narrative stuff (adventure/tactical sheet)
-    [ ] rollable skills
-    [ ] character creation?
+    [x] tabbed adventure/tactical sheet
+    [x] skills sections
+    [x] roll buttons
+    [x] notes sections
+    [ ] costs
+    [ ] kits
 [ ] scripts ("macros"?)
     [ ] eval context
     [ ] power scripts (on use)
@@ -117,6 +120,7 @@ MVT (Minimum Viable Thing)
     [ ] feat levels
     [ ] role boost levels
     [ ] power levels and advances
+[ ] structured character creation?
 
 * Bugfixes
 - sidebar tooltip display 
