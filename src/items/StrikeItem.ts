@@ -123,15 +123,27 @@ export default class StrikeItem extends Item<StrikeItemData> {
         } else if (powerData.action === "none") {
             powerData.subtypeText = "No Action";
         }
-
-        if (this.isOwned && this.actor?.data.type == "monster" && !powerData.source) {
-            powerData.kind = "monster-power";
-        } else if (powerData.usage == "custom") {
-            powerData.kind = "other-encounter";
-        } else {
-            let key = powerData.action == "role" ? "role" : powerData.source;
-            (powerData.kind as string) = key + "-" + powerData.usage;
+        
+        let effectiveSource: string | null = powerData.source;
+        if (effectiveSource == "feat") {
+            effectiveSource = "common";
+        } else if (!effectiveSource) {
+            if (this.isOwned && this.actor?.data.type == "monster") {
+                effectiveSource = "monster";
+            } else {
+                effectiveSource = "common";
+            }
         }
+        (powerData.kind as string) = effectiveSource;
+
+        // if (this.isOwned && this.actor?.data.type == "monster" && !powerData.source) {
+        //     powerData.kind = "monster-power";
+        // } else if (powerData.usage == "custom") {
+        //     powerData.kind = "other-encounter";
+        // } else {
+        //     let key = powerData.action == "role" ? "role" : powerData.source;
+        //     (powerData.kind as string) = key + "-" + powerData.usage;
+        // }
         
         this.data.img = this.prepareImage();
         if (powerData.customImage == null) {

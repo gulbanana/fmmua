@@ -73,54 +73,52 @@
         position: relative;
         top: -1px;
     }
-
-    /* card colors */
-    &.kind-class-at-will {
-        background: var(--green2-dark);
-        .text {
-            background: var(--green2-light);
-        }
-    }
-
-    &.kind-role-at-will {
-        background: var(--blue3-dark);
-        .text {
-            background: var(--blue3-light);
-        }
-    }
-
-    &.kind-class-encounter {
-        background: var(--purple-dark);
-        .text {
-            background: var(--purple-light);
-        }
-    }
-
-    &.kind-role-encounter {
-        background: var(--red1-dark);
-        .text {
-            background: var(--red1-light);
-        }
-    }
     
-    &.kind-feat-at-will {
-        background: var(--green2-dark);
+    // monster powers are always yellow
+    &.kind-monster {
+        background: var(--orange3-dark);
         .text {
-            background: var(--green2-light);
+            background: var(--orange3-light);
         }
     }
-    
-    &.kind-feat-encounter, &.kind-other-at-will, &.kind-other-encounter {
+
+    // the default colour for various miscellaneous powers is orange
+    &:not(.kind-monster) { 
         background: var(--orange2-border);
         .text {
             background: var(--orange2-light);
         }
-    }
 
-    &.kind-monster-power {
-        background: var(--orange3-dark);
-        .text {
-            background: var(--orange3-light);
+        // role actions are blue for at-will, red for encounter
+        &.action-role {
+            &.usage-at-will {
+                background: var(--blue3-dark);
+                .text {
+                    background: var(--blue3-light);
+                }
+            }
+            &.usage-encounter {
+                background: var(--red1-dark);
+                .text {
+                    background: var(--red1-light);
+                }
+            }
+        }
+
+        // attack actions and non-attack class powers are green for at-will, purple for encounter
+        &.action-attack, &.kind-class {
+            &.usage-at-will {
+                background: var(--green2-dark);
+                .text {
+                    background: var(--green2-light);
+                }
+            }
+            &.usage-encounter {
+                background: var(--purple-dark);
+                .text {
+                    background: var(--purple-light);
+                }    
+            }
         }
     }
 }
