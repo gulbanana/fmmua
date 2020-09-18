@@ -42,4 +42,16 @@ export default class MonsterSheet extends StrikeActorSheet {
 
         return data;
     }
+
+    activateListeners(html: JQuery) {
+        super.activateListeners(html);
+
+        if (this._canDragStart(".item")) {
+            let handler = (ev: DragEvent) => this._onDragStart(ev);
+            html.find('.item').each((_index, div) => {
+              div.setAttribute("draggable", "true");
+              div.addEventListener("dragstart", handler, false);
+            });
+        }
+    }
 }
