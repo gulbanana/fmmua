@@ -79,6 +79,13 @@ export default class PowerSheet extends ItemSheet<StrikeItemData, StrikeItem> {
             });
         }
 
+        if (!targets.length && burstInput?.value) {
+            targets.push({
+                mode: "melee",
+                burst: parseInt(burstInput?.value)
+            });
+        }
+
         data["data.targets"] = targets;
 
         return data;
