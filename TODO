@@ -101,13 +101,14 @@ MVT (Minimum Viable Thing)
     [x] basic powers
     [ ] classes and roles
     [ ] sample monsters?
-[ ] sheets
+[ ] refine character sheets
     [x] tabbed adventure/tactical sheet
     [x] skills sections
     [x] roll buttons
     [x] notes sections
     [ ] costs
     [ ] kits
+    [ ] consistent noneditable (observer) styles
 [ ] scripts ("macros"?)
     [ ] eval context
     [ ] power scripts (on use)
