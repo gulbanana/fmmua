@@ -39,6 +39,10 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
     }
 
     onItemAdd(html: JQuery) {
+        if (!this.isEditable) {
+            return;
+        }
+
         const itemType = html.data("itemType");
         const itemSource = html.data("itemSource");
 
@@ -52,6 +56,10 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
     }
 
     onItemDelete(html: JQuery) {
+        if (!this.isEditable) {
+            return;
+        }
+
         const itemId = html.data("itemId");
         const item = this.actor.getOwnedItem(itemId);
 
@@ -82,6 +90,10 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
     }
 
     onItemEdit(html: JQuery) {
+        if (!this.isEditable) {
+            return;
+        }
+
         const itemId = html.data("itemId");
         const item = this.actor.getOwnedItem(itemId);
 
@@ -96,6 +108,10 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
     }
 
     onItemUse(html: JQuery) {
+        if (!this.isEditable) {
+            return;
+        }
+
         const itemId = html.data("itemId");
         const item = this.actor.getOwnedItem(itemId);
 

@@ -145,6 +145,10 @@ export default class CharacterSheet extends StrikeActorSheet {
     }
 
     onSkillRoll(html: JQuery, dialog: boolean, skilled: boolean) {
+        if (!this.isEditable) {
+            return;
+        }
+
         const skillName = html.val();
         if (typeof skillName == "string" && skillName) {
             if (dialog) { 
@@ -165,7 +169,6 @@ export default class CharacterSheet extends StrikeActorSheet {
 
     _getSubmitData(updateData={}): any {
         let data = super._getSubmitData(updateData);
-        let actorData = (this.actor.data.data as CharacterData);
 
         this.readArray(data, "skills", 16);
         this.readArray(data, "complications", 4);

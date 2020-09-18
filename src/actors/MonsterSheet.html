@@ -4,44 +4,42 @@
         <h1 class="charname"><input class="bg-stat" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
     </header>
 
-    <div class="stats">
-        <div class="stat-row">
-            <div class="pair">
-                <label>{{localize "fmmua.actor.level"}}</label>
-                <input type="text" class="box2 bg-stat" name="data.level" value="{{data.level}}" data-dtype="Number">
-            </div>
+    <div class="stat-row">
+        <div class="pair">
+            <label>{{localize "fmmua.actor.level"}}</label>
+            <input type="text" class="box2 bg-stat" name="data.level" value="{{data.level}}" data-dtype="Number">
+        </div>
 
-            <div class="pair">
-                <label>{{localize "fmmua.actor.rank"}}</label>
-                <select name="data.rank" class="box10 bg-stat">
-                    {{#select data.rank}}
-                    <option value="Stooge">{{localize "fmmua.actor.ranks.stooge"}}</option>
-                    <option value="Goon">{{localize "fmmua.actor.ranks.goon"}}</option>
-                    <option value="Standard">{{localize "fmmua.actor.ranks.standard"}}</option>
-                    <option value="Elite">{{localize "fmmua.actor.ranks.elite"}}</option>
-                    <option value="Champion">{{localize "fmmua.actor.ranks.champion"}}</option>                    
-                    {{/select}}
-                </select>
-            </div>
+        <div class="pair">
+            <label>{{localize "fmmua.actor.rank"}}</label>
+            <select name="data.rank" class="box10 bg-stat">
+                {{#select data.rank}}
+                <option value="Stooge">{{localize "fmmua.actor.ranks.stooge"}}</option>
+                <option value="Goon">{{localize "fmmua.actor.ranks.goon"}}</option>
+                <option value="Standard">{{localize "fmmua.actor.ranks.standard"}}</option>
+                <option value="Elite">{{localize "fmmua.actor.ranks.elite"}}</option>
+                <option value="Champion">{{localize "fmmua.actor.ranks.champion"}}</option>                    
+                {{/select}}
+            </select>
+        </div>
 
-            <div class="pair">
-                <label>{{localize "fmmua.actor.hp"}}</label>
-                <input type="text" class="box2 bg-stat" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
-                /
-                <input type="text" class="box2 bg-stat" name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
-            </div>
+        <div class="pair">
+            <label>{{localize "fmmua.actor.hp"}}</label>
+            <input type="text" class="box2 bg-stat" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
+            /
+            <input type="text" class="box2 bg-stat" name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
+        </div>
 
-            <div class="pair">
-                <label>{{localize "fmmua.actor.size"}}</label>
-                <input type="text" class="box2 bg-stat" name="data.size.width" value="{{data.size.width}}" data-dtype="Number">
-                x
-                <input type="text" class="box2 bg-stat" name="data.size.height" value="{{data.size.height}}" data-dtype="Number">
-            </div>
-            
-            <div class="pair">
-                <label>{{localize "fmmua.actor.speed"}}</label>
-                <input type="text" class="box2 bg-stat" name="data.speed" value="{{data.speed}}" data-dtype="Number">
-            </div>
+        <div class="pair">
+            <label>{{localize "fmmua.actor.size"}}</label>
+            <input type="text" class="box2 bg-stat" name="data.size.width" value="{{data.size.width}}" data-dtype="Number">
+            x
+            <input type="text" class="box2 bg-stat" name="data.size.height" value="{{data.size.height}}" data-dtype="Number">
+        </div>
+        
+        <div class="pair">
+            <label>{{localize "fmmua.actor.speed"}}</label>
+            <input type="text" class="box2 bg-stat" name="data.speed" value="{{data.speed}}" data-dtype="Number">
         </div>
     </div>
 

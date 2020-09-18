@@ -108,7 +108,7 @@ MVT (Minimum Viable Thing)
     [x] notes sections
     [ ] costs
     [ ] kits
-    [ ] consistent noneditable (observer) styles
+    [x] consistent noneditable (observer) styles
 [ ] scripts ("macros"?)
     [ ] eval context
     [ ] power scripts (on use)

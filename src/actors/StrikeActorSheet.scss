@@ -46,14 +46,23 @@
         }
     }
 
-    .stats {
+    .stat-block {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
 
         .stat-row {
-            margin-top: 0.5em;
-            align-self: center;
+            margin-right: 1em;
+            &:last-child {
+                margin-right: 0;
+            }
         }
+    }
+
+    .stat-row {
+        align-self: center;
+        margin-top: 0.5em;        
     }
 
     .trait {

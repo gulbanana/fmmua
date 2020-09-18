@@ -232,6 +232,11 @@ export default class StrikeItem extends Item<StrikeItemData> {
 
     // XXX this one should do targetting and run macros
     async use(actor: StrikeActor): Promise<void> {
+        if (!actor.owner) {
+            ui.notifications.error(game.i18n.localize("fmmua.errors.ActorIsNotOwned"));
+            return;
+        }
+
         if (this.type != "power") {
             ui.notifications.error(game.i18n.localize("fmmua.errors.ItemIsNotPower"));
             return;

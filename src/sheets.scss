@@ -14,6 +14,10 @@
         max-width: 10em;
     }
     
+    table, textarea {
+        border: 1px solid #7a7971;
+    }
+    
     .editor {
         height: 100%;
         .tox {
@@ -27,7 +31,7 @@
     .stat-row {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: flex-start;
     }
 
@@ -42,9 +46,24 @@
         & > label {
             padding-right: 0.5em;
         }
-        
-        & > input {
-            border: 1px solid #A9A9A9;
+    }
+
+    form {
+        &.editable {
+            .locked-only {
+                display: none;
+            }
+        }
+    
+        &.locked {
+            .editable-only {
+                display: none;
+            }
+
+            table, textarea, select, .editor-field {
+                border: none;
+                color: #4b4a44;
+            }
         }
     }
 }

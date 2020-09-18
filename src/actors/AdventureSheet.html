@@ -14,39 +14,39 @@
         <p class="notes">Use Skills to perform actions within the game world.</p>
         <div class="box-full rollable">
             <input type="text" name="data.skills[0]" value="{{lookup data.skills 0}}" class="bg-background">
-            <a class="skill-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
             <input type="text" name="data.skills[1]" value="{{lookup data.skills 1}}" class="bg-background-alt">
-            <a class="skill-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
             <input type="text" name="data.skills[2]" value="{{lookup data.skills 2}}" class="bg-background">
-            <a class="skill-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
             <input type="text" name="data.skills[3]" value="{{lookup data.skills 3}}" class="bg-background-alt">
-            <a class="skill-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
             <input type="text" name="data.skills[4]" value="{{lookup data.skills 4}}" class="bg-background">
-            <a class="skill-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
             <input type="text" name="data.skills[5]" value="{{lookup data.skills 5}}" class="bg-background-alt">
-            <a class="skill-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
             <input type="text" name="data.skills[6]" value="{{lookup data.skills 6}}" class="bg-origin">
-            <a class="skill-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
             <input type="text" name="data.skills[7]" value="{{lookup data.skills 7}}" class="bg-origin-alt">
-            <a class="skill-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
             <input type="text" name="data.skills[8]" value="{{lookup data.skills 8}}" class="bg-choice" placeholder="L1">
-            <a class="skill-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <p class="notes">Earn additional Skills through succeeding at Unskilled tasks.</p>
         <input type="text" name="data.skills[9]" value="{{lookup data.skills 9}}" class="box-full bg-choice">
@@ -84,11 +84,13 @@
         <p class="notes">Use your Fallback to reverse Twists once per session. Gain at first level-up.</p>
         <input type="text" class="box-full bg-choice" placeholder="L2*" name="data.fallback" value="{{data.fallback}}">
 
-        <h2>Roll Unskilled</h2>
-        <p class="notes">Enter anything and click to roll or right-click to configure.</p>
-        <div class="box-full rollable">
-            <input type="text">
-            <a class="unskilled-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+        <div class="editable-only">
+            <h2>Roll Unskilled</h2>
+            <p class="notes">Enter anything and click to roll or right-click to configure.</p>
+            <div class="box-full rollable">
+                <input type="text">
+                <a class="unskilled-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+            </div>
         </div>
     </div>
 
