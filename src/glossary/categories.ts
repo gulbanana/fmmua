@@ -255,7 +255,7 @@ let categories = [
             },
             {
                 displayName: "Resist X",
-                pattern: "resist( \\d+)?( all?)",
+                pattern: "resistance|resist( \\d+)?( all)?",
                 content: "A creature that resists X damage totals all the damage it receives at any one time and subtracts X before reducing its Hit Points. So an attack that does damage on its damage line, immediately as an effect, and because of a Class or Role feature only has X subtracted from the total once, not three times. By contrast, an attack that does damage on its damage line and more damage later as an effect is resisted on both occasions. Resistances from multiple sources are cumulative, but not those from the same source."
             },
             {

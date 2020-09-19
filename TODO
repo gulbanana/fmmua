@@ -76,11 +76,11 @@ MVT (Minimum Viable Thing)
     [x] map
     [x] walls & lighting
 [x] rebase scene on mvp system or recreate
-[ ] create enemies
-    [ ] actors 
+[x] create enemies
+    [x] actors 
     [x] tokens
-    [ ] powers 
-[ ] optional second scene
+    [x] powers 
+[x] optional second scene
 
 * Run a game
 
