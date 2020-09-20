@@ -23,6 +23,7 @@ Hooks.once("init", function() {
 
     // patch bugs
     FormApplication.prototype.close = patchedClose;
+    CONFIG.JournalEntry.sheetClass = PatchedJournalSheet;
 
     console.log("FMMUA: end init");
 });
@@ -55,4 +56,12 @@ async function patchedClose(this: FormApplication & { submit(): Promise<FormAppl
 
     // Close the application itself
     await Application.prototype.close.bind(this)(); // patch 2
+}
+
+// foundry 0.7.2 has <= instead of < LIMITED permission (possibly intentional?)
+class PatchedJournalSheet extends JournalSheet {
+    get title() {
+        if ( this.object.permission < CONST.ENTITY_PERMISSIONS.LIMITED ) return "";
+        return this.object.name;
+    }
 }
