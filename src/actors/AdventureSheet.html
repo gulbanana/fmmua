@@ -129,36 +129,47 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Angry/Minor Mental</td>
-                    <td><input type="checkbox"></td>
-                    <td>Injured</td>
+                    <td><input type="checkbox" id="{{actor._id}}-minorMental" name="data.conditions.minorMental" {{checked data.conditions.minorMental}}></td>
+                    <td><label for="{{actor._id}}-minorMental">Angry/Minor Mental</label></td>
+
+                    <td><input type="checkbox" id="{{actor._id}}-majorMental" name="data.conditions.majorMental" {{checked data.conditions.majorMental}}></td>
+                    <td><label for="{{actor._id}}-majorMental">Enraged/Major Mental</label></td>
+
                     <td><input type="text" class="box-full bg-choice"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Winded</td>
-                    <td><input type="checkbox"></td>
-                    <td>Sick</td>
+                    <td><input type="checkbox" id="{{actor._id}}-winded" name="data.conditions.winded1" {{checked data.conditions.winded1}}></td>
+                    <td>
+                        <input type="checkbox" style="margin-left: 0" name="data.conditions.winded2" {{checked data.conditions.winded2}}>
+                        <label for="{{actor._id}}-winded">Winded</label>
+                    </td>
+
+                    <td><input type="checkbox" id="{{actor._id}}-injured" name="data.conditions.injured" {{checked data.conditions.injured}}></td>
+                    <td><label for="{{actor._id}}-injured">Injured</label></td>       
+
                     <td><input type="text" class="box-full bg-choice-alt"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Exhausted</td>
-                    <td><input type="checkbox"></td>
-                    <td>Major Mental</td>
+                    <td><input type="checkbox" id="{{actor._id}}-exhausted" name="data.conditions.exhausted" {{checked data.conditions.exhausted}}></td>
+                    <td><label for="{{actor._id}}-exhausted">Exhausted</label></td>
+
+                    <td><input type="checkbox" id="{{actor._id}}-sick" name="data.conditions.sick" {{checked data.conditions.sick}}></td>
+                    <td><label for="{{actor._id}}-sick">Sick</label></td>
+
                     <td><input type="text" class="box-full bg-choice"></td>
                 </tr>
                 <tr>
-                    <td rowspan="2"><input type="checkbox"></td>
-                    <td>Lost Confidence:</td>
-                    <td rowspan="2"><input type="checkbox"></td>
-                    <td>Other Major:</td>
+                    <td rowspan="2"><input type="checkbox" id="{{actor._id}}-lostConfidence" name="data.conditions.lostConfidence" {{checked data.conditions.lostConfidence}}></td>
+                    <td><label for="{{actor._id}}-lostConfidence">Lost Confidence:</label></td>
+
+                    <td rowspan="2"><input type="checkbox" id="{{actor._id}}-thirdMajor" name="data.conditions.thirdMajor" {{checked data.conditions.thirdMajor}}></td>
+                    <td><label for="{{actor._id}}-thirdMajor">Other Major:</label></td>
+
                     <td><input type="text" class="box-full bg-choice-alt"></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="box-full"></td>
-                    <td><input type="text" class="box-full"></td>
+                    <td><input type="text" class="box-full" name="data.conditions.lostConfidenceText" value="{{data.conditions.lostConfidenceText}}"></td>
+                    <td><input type="text" class="box-full" name="data.conditions.thirdMajorText" value="{{data.conditions.thirdMajorText}}"></td>
                     <td><input type="text" class="box-full bg-choice"></td>
                 </tr>
             </tbody>

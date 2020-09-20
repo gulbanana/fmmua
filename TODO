@@ -106,8 +106,9 @@ MVT (Minimum Viable Thing)
     [x] skills sections
     [x] roll buttons
     [x] notes sections
-    [ ] costs
-    [ ] kits
+    [x] conditions
+    [ ] flaws and favors
+    [ ] kit advances
     [x] consistent noneditable (observer) styles
 [ ] scripts ("macros"?)
     [ ] eval context

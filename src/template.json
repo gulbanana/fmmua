@@ -1,82 +1,95 @@
 {
-  "Item": {
-    "types": ["power", "trait"],
-    "templates": {
-      "programmability": {
-        "source": null,
-        "text": "<p>Enter rules text here.</p>",        
-        "macro": null
-      }
-    },
-    "trait": {
-      "templates": ["programmability"]
-    },  
-    "power": {
-      "templates": ["programmability"],
-      "action": "attack",
-      "usage": "at-will",
-      "targets": [
-        {
-          "mode": "ranged",
-          "range": 5,
-          "burst": 0
-        }
-      ],
-      "damage": 2,
-      "customUsage": null,
-      "customTarget": null,
-      "customImage": null
-    }
-  },
-  "Actor": {
-    "types": ["character", "monster"],
-    "templates": {
-      "common": {
-        "notes": ""
-      },
-      "tactical": {
-        "level": 1,
-        "speed": 6,
-        "size": {
-          "width": 1,
-          "height": 1
+    "Item": {
+        "types": ["power", "trait"],
+        "templates": {
+            "programmability": {
+                "source": null,
+                "text": "<p>Enter rules text here.</p>",        
+                "macro": null
+            }
         },
-        "hp": {
-          "value": 10,
-          "max": 10
+        "trait": {
+            "templates": ["programmability"]
+        },  
+        "power": {
+            "templates": ["programmability"],
+            "action": "attack",
+            "usage": "at-will",
+            "targets": [
+                {
+                    "mode": "ranged",
+                    "range": 5,
+                    "burst": 0
+                }
+            ],
+            "damage": 2,
+            "customUsage": null,
+            "customTarget": null,
+            "customImage": null
         }
-      }
-    },
-    "character": {
-      "templates": ["common", "tactical"],
-      "ap": {
-        "value": 1,
-        "max": 3
       },
-      // adventure
-      "wealth": 0,
-      "background": "",
-      "origin": "",
-      "skills": [],
-      "complications": [],
-      "tricks": [],
-      "fallback": "",
-      "relationships": "",
-      // tactical (but specific to PCs)
-      "class": "",
-      "role": "",
-      "mt": {
-        "value": 0,
-        "max": 0
-      },
-      "strikes": {
-        "value": 0,
-        "max": 0
-      }
-    },
-    "monster": {
-      "templates": ["common", "tactical"],
-      "rank": "Standard"
+      "Actor": {
+        "types": ["character", "monster"],
+        "templates": {
+            "common": {
+                "notes": ""
+            },
+            "tactical": {
+                "level": 1,
+                "speed": 6,
+                "size": {
+                    "width": 1,
+                    "height": 1
+                },
+                "hp": {
+                    "value": 10,
+                    "max": 10
+                }
+            }
+        },
+        "character": {
+            "templates": ["common", "tactical"],
+            "ap": {
+                "value": 1,
+                "max": 3
+            },
+            // adventure
+            "wealth": 0,
+            "background": "",
+            "origin": "",
+            "skills": [],
+            "complications": [],
+            "tricks": [],
+            "fallback": "",
+            "relationships": "",
+            "conditions": {
+                "minorMental": false,
+                "winded1": false,
+                "winded2": false,
+                "exhausted": false,
+                "lostConfidence": false,
+                "lostConfidenceText": "",
+                "majorMental": false,
+                "injured": false,
+                "sick": false,
+                "thirdMajor": false,
+                "thirdMajorText": ""
+            },
+            // tactical (but specific to PCs)
+            "class": "",
+            "role": "",
+            "mt": {
+                "value": 0,
+                "max": 0
+            },
+            "strikes": {
+                "value": 0,
+                "max": 0
+            }
+        },
+        "monster": {
+            "templates": ["common", "tactical"],
+            "rank": "Standard"
+        }
     }
-  }
 }
