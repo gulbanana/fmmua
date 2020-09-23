@@ -1,128 +1,36 @@
-MVT (Minimum Viable Thing)
---------------------------
+* glossary improvements
+    - tooltip bugfix
+    - world-editable
+    - localizable
 
-* Create the System
-[x] strike dice rolls (variants - skill, combat, saving throw)
-    [x] core
-    [x] gui
-    [x] command
-    [x] macro api (via actor)
-[x] actor data modelling
-    [x] character
-    [x] monster
-    [x] token config
-[x] actor sheets 
-    [x] character
-        [x] numbers/names
-        [x] powers
-            [x] add
-            [x] remove
-            [x] edit
-            [x] display/activate
-            [x] power source sorting
-        [x] traits
-            [x] feats
-            [x] class features
-            [x] role boosts
-            [x] add
-            [x] remove
-            [x] edit
-            [x] display/activate
-        [x] either reject or display invalid items
-    [x] monster
-        [x] numbers/names
-        [x] traits
-        [x] powers
-        [x] notes
-    [x] owned items
-        [x] drop in
-        [x] drag out (though only macro seems useful)
-[x] powers    
-    [x] macro activation
-    [x] command activation
-    [x] data model
-    [x] item sheet
-    [x] chat display
-        [x] scaffold & scope
-        [x] template
-        [x] insert
-[x] feats
-    [x] data model
-    [x] item sheet
-[x] encounters
-    [x] initiative
-    [x] act on multiple (duplicate combatants)
-    [x] multiple resources
-        [x] hp
-        [x] ap
-        [x] strikes
-        [x] miss tokens
-[x] command system
-    [x] autohelp
-    [x] remove debug commands (or limit to gm permission)
-[x] character creation
-    [x] default powers
-    [x] token config 
-    [x] ownership/visibility
+* compendium packs 
+    - i've got the common powers in there, but nothing else
+    - core classes and roles? could prewrite macros. lots of effort. maybe licensing issues.
+    - monster traits for gm
+    - entire sample monsters?
 
-* Create a combat encounter
-[x] write oneshot adventure
-[x] get enough understanding of strike's balance to make a level 1 or 2 fight
-[x] write up the numbers, on paper
-[ ] optional second encounter/bossfight
-  
-* Put the encounter in a World
-[x] create scene 
-    [x] map
-    [x] walls & lighting
-[x] rebase scene on mvp system or recreate
-[x] create enemies
-    [x] actors 
-    [x] tokens
-    [x] powers 
-[x] optional second scene
+* character sheets are unfinished
+    - flaws and favours
+    - kit advances
+    - feat title tooltip includes html
 
-* Run a game
+* popout power cards
+    - https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/item/entity.js#L297
 
-* Post-MVP features
-[x] summoner features - owned monsters
-    [x] players create monster with player ownership
-    [x] sourced monster powers use character colours
-    [x] allow deleting dropped tokens (including character token?)
-[ ] glossary
-    [x] application
-    [x] write content
-    [x] in chat
-    [x] in app recursive
-    [x] client config
-    [ ] world-editable
-    [ ] localizable
-[ ] compendium packs
-    [x] basic powers
-    [ ] classes and roles
-    [ ] sample monsters?
-[ ] refine character sheets
-    [x] tabbed adventure/tactical sheet
-    [x] skills sections
-    [x] roll buttons
-    [x] notes sections
-    [x] conditions
-    [ ] flaws and favors
-    [ ] kit advances
-    [x] consistent noneditable (observer) styles
-[ ] scripts ("macros"?)
-    [ ] eval context
-    [ ] power scripts (on use)
-    [ ] feat scripts (on prepareData?)
-    [ ] dice api which allows the advantage/etc choices in ui
-[ ] powers
-    [ ] configure targets & modifiers
-    [ ] differentiate types (attack power with effect, trigger, etc)
-[ ] traits
-    [ ] feat levels
-    [ ] role boost levels
-    [ ] power levels and advances
-[ ] structured character creation?
+* power macros
+    - eval/context 
+    - can they be actual macros?
+    - encounter power used state
 
-* Bugfixes
-- sidebar tooltip display 
+* macro apis
+    - configure target and modifiers
+    - make attack rolls
+    - gather/apply effects
+
+* structured character creation?
+    - make it easier for players to reuse elements
+    - initial setup, use compendiua
+    - feat/role boost levels
+    - advances
+
+* update on submit mode setting (latency issue)
