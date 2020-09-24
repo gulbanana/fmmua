@@ -34,3 +34,5 @@
     - advances
 
 * update on submit mode setting (latency issue)
+
+* textarea resize: none when appropriate - and why don't they focus like on the macro editor

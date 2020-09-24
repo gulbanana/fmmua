@@ -53,6 +53,18 @@ export default class PowerSheet extends ItemSheet<StrikeItemData, StrikeItem> {
                 usage.value = "custom";
             }
         });
+
+        let tabs = new Tabs({
+            navSelector: ".tab-headers", 
+            contentSelector: ".tab-content",
+            initial: "card",
+            callback: this.onChangeTab.bind(this)
+        });
+
+        tabs.bind(html[0]);
+    }
+
+    onChangeTab(_: unknown, _tabs: Tabs, _active: string) {        
     }
 
     _getSubmitData(updateData={}): any {

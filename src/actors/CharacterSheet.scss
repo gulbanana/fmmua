@@ -1,29 +1,4 @@
 .fmmua.sheet.actor.character {    
-    nav.tab-headers {
-        flex: 0;
-        align-self: center;
-        margin-right: 20px;
-        min-width: 140px;
-        
-        display:flex;
-        flex-direction: column;
-        font-size: 20px;
-        
-        > a {
-            white-space: nowrap;
-            color: #005B97;
-            //text-decoration: underline;
-
-            &.active {
-                text-shadow: 0 0 10px #FFF200;
-            }
-        }
-    }
-
-    article.tab-content {
-        flex: 1;
-    }
-
     .bg-choice {
         background: var(--blue1-light);
     }

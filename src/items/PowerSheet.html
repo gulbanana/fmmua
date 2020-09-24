@@ -1,98 +1,114 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
+        <nav class="tab-headers">
+            <a class="item" data-tab="card">Power Card</a>
+            <a class="item" data-tab="macro">Macro</a>
+        </nav>
         <img src="{{item.data.customImage}}" data-edit="data.customImage" title="{{item.name}}" height="64" width="64"/>
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
     </header>
 
-    <div class="form-group">
-        <label>Source</label>
-        <div class="form-fields">
-            <select name="data.source">
-                {{#select data.source}}
-                <option value=""></option>                
-                <option value="role">Role Power</option>
-                <option value="class">Class Power</option>
-                <option value="feat">Common Power</option>
-                {{/select}}
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Action</label>
-        <div class="form-fields">
-            <select name="data.action">
-                {{#select data.action}}
-                <option value="none"></option>
-                <option value="free">Free Action</option>
-                <option value="move">Move Action</option>                
-                <option value="role">Role Action</option>
-                <option value="attack">Attack</option>
-                <option value="reaction">Reaction</option>
-                <option value="interrupt">Interrupt</option>
-                {{/select}}
-            </select>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label>Usage</label>
-        <div class="form-fields">
-            <select name="data.usage">
-                {{#select data.usage}}
-                <option value="custom"></option>
-                <option value="at-will">At-Will</option>
-                <option value="encounter">Encounter</option>                
-                {{/select}}
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Custom Usage</label>
-        <div class="form-fields">
-            <input type="text" name="data.customUsage" value="{{data.customUsage}}">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Target</label>
-        <div class="form-fields">
-            <div class="stat-row">
-                <div class="pair">
-                    <label for="tMelee">Melee</label>
-                    <input type="checkbox" name="tMelee" {{checked tMelee}}>
-                </div>
-                
-                <div class="pair">
-                    <label>Range</label>
-                    <input class="box2" type="text" name="tRange" value="{{tRange}}" data-dtype="Number">
-                </div>
-
-                <div class="pair">
-                    <label>Burst Size</label>
-                    <input class="box2" type="text" name="tBurst" value="{{tBurst}}" data-dtype="Number">
-                </div>
-
-                <div class="pair">
-                    <label>Damage</label>
-                    <input class="box2" type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number">
+    <article class="tab-content">
+        <div class="tab" data-tab="macro">
+            <div class="form-group">
+                <label>Command</label>
+                <div class="form-fields">
+                    <textarea name="data.script">{{data.script}}</textarea>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="tab" data-tab="card">
+            <div class="form-group">
+                <label>Source</label>
+                <div class="form-fields">
+                    <select name="data.source">
+                        {{#select data.source}}
+                        <option value=""></option>                
+                        <option value="role">Role Power</option>
+                        <option value="class">Class Power</option>
+                        <option value="feat">Common Power</option>
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
 
-    <div class="form-group">
-        <label>Custom Target</label>
-        <div class="form-fields">
-            <input type="text" name="data.customTarget" value="{{data.customTarget}}">
-        </div>
-    </div>
+            <div class="form-group">
+                <label>Action</label>
+                <div class="form-fields">
+                    <select name="data.action">
+                        {{#select data.action}}
+                        <option value="none"></option>
+                        <option value="free">Free Action</option>
+                        <option value="move">Move Action</option>                
+                        <option value="role">Role Action</option>
+                        <option value="attack">Attack</option>
+                        <option value="reaction">Reaction</option>
+                        <option value="interrupt">Interrupt</option>
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Usage</label>
+                <div class="form-fields">
+                    <select name="data.usage">
+                        {{#select data.usage}}
+                        <option value="custom"></option>
+                        <option value="at-will">At-Will</option>
+                        <option value="encounter">Encounter</option>                
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
 
-    <div class="form-group">
-        <label>Text</label>
-        <div class="editor-field">
-            {{editor content=data.text target="data.text" button=true owner=owner editable=editable}}
+            <div class="form-group">
+                <label>Custom Usage</label>
+                <div class="form-fields">
+                    <input type="text" name="data.customUsage" value="{{data.customUsage}}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Target</label>
+                <div class="form-fields">
+                    <div class="stat-row">
+                        <div class="pair">
+                            <label for="tMelee">Melee</label>
+                            <input type="checkbox" name="tMelee" {{checked tMelee}}>
+                        </div>
+                        
+                        <div class="pair">
+                            <label>Range</label>
+                            <input class="box2" type="text" name="tRange" value="{{tRange}}" data-dtype="Number">
+                        </div>
+
+                        <div class="pair">
+                            <label>Burst Size</label>
+                            <input class="box2" type="text" name="tBurst" value="{{tBurst}}" data-dtype="Number">
+                        </div>
+
+                        <div class="pair">
+                            <label>Damage</label>
+                            <input class="box2" type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Custom Target</label>
+                <div class="form-fields">
+                    <input type="text" name="data.customTarget" value="{{data.customTarget}}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Text</label>
+                <div class="editor-field">
+                    {{editor content=data.text target="data.text" button=true owner=owner editable=editable}}
+                </div>
+            </div>
         </div>
-    </div>
+    </article>
 </form>

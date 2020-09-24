@@ -36,17 +36,17 @@ declare class PlaceableObject<DataType = any> extends PIXI.Container {
 	/**
 	 * An indicator for whether the object is currently controlled
 	 */
-	protected _controlled: boolean;
+	_controlled: boolean;
 
 	/**
 	 * An indicator for whether the object is currently a hover target
 	 */
-	protected _hover: boolean;
+	_hover: boolean;
 
 	/**
 	 * A singleton reference to the FormApplication class which configures this object
 	 */
-	protected _sheet: FormApplication | null;
+	_sheet: FormApplication | null;
 
 	constructor(data: DataType, scene: Scene);
 
