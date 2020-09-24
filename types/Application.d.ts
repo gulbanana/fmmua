@@ -30,7 +30,7 @@ declare class Application {
 	/**
 	 * Tab navigation handlers which are active for this Application
 	 */
-	protected _tabs: TabsV2[];
+	_tabs: TabsV2[];
 
 	/**
 	 * Track whether the Application is currently minimized

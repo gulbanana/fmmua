@@ -23,7 +23,6 @@
     - gather/apply effects
     - encounter power used state
 
-
 * structured character creation?
     - make it easier for players to reuse elements
     - initial setup, use compendiua
@@ -31,3 +30,5 @@
     - advances
 
 * update on submit mode setting (latency issue)
+
+* use qfa icons for powers

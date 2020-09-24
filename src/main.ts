@@ -4,6 +4,7 @@ import { init as initCommands } from "./commands.js";
 import { init as initDice } from "./dice/dice.js";
 import { init as initGlossary } from "./glossary/glossary.js";
 import { init as initItems } from "./items/items.js";
+import { init as initMacros } from "./macros/macros.js";
 
 let handlers: MessageHandler[] = [];
 
@@ -17,6 +18,7 @@ Hooks.once("init", function() {
     initDice();
     initGlossary();
     initItems();
+    initMacros();
 
     // subscribe to socket messages
     game.socket.on("system.fmmua", onMessage);

@@ -6,6 +6,7 @@ declare let canvas: {
 		controlled: Token[];
 		get(id: string): Token;
 		_hover: Token;
+		placeables: Token[];
 	}
 }
 
@@ -18,4 +19,9 @@ declare let ui: {
     sidebar: Sidebar;
 	chat: ChatLog;
 	controls: any;
+	hotbar: {
+		macros: {
+			macro: Macro | null
+		}[]
+	}
 };

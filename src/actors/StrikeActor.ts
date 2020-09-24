@@ -4,6 +4,8 @@ import StrikeItemData from "../items/StrikeItemData.js";
 import StrikeActorData from "./StrikeActorData.js";
 import CharacterData from "./CharacterData.js";
 import MonsterData from "./MonsterData.js";
+import Target from "../macros/Target.js";
+import Hit from "../macros/Hit.js";
 
 export default class StrikeActor extends Actor<StrikeActorData> {
     constructor(data: ActorData<StrikeActorData>, options: any) {
@@ -113,8 +115,20 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         }
     }
 
-    rollAttack({advantage, disadvantage}: {advantage?: boolean, disadvantage?: boolean} = {}) {
-        return dice.attackRoll(advantage || false, disadvantage || false, `${this.name} rolls to hit.`);
+    async pickTarget(): Promise<Target[]> {
+        let result = [];
+        let t = canvas.tokens.placeables.find(t => t.name == "Villain");
+        if (t) result.push(new Target(t, false, false));
+        return result;
+    }
+
+    async rollAttacks(targets: Target[]): Promise<Hit[]> {
+        let hits: Hit[] = [];
+        for (let target of targets) {
+            let result = await dice.attackRoll(target.advantage, target.disadvantage, `${this.name} rolls to hit ${target.token.actor.name}.`);
+            hits.push(new Hit(target.token.actor as StrikeActor, result > 2, result > 3, result == 6));
+        }
+        return hits;
     }
 
     rollSavingThrow({advantage, disadvantage}: {advantage?: boolean, disadvantage?: boolean} = {}) {

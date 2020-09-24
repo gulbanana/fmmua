@@ -1,3 +1,7 @@
+declare interface MacroData {
+	command: string;
+}
+
 /**
  * The Macro entity which implements a triggered chat or script expression which can be quickly activated by the user.
  * All users have permission to create and use chat-based Macros, but users must be given special permission to use
@@ -22,5 +26,7 @@ declare class Macro extends Entity {
     
     static create(data: object, options?: object): Promise<Macro>; // added
 
-    command: string; // added
+	data: EntityData & {
+		command: string; 
+	}
 }

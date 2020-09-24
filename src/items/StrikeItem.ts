@@ -224,13 +224,24 @@ export default class StrikeItem extends Item<StrikeItemData> {
         return super.update(data, options);
     }
 
+    /*************************/
+    /* convenience accessors */
+    /*************************/
+
+    get damage(): number {
+        return (this.data.data as PowerData).damage || 0
+    }
+
+    /*************/
+    /* macro api */
+    /*************/
+
     async display(actor: StrikeActor): Promise<void> {
         let content = await renderTemplate(this.type == "power" ? "systems/fmmua/items/PowerCard.html" : "systems/fmmua/items/TraitCard.html", this.data)
         let speaker = ChatMessage.getSpeaker({ actor });
         await ChatMessage.create({ content, speaker });
     }
 
-    // XXX this one should do targetting and run macros
     async use(actor: StrikeActor): Promise<void> {
         if (!actor.owner) {
             ui.notifications.error(game.i18n.localize("fmmua.errors.ActorIsNotOwned"));
