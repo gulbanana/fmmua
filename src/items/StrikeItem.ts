@@ -242,29 +242,29 @@ export default class StrikeItem extends Item<StrikeItemData> {
             return;
         }
 
-        if (this.data.data.script && Macros.canUseScripts(game.user)) {            
-            let token: Token | undefined;
-            const tokens = actor.getActiveTokens();
-            if (tokens.length) {
-                const controlled = tokens.filter(t => t._controlled);
-                token = controlled.length ? controlled.shift() : tokens.shift();
-            }
+        let speaker = ChatMessage.getSpeaker({ actor });
+        if (this.data.data.script && Macros.canUseScripts(game.user)) {                      
+            const token = canvas.tokens.get(speaker.token);
+            const character = game.user.character || actor;
 
-            executeScript(this, actor, token);
+            let AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+            let f = new AsyncFunction("speaker", "actor", "token", "character", "power", `
+                ${this.data.data.script}
+            ; return true;`);
+
+            try {
+                let result = await f(speaker, actor, token, character, this);
+                if (!result) {
+                    return;
+                }
+            } catch (err) {
+                ui.notifications.error("There was an error in your macro syntax. See the console (F12) for details.");
+                console.error(err);
+                return;
+            }
         }        
 
         let content = await renderTemplate("systems/fmmua/items/PowerCard.html", this.data);
-        let speaker = ChatMessage.getSpeaker({ actor });
         await ChatMessage.create({ content, speaker });
-    }
-}
-
-// the parameters to this method are the macro's API
-function executeScript(power: StrikeItem, actor: StrikeActor, token?: Token) {
-    try {
-        eval(power.data.data.script as string);
-    } catch (err) {
-        ui.notifications.error("There was an error in your macro syntax. See the console (F12) for details.");
-        console.error(err);
     }
 }
