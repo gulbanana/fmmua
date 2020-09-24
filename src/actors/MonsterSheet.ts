@@ -45,6 +45,7 @@ export default class MonsterSheet extends StrikeActorSheet {
 
     activateListeners(html: JQuery) {
         super.activateListeners(html);
+        super.resizeFloats(html);
 
         if (this._canDragStart(".item")) {
             let handler = (ev: DragEvent) => this._onDragStart(ev);

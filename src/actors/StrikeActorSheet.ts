@@ -4,20 +4,17 @@ import PowerData from "../items/PowerData.js";
 
 // base class with common listeners for item management
 export default class StrikeActorSheet extends ActorSheet<StrikeActorData, StrikeActor> {
-    activateListeners(html: JQuery<HTMLElement>, skipTactical?: boolean) {
+    activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
-        if (!skipTactical) {
-            this.activateTacticalListeners(html);
-        }
-    }
 
-    activateTacticalListeners(html: JQuery) {
         html.find('.item-add').click(ev => this.onItemAdd($(ev.currentTarget).parents(".items")));
         html.find('.item-delete').click(ev => this.onItemDelete($(ev.currentTarget).parents(".item")));
         html.find('.item-display').click(ev => this.onItemDisplay($(ev.currentTarget).parents(".item")));
         html.find('.item-edit').click(ev => this.onItemEdit($(ev.currentTarget).parents(".item")));
         html.find('.item-use').click(ev => this.onItemUse($(ev.currentTarget).parents(".item")));
-        
+    }
+
+    resizeFloats(html: JQuery) {        
         // mostly-functional hack to get a bottom-right float
         var textContainers = html.find(".power-card > .text");
         for (let textContainer of textContainers) {
@@ -33,7 +30,6 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
                 }
             }
 
-            new ResizeObserver(() => resizeFloat(3)).observe(textContainer);
             resizeFloat(3);
         }
     }

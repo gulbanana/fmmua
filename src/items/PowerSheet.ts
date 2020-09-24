@@ -13,7 +13,8 @@ export default class PowerSheet extends ItemSheet<StrikeItemData, StrikeItem> {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet", "item", "power"],
             template: "systems/fmmua/items/PowerSheet.html",
-            width: 600
+            tabs: [{ navSelector: ".tab-headers", contentSelector: ".tab-content", initial: "card" }],
+            width: 700
         });
     }
 
@@ -53,18 +54,6 @@ export default class PowerSheet extends ItemSheet<StrikeItemData, StrikeItem> {
                 usage.value = "custom";
             }
         });
-
-        let tabs = new Tabs({
-            navSelector: ".tab-headers", 
-            contentSelector: ".tab-content",
-            initial: "card",
-            callback: this.onChangeTab.bind(this)
-        });
-
-        tabs.bind(html[0]);
-    }
-
-    onChangeTab(_: unknown, _tabs: Tabs, _active: string) {        
     }
 
     _getSubmitData(updateData={}): any {

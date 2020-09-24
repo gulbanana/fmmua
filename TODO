@@ -17,15 +17,12 @@
 * popout power cards
     - https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/item/entity.js#L297
 
-* power macros
-    - eval/context 
-    - can they be actual macros?
-    - encounter power used state
-
 * macro apis
     - configure target and modifiers
     - make attack rolls
     - gather/apply effects
+    - encounter power used state
+
 
 * structured character creation?
     - make it easier for players to reuse elements
@@ -34,5 +31,3 @@
     - advances
 
 * update on submit mode setting (latency issue)
-
-* textarea resize: none when appropriate - and why don't they focus like on the macro editor

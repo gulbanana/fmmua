@@ -1,22 +1,25 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header">
+    <div class="form-group">
         <nav class="tab-headers">
             <a class="item" data-tab="card">Power Card</a>
-            <a class="item" data-tab="macro">Macro</a>
+            <a class="item" data-tab="macro">Power Macro</a>
         </nav>
-        <img src="{{item.data.customImage}}" data-edit="data.customImage" title="{{item.name}}" height="64" width="64"/>
-        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-    </header>
+        <header class="form-fields sheet-header">
+            <img src="{{item.data.customImage}}" data-edit="data.customImage" title="{{item.name}}" height="64" width="64"/>
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+        </header>
+    </div>
 
     <article class="tab-content">
         <div class="tab" data-tab="macro">
-            <div class="form-group">
+            <div class="form-group text">
                 <label>Command</label>
                 <div class="form-fields">
                     <textarea name="data.script">{{data.script}}</textarea>
                 </div>
             </div>
         </div>
+
         <div class="tab" data-tab="card">
             <div class="form-group">
                 <label>Source</label>
@@ -103,7 +106,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group text">
                 <label>Text</label>
                 <div class="editor-field">
                     {{editor content=data.text target="data.text" button=true owner=owner editable=editable}}

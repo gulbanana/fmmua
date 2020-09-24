@@ -24,7 +24,8 @@ export default class CharacterSheet extends StrikeActorSheet {
             classes: ["fmmua", "sheet", "actor", "character"],
             width: 1000,
             height: 700,
-            template: "systems/fmmua/actors/CharacterSheet.html"
+            template: "systems/fmmua/actors/CharacterSheet.html",
+            tabs: [{ navSelector: ".tab-headers", contentSelector: ".tab-content", initial: "adventure" }]
         });
     }
 
@@ -93,29 +94,13 @@ export default class CharacterSheet extends StrikeActorSheet {
         return data;
     }
 
-    activatedAdventure: boolean = false;
-    activatedTactical: boolean = false;
-    activeTab: string = "adventure";
-
     activateListeners(html: JQuery) {
-        this.activatedAdventure = false;
-        this.activatedTactical = false;
-        super.activateListeners(html, true);
+        super.activateListeners(html);
 
-        let tabs = new Tabs({
-            navSelector: ".tab-headers", 
-            contentSelector: ".tab-content",
-            initial: this.activeTab,
-            callback: this.onChangeTab.bind(this)
-        });
-
-        tabs.bind(html[0]);
-
-        this.onChangeTab(null, tabs, tabs.active);
-    }
-
-    activateTacticalListeners(html: JQuery) {
-        super.activateTacticalListeners(html);
+        html.find('.skill-roll').click(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), false, true));
+        html.find('.skill-roll').contextmenu(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), true, true));
+        html.find('.unskilled-roll').click(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), false, false));
+        html.find('.unskilled-roll').contextmenu(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), true, false));
 
         if (this._canDragStart(".item.power")) {
             let handler = (ev: DragEvent) => this._onDragStart(ev);
@@ -124,23 +109,9 @@ export default class CharacterSheet extends StrikeActorSheet {
               div.addEventListener("dragstart", handler, false);
             });
         }
-    }
 
-    activateAdventureListeners(html: JQuery) {
-        html.find('.skill-roll').click(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), false, true));
-        html.find('.skill-roll').contextmenu(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), true, true));
-        html.find('.unskilled-roll').click(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), false, false));
-        html.find('.unskilled-roll').contextmenu(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), true, false));
-    }
-
-    onChangeTab(_: unknown, _tabs: Tabs, active: string) {
-        this.activeTab = active;
-        if (active === "tactical" && !this.activatedTactical) {
-            this.activateTacticalListeners($(this.form));
-            this.activatedTactical = true;
-        } else if (active === "adventure" && !this.activatedAdventure) {
-            this.activateAdventureListeners($(this.form));
-            this.activatedAdventure = true;
+        if (this._tabs[0].active == "tactical") {
+            super.resizeFloats(html);
         }
     }
 
@@ -175,6 +146,12 @@ export default class CharacterSheet extends StrikeActorSheet {
         this.readArray(data, "tricks", 5);
 
         return data;
+    }
+
+    _onChangeTab(_event: MouseEvent, _tabs: Tabs, active: string) {
+        if (active == "tactical") {
+            super.resizeFloats($(this.form));
+        }
     }
     
     readArray(data: Record<string, any>, name: { [P in keyof CharacterData]: CharacterData[P] extends string[] ? P : never }[keyof CharacterData], max: number) {        

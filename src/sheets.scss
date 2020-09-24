@@ -1,14 +1,17 @@
-.fmmua.sheet {    
+.fmmua.sheet {  
     .sheet-header h1 input {
         width: 98%;
     }
+
     label.checkbox {
         font-size: 14px;
     }
+
     input.box2 {
         width: 2em;
         max-width: 2em;
     }
+    
     input.box10 {
         width: 10em;
         max-width: 10em;
@@ -70,7 +73,6 @@
     nav.tab-headers {
         flex: 0;
         align-self: center;
-        margin-right: 20px;
         
         display:flex;
         flex-direction: column;
