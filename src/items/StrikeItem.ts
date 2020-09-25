@@ -258,10 +258,11 @@ export default class StrikeItem extends Item<StrikeItemData> {
             let host = new MacroHost(actor, this);
 
             // the macro api as parameters (keys) and args (values) to f()
-            let pps = Object.getOwnPropertyNames(host)
-            let fns = Object.getOwnPropertyNames(Object.getPrototypeOf(host)).filter(e => e !== "constructor");
-            let params = pps.concat(fns);            
-            let args = params.map(p => (host as any)[p]);
+            let pps = Object.getOwnPropertyNames(host) as (keyof MacroHost)[];
+            let fns = Object.getOwnPropertyNames(Object.getPrototypeOf(host)).filter(e => e !== "constructor") as (keyof MacroHost)[];
+            let params = pps.concat(fns) as string[];
+            let args = pps.map(k => host[k])
+               .concat(fns.map(k => (host[k] as Function).bind(host)));
 
             // final parameter is the function body
             params.push(`${this.data.data.script}; return true;`);            

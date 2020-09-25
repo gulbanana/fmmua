@@ -20,11 +20,7 @@ export default class MacroHost implements MacroAPI {
         }
     }
 
-    pickTargets(x: string) {
-        
-    }
-
-    rollAttacks(y: number) {
-        
+    logThis() {
+        console.log(this);
     }
 }
