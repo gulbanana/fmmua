@@ -4,8 +4,15 @@ import MacroSheet from "./MacroSheet.js";
 
 export function init() {
     CONFIG.Macro.sheetClass = MacroSheet;
+ 
     Hooks.on("hotbarDrop", onHotbarDrop);
     Hooks.on("preUpdateOwnedItem", onPreUpdateOwnedItem);
+
+    let lang = hljs.getLanguage("javascript");
+    lang.keywords.params = "";
+    for (let param of ["speaker", "actor", "token", "character", "power"]) {
+        lang.keywords.params = `${lang.keywords.params} ${param}`;
+    }
 }
 
 type DropData = {
