@@ -24,6 +24,7 @@
 
     .macro-container {
         position: relative;
+        z-index: 0;
     }
 
     .macro-input {
