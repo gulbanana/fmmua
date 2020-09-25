@@ -1,5 +1,6 @@
 import StrikeActor from "../actors/StrikeActor.js";
 import PowerData from "../items/PowerData.js";
+import MacroHost from "./MacroHost.js";
 import MacroSheet from "./MacroSheet.js";
 
 export function init() {
@@ -8,9 +9,14 @@ export function init() {
     Hooks.on("hotbarDrop", onHotbarDrop);
     Hooks.on("preUpdateOwnedItem", onPreUpdateOwnedItem);
 
+    let api = new MacroHost();
+    let pps = Object.getOwnPropertyNames(api)
+    let fns = Object.getOwnPropertyNames(Object.getPrototypeOf(api)).filter(e => e !== "constructor");
+    let params = pps.concat(fns);            
+
     let lang = hljs.getLanguage("javascript");
     lang.keywords.params = "";
-    for (let param of ["speaker", "actor", "token", "character", "power"]) {
+    for (let param of params) {
         lang.keywords.params = `${lang.keywords.params} ${param}`;
     }
 }

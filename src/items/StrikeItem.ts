@@ -2,6 +2,7 @@ import StrikeItemData from "./StrikeItemData.js";
 import PowerData from "./PowerData.js";
 import StrikeActor from "../actors/StrikeActor.js";
 import TraitData from "./TraitData.js";
+import MacroHost from "../macros/MacroHost.js";
 
 export default class StrikeItem extends Item<StrikeItemData> {
     static create(data: Partial<ItemData<Partial<StrikeItemData>>>, options = {}) {
@@ -253,18 +254,31 @@ export default class StrikeItem extends Item<StrikeItemData> {
             return;
         }
 
-        let speaker = ChatMessage.getSpeaker({ actor });
         if (this.data.data.script && Macros.canUseScripts(game.user)) {                      
-            const token = canvas.tokens.get(speaker.token);
-            const character = game.user.character || actor;
+            let host = new MacroHost(actor, this);
 
+            // the macro api as parameters (keys) and args (values) to f()
+            let pps = Object.getOwnPropertyNames(host)
+            let fns = Object.getOwnPropertyNames(Object.getPrototypeOf(host)).filter(e => e !== "constructor");
+            let params = pps.concat(fns);            
+            let args = params.map(p => (host as any)[p]);
+
+            // final parameter is the function body
+            params.push(`${this.data.data.script}; return true;`);            
+
+            // can't call/apply new() directly, but we can bind it
             let AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-            let f = new AsyncFunction("speaker", "actor", "token", "character", "power", `
-                ${this.data.data.script}
-            ; return true;`);
+            let AsyncFunctionWithParams = AsyncFunction.bind.apply(
+                AsyncFunction,        // "this" for bind()
+                [null as string|null] // "this" for bound constructor (first argument to bind())
+                .concat(params)       // arguments for bound constructor (subsequent arguments to bind())
+            );
+
+            // create macro function f()
+            let f = new AsyncFunctionWithParams();
 
             try {
-                let result = await f(speaker, actor, token, character, this);
+                let result = await f.apply(this.data.data, args);
                 if (!result) {
                     return;
                 }
@@ -273,9 +287,10 @@ export default class StrikeItem extends Item<StrikeItemData> {
                 console.error(err);
                 return;
             }
-        }        
-
+        } 
+        
         let content = await renderTemplate("systems/fmmua/items/PowerCard.html", this.data);
+        let speaker = ChatMessage.getSpeaker({ actor });
         await ChatMessage.create({ content, speaker });
     }
 }
