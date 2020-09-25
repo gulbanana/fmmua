@@ -21,10 +21,34 @@
     .text {
         flex: 1;
     }
-}
 
-// TinyMCE creates <strong> elements, which in firefox are "font-weight: bolder", doing nothing in the context of the chatlog's explicit weights
-// normalize them to what Chrome (and therefore Electron) does 
-strong {
-    font-weight: bold;
+    .macro-container {
+        position: relative;
+    }
+
+    .macro-input {
+        z-index: 2;
+        text-fill-color: transparent;
+        -webkit-text-fill-color: transparent;
+        resize: none;
+        padding: 0.5em;
+    }
+
+    .macro-output {
+        z-index: 1;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        border: 1px solid transparent;
+
+        > .code {
+            height: 100%;
+        }
+    }
+
+    .macro-input, .macro-output {
+        margin: 0;
+        font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace; 
+        font-size: 14px;
+        border-radius: 3px;
+    }
 }

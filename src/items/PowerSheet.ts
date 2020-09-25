@@ -54,6 +54,18 @@ export default class PowerSheet extends ItemSheet<StrikeItemData, StrikeItem> {
                 usage.value = "custom";
             }
         });
+
+        let text = html.find("textarea.macro-input");
+        let code = html.find(".code");
+        hljs.highlightBlock(code[0]);
+
+        text.on('input', () => {
+            code.text(text.val() as string);
+            hljs.highlightBlock(code[0]);
+        });
+        text.on('scroll', (_ev) => {
+            code.scrollTop(text.scrollTop() as number);
+        });
     }
 
     _getSubmitData(updateData={}): any {

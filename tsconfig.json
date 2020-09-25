@@ -3,9 +3,13 @@
     "target": "ES2017",
     "strict": true,
     "skipLibCheck": true,    
+    "allowUmdGlobalAccess": true,
     "rootDir": "./src/",
     "outDir": "./dist/",
-    "types": ["foundry-pc-types"],
+    "types": [
+      "foundry-pc-types", 
+      "highlight.js"
+    ],
     "lib": [
       "DOM",
       "DOM.Iterable",

@@ -14,8 +14,9 @@
         <div class="tab" data-tab="macro">
             <div class="form-group text">
                 <label>Command</label>
-                <div class="form-fields">
-                    <textarea name="data.script">{{data.script}}</textarea>
+                <div class="macro-container form-fields">
+                    <textarea class="macro-input" name="data.script" spellcheck="false">{{data.script}}</textarea>
+                    <pre class="macro-output"><div class="code javascript">{{data.script}}</div></pre>
                 </div>
             </div>
         </div>
