@@ -1,6 +1,6 @@
 import * as chat from "./chat.js";
 
-export function init() {    
+export function _init() {    
     Hooks.on("renderChatMessage", chat.onRenderChatMessage);
 
     game.settings.register("fmmua", "glossaryChatLinks", {

@@ -3,7 +3,7 @@ import StrikeActorData from "./StrikeActorData.js";
 import CharacterSheet from "./CharacterSheet.js";
 import MonsterSheet from "./MonsterSheet.js";
 
-export function init(handlers: MessageHandler[]) {
+export function _init(handlers: MessageHandler[]) {
     CONFIG.Actor.entityClass = StrikeActor as typeof Actor;  
 
     Actors.unregisterSheet("core", ActorSheet);

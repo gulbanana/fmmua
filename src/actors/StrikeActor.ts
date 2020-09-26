@@ -1,11 +1,9 @@
-import * as dice from "../dice/dice.js";
 import StrikeItem from "../items/StrikeItem.js";
 import StrikeItemData from "../items/StrikeItemData.js";
 import StrikeActorData from "./StrikeActorData.js";
 import CharacterData from "./CharacterData.js";
 import MonsterData from "./MonsterData.js";
-import Target from "../macros/Target.js";
-import Hit from "../macros/Hit.js";
+import { execute } from "../macros/macros.js";
 
 export default class StrikeActor extends Actor<StrikeActorData> {
     constructor(data: ActorData<StrikeActorData>, options: any) {
@@ -94,52 +92,42 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         }
     }
 
-    async use(powerName: string): Promise<void> {
-        let power = this.getPower(powerName);
+    async display(traitOrPower: string | StrikeItem | null): Promise<void> {
+        if (typeof traitOrPower == "string") {
+            traitOrPower = this.items.find((i: Item) => i.name === name) as StrikeItem | null;
+        }
+
+        if (traitOrPower != null) {
+            let content = await traitOrPower.render();
+            let speaker = ChatMessage.getSpeaker({ actor: this });
+            await ChatMessage.create({ content, speaker });
+        }
+    }
+
+    async use(power: string | StrikeItem | null): Promise<void> {
+        if (!this.owner) {
+            ui.notifications.error(game.i18n.localize("fmmua.errors.ActorIsNotOwned"));
+            return;
+        }
+
+        if (typeof power == "string") {
+            power = this.getPower(power);
+        }
+        
         if (power == null) {
             let error = game.i18n.format("fmmua.error.PowerNotFound", {
                 actor: this.name,
-                power: powerName
+                power: power
             });
             ui.notifications.warn(error);
             return;
         }
 
-        await power.use(this);
-    }
-
-    async display(name: string): Promise<void> {
-        let traitOrPower = this.items.find((i: Item) => i.name === name) as StrikeItem | null;
-        if (traitOrPower != null) {
-            await traitOrPower.display(this);
+        if (power.type != "power") {
+            ui.notifications.error(game.i18n.localize("fmmua.errors.ItemIsNotPower"));
+            return;
         }
-    }
 
-    async pickTarget(): Promise<Target[]> {
-        let result = [];
-        let t = canvas.tokens.placeables.find(t => t.name == "Villain");
-        if (t) result.push(new Target(t, false, false));
-        return result;
-    }
-
-    async rollAttacks(targets: Target[]): Promise<Hit[]> {
-        let hits: Hit[] = [];
-        for (let target of targets) {
-            let result = await dice.attackRoll(target.advantage, target.disadvantage, `${this.name} rolls to hit ${target.token.actor.name}.`);
-            hits.push(new Hit(target.token.actor as StrikeActor, result > 2, result > 3, result == 6));
-        }
-        return hits;
-    }
-
-    rollSavingThrow({advantage, disadvantage}: {advantage?: boolean, disadvantage?: boolean} = {}) {
-        return dice.savingThrow(advantage || false, disadvantage || false, `${this.name} rolls to save.`);
-    }
-
-    rollSkill(name: string, {advantage, disadvantage}: {advantage?: boolean, disadvantage?: boolean} = {}) {
-        return dice.skillRoll(advantage || false, disadvantage || false, false, `${this.name} rolls ${name}.`);
-    }
-
-    rollUnskilled(name: string, {advantage, disadvantage}: {advantage?: boolean, disadvantage?: boolean} = {}) {
-        return dice.skillRoll(advantage || false, disadvantage || false, true, `${this.name} rolls ${name} (unskilled).`);
+        await execute(this, power);
     }
 }

@@ -3,7 +3,7 @@ import TraitSheet from "./TraitSheet.js";
 import PowerSheet from "./PowerSheet.js";
 import PowerData from "./PowerData.js";
 
-export function init() {
+export function _init() {
     CONFIG.Item.entityClass = StrikeItem as typeof Item;
 
     Items.unregisterSheet("core", ItemSheet);

@@ -1,10 +1,10 @@
-import { init as initActors } from "./actors/actors.js";
-import { init as initCombat } from "./combat/combat.js";
-import { init as initCommands } from "./commands.js";
-import { init as initDice } from "./dice/dice.js";
-import { init as initGlossary } from "./glossary/glossary.js";
-import { init as initItems } from "./items/items.js";
-import { init as initMacros } from "./macros/macros.js";
+import { _init as initActors } from "./actors/actors.js";
+import { _init as initCombat } from "./combat/combat.js";
+import { _init as initCommands } from "./commands.js";
+import { _init as initDice } from "./dice/dice.js";
+import { _init as initGlossary } from "./glossary/glossary.js";
+import { _init as initItems } from "./items/items.js";
+import { _init as initMacros } from "./macros/macros.js";
 
 let handlers: MessageHandler[] = [];
 

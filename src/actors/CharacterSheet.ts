@@ -1,3 +1,4 @@
+import * as dice from "../dice/dice.js";
 import CharacterData from "./CharacterData.js";
 import StrikeItemData from "../items/StrikeItemData.js";
 import PowerData from "../items/PowerData.js";
@@ -129,11 +130,7 @@ export default class CharacterSheet extends StrikeActorSheet {
                     RollDialog.run(`${this.actor.name} rolls ${skillName} (unskilled).`, "unskilled");
                 }
             } else {
-                if (skilled) {
-                    this.actor.rollSkill(skillName);
-                } else {
-                    this.actor.rollUnskilled(skillName);
-                }                
+                dice.skillRoll(false, false, !skilled, `${this.actor.name} rolls ${skillName}.`);
             }
         }
     }

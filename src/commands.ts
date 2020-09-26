@@ -113,7 +113,7 @@ let commands: Record<string, Command> = {
     }
 }
 
-export function init() {
+export function _init() {
     if (game.world.name != "test-world") {
         delete commands["/reset"];
     }

@@ -1,9 +1,10 @@
 import StrikeActor from "../actors/StrikeActor.js";
 import PowerData from "../items/PowerData.js";
+import StrikeItem from "../items/StrikeItem.js";
 import MacroHost from "./MacroHost.js";
 import MacroSheet from "./MacroSheet.js";
 
-export function init() {
+export function _init() {
     CONFIG.Macro.sheetClass = MacroSheet;
  
     Hooks.on("hotbarDrop", onHotbarDrop);
@@ -12,13 +13,54 @@ export function init() {
     let api = new MacroHost();
     let pps = Object.getOwnPropertyNames(api)
     let fns = Object.getOwnPropertyNames(Object.getPrototypeOf(api)).filter(e => e !== "constructor");
-    let params = pps.concat(fns);            
+    let params = pps.concat(fns).filter(p => !p.startsWith("_"));
 
     let lang = hljs.getLanguage("javascript");
     lang.keywords.params = "";
     for (let param of params) {
         lang.keywords.params = `${lang.keywords.params} ${param}`;
     }
+}
+
+export async function execute(actor: StrikeActor, power: StrikeItem): Promise<boolean> {
+    if (power.data.data.script && Macros.canUseScripts(game.user)) {                      
+        let host = new MacroHost(actor, power);
+        
+        // the macro api as parameters (keys) and args (values) to f()
+        let pps = Object.getOwnPropertyNames(host).filter(p => !p.startsWith("_")) as (keyof MacroHost)[];
+        let fns = Object.getOwnPropertyNames(Object.getPrototypeOf(host)).filter(p => !p.startsWith("_") && p !== "constructor") as (keyof MacroHost)[];
+        let params = pps.concat(fns) as string[];
+        let args = pps.map(k => host[k])
+           .concat(fns.map(k => (host[k] as Function).bind(host)));
+
+        // final parameter is the function body
+        params.push(`${power.data.data.script}; return true;`);            
+
+        // can't call/apply new() directly, but we can bind it
+        let AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+        let AsyncFunctionWithParams = AsyncFunction.bind.apply(
+            AsyncFunction,        // "this" for bind()
+            [null as string|null] // "this" for bound constructor (first argument to bind())
+            .concat(params)       // arguments for bound constructor (subsequent arguments to bind())
+        );
+
+        // create macro function f()
+        let f = new AsyncFunctionWithParams();
+
+        try {
+            var result = await f.apply(power.data.data, args);
+            if (result) {
+                host._commit();
+            }
+            return result;
+        } catch (err) {
+            ui.notifications.error("There was an error in your macro syntax. See the console (F12) for details.");
+            console.error(err);
+            return false;
+        }
+    }
+
+    return true;
 }
 
 type DropData = {

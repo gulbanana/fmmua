@@ -81,7 +81,7 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
                 item: itemId
             }));
         } else {
-            item.display(this.actor);
+            this.actor.display(item);
         }
     }
 
@@ -117,7 +117,7 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
                 item: itemId
             }));
         } else {
-            item.use(this.actor);
+            this.actor.use(item);
         }
     }
 

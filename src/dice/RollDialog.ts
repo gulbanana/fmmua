@@ -48,7 +48,12 @@ export default class RollDialog extends Dialog {
                                 flavor: html[0].querySelector<HTMLInputElement>(".fmmua-flavor")!.value
                             };
                             this.defaults = result;
-                            await dice.strikeRoll(result.advantage, result.disadvantage, result.flavor, result.type);
+                            await dice.strikeRoll({
+                                advantage: result.advantage, 
+                                disadvantage: result.disadvantage, 
+                                flavor: result.flavor, 
+                                tag: result.type
+                            });
                             resolve();
                         }
                     },

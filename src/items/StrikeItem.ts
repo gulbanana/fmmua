@@ -1,8 +1,6 @@
 import StrikeItemData from "./StrikeItemData.js";
 import PowerData from "./PowerData.js";
-import StrikeActor from "../actors/StrikeActor.js";
 import TraitData from "./TraitData.js";
-import MacroHost from "../macros/MacroHost.js";
 
 export default class StrikeItem extends Item<StrikeItemData> {
     static create(data: Partial<ItemData<Partial<StrikeItemData>>>, options = {}) {
@@ -225,73 +223,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
         return super.update(data, options);
     }
 
-    /*************************/
-    /* convenience accessors */
-    /*************************/
-
-    get damage(): number {
-        return (this.data.data as PowerData).damage || 0
-    }
-
-    /*************/
-    /* macro api */
-    /*************/
-
-    async display(actor: StrikeActor): Promise<void> {
-        let content = await renderTemplate(this.type == "power" ? "systems/fmmua/items/PowerCard.html" : "systems/fmmua/items/TraitCard.html", this.data)
-        let speaker = ChatMessage.getSpeaker({ actor });
-        await ChatMessage.create({ content, speaker });
-    }
-
-    async use(actor: StrikeActor): Promise<void> {
-        if (!actor.owner) {
-            ui.notifications.error(game.i18n.localize("fmmua.errors.ActorIsNotOwned"));
-            return;
-        }
-
-        if (this.type != "power") {
-            ui.notifications.error(game.i18n.localize("fmmua.errors.ItemIsNotPower"));
-            return;
-        }
-
-        if (this.data.data.script && Macros.canUseScripts(game.user)) {                      
-            let host = new MacroHost(actor, this);
-
-            // the macro api as parameters (keys) and args (values) to f()
-            let pps = Object.getOwnPropertyNames(host) as (keyof MacroHost)[];
-            let fns = Object.getOwnPropertyNames(Object.getPrototypeOf(host)).filter(e => e !== "constructor") as (keyof MacroHost)[];
-            let params = pps.concat(fns) as string[];
-            let args = pps.map(k => host[k])
-               .concat(fns.map(k => (host[k] as Function).bind(host)));
-
-            // final parameter is the function body
-            params.push(`${this.data.data.script}; return true;`);            
-
-            // can't call/apply new() directly, but we can bind it
-            let AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-            let AsyncFunctionWithParams = AsyncFunction.bind.apply(
-                AsyncFunction,        // "this" for bind()
-                [null as string|null] // "this" for bound constructor (first argument to bind())
-                .concat(params)       // arguments for bound constructor (subsequent arguments to bind())
-            );
-
-            // create macro function f()
-            let f = new AsyncFunctionWithParams();
-
-            try {
-                let result = await f.apply(this.data.data, args);
-                if (!result) {
-                    return;
-                }
-            } catch (err) {
-                ui.notifications.error("There was an error in your macro syntax. See the console (F12) for details.");
-                console.error(err);
-                return;
-            }
-        } 
-        
-        let content = await renderTemplate("systems/fmmua/items/PowerCard.html", this.data);
-        let speaker = ChatMessage.getSpeaker({ actor });
-        await ChatMessage.create({ content, speaker });
+    render(): Promise<HTMLElement> {
+        return renderTemplate(this.type == "power" ? "systems/fmmua/items/PowerCard.html" : "systems/fmmua/items/TraitCard.html", this.data);
     }
 }
