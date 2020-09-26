@@ -5,6 +5,7 @@ import MacroAPI from "./MacroAPI";
 import Target from "./Target.js";
 import Hit from "./Hit.js";
 import PowerData from "../items/PowerData.js";
+import Cancellation from "./Cancellation.js";
 
 export default class MacroHost implements MacroAPI {
     dice: typeof dice;
@@ -38,14 +39,46 @@ export default class MacroHost implements MacroAPI {
         let g = f.bind(this);
         let nextPromise = g(...args);
 
-        this._promises.push( nextPromise);
-        return await nextPromise;
+        this._promises.push(nextPromise);
+
+        try {
+            return await nextPromise;
+        }
+        catch (err) {
+            // i solemnly swear to handle this rejection
+            err.deferred = true;
+            throw err;
+        }
     }
 
     async _drain() {
         for (let pending of this._promises) {
             await pending;
         }
+    }
+
+    payCost = (resource: string, amount?: number) => this._seq(this._payCost, resource, amount);
+    async _payCost(resource: string, amount: number = 1) {
+        let value = getProperty(this.actor.data.data, resource);
+        if (typeof value != "number") {
+            value = getProperty(this.actor.data.data, resource + ".value");
+            if (typeof value != "number") {
+                ui.notifications.error(`Numeric value @${resource} not found in actor ${this.actor.name}. See the console (F12) for a list of available actor values.`);
+                console.log(`Actor values for ${this.actor.name}:`, this.actor.data.data);
+                throw new Cancellation();
+            }
+            resource = resource + ".value";
+        }
+
+        if (value < amount) {
+            ui.notifications.warn(`Actor ${this.actor.name} has @${resource}=${value}, and cannot pay ${amount}.`);
+            throw new Cancellation();
+        }
+
+        await this.actor.update({
+            ["data." + resource]: value - amount
+        });
+        this._note(this.actor.name, `@${resource} -${amount}`);
     }
     
     _lastTargets?: Target[];
@@ -134,7 +167,7 @@ export default class MacroHost implements MacroAPI {
     }
 
     async _toMessage() {
-        if (this._lastHits) {
+        if (this._results && Object.getOwnPropertyNames(this._results).length) {
             let content = JSON.stringify(this._results);
             let speaker = ChatMessage.getSpeaker({ actor: this.actor });
             await ChatMessage.create({ content, speaker });

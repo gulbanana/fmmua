@@ -1,6 +1,7 @@
 import StrikeActor from "../actors/StrikeActor.js";
 import PowerData from "../items/PowerData.js";
 import StrikeItem from "../items/StrikeItem.js";
+import Cancellation from "./Cancellation.js";
 import MacroHost from "./MacroHost.js";
 import MacroSheet from "./MacroSheet.js";
 
@@ -20,6 +21,8 @@ export function _init() {
     for (let param of params) {
         lang.keywords.params = `${lang.keywords.params} ${param}`;
     }
+
+    window.addEventListener("unhandledrejection", onUnhandledRejection);
 }
 
 export async function execute(actor: StrikeActor, power: StrikeItem): Promise<boolean> {
@@ -56,8 +59,11 @@ export async function execute(actor: StrikeActor, power: StrikeItem): Promise<bo
             }
             return result;
         } catch (err) {
-            ui.notifications.error("There was an error in your macro syntax. See the console (F12) for details.");
-            console.error(err);
+            if (!(err instanceof Cancellation)) {
+                ui.notifications.error("There was an error in your macro syntax. See the console (F12) for details.");
+                console.error(err);
+            }
+
             return false;
         }
     }
@@ -107,5 +113,12 @@ function onPreUpdateOwnedItem(actor: StrikeActor, itemData: Record<string, any>,
                 "name": updateData.name
             });
         }
+    }
+}
+
+function onUnhandledRejection(ev: PromiseRejectionEvent) {
+    // someone else has promised to handle the rejection
+    if (ev.reason.deferred) {
+        ev.preventDefault();
     }
 }

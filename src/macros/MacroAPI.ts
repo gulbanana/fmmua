@@ -10,6 +10,13 @@ export default interface MacroAPI {
     token: Token;
     actor: StrikeActor;    
     power: StrikeItem;
+
+    /**
+     * Reduces some actor resource value, or ends the macro if the user doesn't have enough.
+     * @param resource The resource to reduce. Example: "hp".
+     * @param amount The amount to reduce the resource value. Default: 1.
+     */
+    payCost(resource: string, amount?: number): Promise<void>;
     
     /**
      * Allows the user to select targets for a power.
