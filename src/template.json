@@ -5,7 +5,7 @@
             "programmability": {
                 "source": null,
                 "text": "<p>Enter rules text here.</p>",        
-                "macro": null
+                "script": null
             }
         },
         "trait": {
