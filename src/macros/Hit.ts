@@ -12,12 +12,4 @@ export default class Hit {
         this.effect = effect;
         this.critical = critical;
     }
-
-    async applyDamage(n: number) {
-        if (this.damage) {
-            await this.actor.update({
-                "data.hp.value": (this.actor.monster.hp.value - (this.critical ? n*2 : n))
-            });            
-        }
-    }
 }

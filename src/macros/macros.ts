@@ -50,7 +50,9 @@ export async function execute(actor: StrikeActor, power: StrikeItem): Promise<bo
         try {
             var result = await f.apply(power.data.data, args);
             if (result) {
-                host._commit();
+                await host._drain();
+                await host._commit();
+                await host._toMessage();
             }
             return result;
         } catch (err) {

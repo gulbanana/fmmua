@@ -3,16 +3,17 @@ import StrikeActor from "../actors/StrikeActor";
 import StrikeItem from "../items/StrikeItem";
 import MacroAPI from "./MacroAPI";
 import Target from "./Target.js";
+import Hit from "./Hit.js";
+import PowerData from "../items/PowerData.js";
 
 export default class MacroHost implements MacroAPI {
-    _committed: boolean;  
-    dice: typeof dice;    
+    dice: typeof dice;
+
     token: Token;
     actor: StrikeActor;
-    power: StrikeItem;    
+    power: StrikeItem; 
 
     constructor(actor?: StrikeActor, power?: StrikeItem) {
-        this._committed = false;
         this.dice = dice;
 
         if (actor && power) {
@@ -27,29 +28,116 @@ export default class MacroHost implements MacroAPI {
         }
     }
 
-    
-    async pickTargets(): Promise<Target[]> {
-        let result = [];
-        let t = canvas.tokens.placeables.find(t => t.name == "Villain");
-        if (t) result.push(new Target(t, false, false));
-        return result;
+    _promises: Promise<any>[] = [];
+    async _seq<T, P extends any[]>(f: (...args: P) => Promise<T>, ...args: P): Promise<T> {
+        for (let pending of this._promises) {
+            await pending;
+        }
+
+        //@ts-ignore
+        let g = f.bind(this);
+        let nextPromise = g(...args);
+
+        this._promises.push( nextPromise);
+        return await nextPromise;
     }
 
-    async rollAttacks(targets: Target[]): Promise<void> {
+    async _drain() {
+        for (let pending of this._promises) {
+            await pending;
+        }
+    }
+    
+    _lastTargets?: Target[];
+    pickTargets = (options: {count?: number, range?: number} = {}) => this._seq(this._pickTargets, options);
+    async _pickTargets(options: {count?: number, range?: number} = {}): Promise<Target[]> {
+        let targets = [];
+        let token = canvas.tokens.placeables.find(t => t.name == "Villain");
+        if (token) {
+            targets.push(new Target(token, false, false));
+        }
+
+        this._lastTargets = targets;
+        return targets;
+    }
+
+    _lastHits?: Hit[];
+    rollAttacks = (targets?: Target[]) => this._seq(this._rollAttacks, targets);
+    async _rollAttacks(targets?: Target[]): Promise<Hit[]> {
+        if (!targets) {
+            targets = this._lastTargets || [];
+        }
+
         if (targets.length) {
             await this._commit();
         }
 
+        let hits: Hit[] = [];
         for (let target of targets) {
             let result = await dice.attackRoll(target.advantage, target.disadvantage, `${this.actor.name} rolls to hit ${target.token.actor.name}.`);
-            //hits.push(new Hit(target.token.actor as StrikeActor, result > 2, result > 3, result == 6));
+            hits.push(new Hit(target.token.actor as StrikeActor, result > 2, result > 3, result == 6));
+        }
+
+        this._lastHits = hits;
+        return hits;
+    }
+
+    applyDamage = (damage?: number, hits?: Hit[]) => this._seq(this._applyDamage, damage, hits);
+    async _applyDamage(damage?: number, hits?: Hit[]) {
+        if (!hits) {
+            hits = this._lastHits || [];
+        }
+
+        if (typeof damage != "number") {
+            damage = (this.power.data.data as PowerData).damage;
+        }
+
+        if (typeof damage == "number") {
+            for (let hit of hits) {
+                if (hit.damage) {
+                    let x = hit.critical ? damage * 2 : damage;
+                    await hit.actor.update({
+                        "data.hp.value": (this.actor.data.data.hp.value - x)
+                    });
+                    this._note(hit.actor.name, `takes ${x} damage`);
+                }
+            }
         }
     }
 
+    applyEffect = (effects: {}, hits?: Hit[]) => this._seq(this._applyEffect, effects, hits);
+    async _applyEffect(effects: {}, hits?: Hit[]) {
+        if (!hits) {
+            hits = this._lastHits || [];
+        }
+
+        let content = "Applying effects: " + JSON.stringify(effects);
+        let speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        await ChatMessage.create({ content, speaker });
+    }
+
+    _committed: boolean = false;   
     async _commit() {
         if (!this._committed) {
             this._committed = true;
             await this.actor.display(this.power);
+        }
+    }
+
+    _results: Record<string, string[]> = {};
+    _note(key: string, value: string) {
+        if (!this._results[key]) {
+            this._results[key] = [];
+        }
+
+        this._results[key].push(value);
+    }
+
+    async _toMessage() {
+        if (this._lastHits) {
+            let content = JSON.stringify(this._results);
+            let speaker = ChatMessage.getSpeaker({ actor: this.actor });
+            await ChatMessage.create({ content, speaker });
         }
     }
 }
