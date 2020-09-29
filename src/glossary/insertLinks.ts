@@ -46,12 +46,12 @@ function replaceContent(entry: Entry, parent: Element, child: Text, tooltip: boo
             link.classList.add("fmmua-glossary");
             link.appendChild(document.createTextNode(value));
             if (tooltip) {
-                if (typeof entry.content == "string") {
-                    link.dataset["tooltip"] = entry.content;
-                }
-                else {
-                    link.dataset["tooltip"] = entry.content[0] + " (click for more)";
-                }
+                let content = (typeof entry.content == "string") ? `<p>${entry.content}</p>` : entry.content.map(p => `<p>${p}</p>`).join("");
+                //@ts-ignore - types for tippy/popper would probably require a bundler
+                tippy(link, { 
+                    content,
+                    allowHTML: true
+                });
             }
             link.addEventListener("click", _ev => {
                 new GlossaryWindow(entry.displayName).render(true);

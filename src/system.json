@@ -4,9 +4,16 @@
     "description": "<a href='https://www.strikerpg.com/'>https://www.strikerpg.com/</a> for Foundry VTT.",
     "version": "0.3.1",
     "author": "Thomas Castiglione",
-    "scripts": ["lib/highlight.pack.js"],
+    "scripts": [
+      "lib/highlight.pack.js",
+      "lib/popper.min.js",
+      "lib/tippy-bundle.umd.min.js"
+    ],
     "esmodules": ["main.js"],
-    "styles": ["lib/highlight.theme.css", "main.css"],
+    "styles": [
+      "lib/highlight.theme.css", 
+      "main.css"
+    ],
     "packs": [
       {
         "name": "commonPowers",
