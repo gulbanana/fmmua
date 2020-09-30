@@ -141,6 +141,8 @@ export default class CharacterSheet extends StrikeActorSheet {
         this.readArray(data, "skills", 16);
         this.readArray(data, "complications", 4);
         this.readArray(data, "tricks", 5);
+        this.readArray(data, "advances", 6);
+        this.readArray(data, "flawsAndFavors", 5);
 
         return data;
     }
@@ -152,13 +154,13 @@ export default class CharacterSheet extends StrikeActorSheet {
     }
     
     readArray(data: Record<string, any>, name: { [P in keyof CharacterData]: CharacterData[P] extends string[] ? P : never }[keyof CharacterData], max: number) {        
-        let array = duplicate(this.actor.character[name]);
+        let array = duplicate((this.actor.data.data as CharacterData)[name]);
         while (array.length < max) {
             array.push("");
         }
 
         for (let i = 0; i < max; i++) {
-            let arrayInput = this.form.querySelector<HTMLInputElement>(`input[name=data\\.${name}\\[${i}\\]]`);
+            let arrayInput = this.form.querySelector<HTMLInputElement|HTMLTextAreaElement>(`[name=data\\.${name}\\[${i}\\]]`);
             if (arrayInput != null) {
                 delete data[`data.${name}[${i}]`];
                 array[i] = arrayInput.value;

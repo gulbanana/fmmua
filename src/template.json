@@ -45,37 +45,40 @@
                     "value": 10,
                     "max": 10
                 }
+            },
+            "adventure": {
+                "wealth": 0,
+                "background": "",
+                "origin": "",
+                "skills": [],
+                "complications": [],
+                "tricks": [],
+                "kit": "",
+                "advances": [],
+                "fallback": "",
+                "relationships": "",
+                "conditions": {
+                    "minorMental": false,
+                    "winded1": false,
+                    "winded2": false,
+                    "exhausted": false,
+                    "lostConfidence": false,
+                    "lostConfidenceText": "",
+                    "majorMental": false,
+                    "injured": false,
+                    "sick": false,
+                    "thirdMajor": false,
+                    "thirdMajorText": ""
+                },
+                "flawsAndFavors": []
             }
         },
         "character": {
-            "templates": ["common", "tactical"],
+            "templates": ["common", "tactical", "adventure"],
             "ap": {
                 "value": 1,
                 "max": 3
             },
-            // adventure
-            "wealth": 0,
-            "background": "",
-            "origin": "",
-            "skills": [],
-            "complications": [],
-            "tricks": [],
-            "fallback": "",
-            "relationships": "",
-            "conditions": {
-                "minorMental": false,
-                "winded1": false,
-                "winded2": false,
-                "exhausted": false,
-                "lostConfidence": false,
-                "lostConfidenceText": "",
-                "majorMental": false,
-                "injured": false,
-                "sick": false,
-                "thirdMajor": false,
-                "thirdMajorText": ""
-            },
-            // tactical (but specific to PCs)
             "class": "",
             "role": "",
             "mt": {

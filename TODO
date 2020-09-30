@@ -1,5 +1,4 @@
 * glossary improvements
-    - tooltip bugfix
     - world-editable
     - localizable
 
@@ -10,8 +9,6 @@
     - entire sample monsters?
 
 * character sheets are unfinished
-    - flaws and favours
-    - kit advances
     - feat title tooltip includes html
 
 * popout power cards

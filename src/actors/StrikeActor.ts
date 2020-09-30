@@ -71,14 +71,6 @@ export default class StrikeActor extends Actor<StrikeActorData> {
     //     }
     // }
 
-    get character(): CharacterData {
-        return this.data.data as CharacterData;
-    }
-
-    get monster(): MonsterData {
-        return this.data.data as MonsterData;
-    }
-
     getOwnedItem(itemId: string): StrikeItem | null {
         return super.getOwnedItem(itemId) as StrikeItem | null;
     }

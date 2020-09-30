@@ -19,8 +19,10 @@ export default interface CharacterData extends StrikeActorData {
     background: string;
     origin: string;
     wealth: number;
+    fallback: string;
     skills: string[];
     complications: string[];
-    tricks: string[];
-    fallback: string;
+    tricks: string[];    
+    advances: string[];
+    flawsAndFavors: string[];
 }

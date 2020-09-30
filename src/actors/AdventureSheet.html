@@ -107,12 +107,12 @@
     <div class="kit col-fill">
         <h2>Kit Advances</h2>
         <div class="advances">
-            <textarea class="bg-choice" placeholder="Base"></textarea>
-            <textarea class="bg-choice-alt" placeholder="L1"></textarea>
-            <textarea class="bg-choice" placeholder="L3"></textarea>
-            <textarea class="bg-choice-alt" placeholder="L5"></textarea>
-            <textarea class="bg-choice" placeholder="L7"></textarea>
-            <textarea class="bg-choice-alt" placeholder="L9"></textarea>
+            <textarea class="bg-choice" placeholder="Base" name="data.advances[0]">{{lookup data.advances 0}}</textarea>
+            <textarea class="bg-choice-alt" placeholder="L1" name="data.advances[1]">{{lookup data.advances 1}}</textarea>
+            <textarea class="bg-choice" placeholder="L3" name="data.advances[2]">{{lookup data.advances 2}}</textarea>
+            <textarea class="bg-choice-alt" placeholder="L5" name="data.advances[3]">{{lookup data.advances 3}}</textarea>
+            <textarea class="bg-choice" placeholder="L7" name="data.advances[4]">{{lookup data.advances 4}}</textarea>
+            <textarea class="bg-choice-alt" placeholder="L9" name="data.advances[5]">{{lookup data.advances 5}}</textarea>
         </div>
     </div>
 
@@ -135,7 +135,7 @@
                     <td><input type="checkbox" id="{{actor._id}}-majorMental" name="data.conditions.majorMental" {{checked data.conditions.majorMental}}></td>
                     <td><label for="{{actor._id}}-majorMental">Enraged/Major Mental</label></td>
 
-                    <td><input type="text" class="box-full bg-choice"></td>
+                    <td><input type="text" class="box-full bg-choice" name="data.flawsAndFavors[0]" value="{{lookup data.flawsAndFavors 0}}"></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="{{actor._id}}-winded" name="data.conditions.winded1" {{checked data.conditions.winded1}}></td>
@@ -147,7 +147,7 @@
                     <td><input type="checkbox" id="{{actor._id}}-injured" name="data.conditions.injured" {{checked data.conditions.injured}}></td>
                     <td><label for="{{actor._id}}-injured">Injured</label></td>       
 
-                    <td><input type="text" class="box-full bg-choice-alt"></td>
+                    <td><input type="text" class="box-full bg-choice-alt" name="data.flawsAndFavors[1]" value="{{lookup data.flawsAndFavors 1}}"></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="{{actor._id}}-exhausted" name="data.conditions.exhausted" {{checked data.conditions.exhausted}}></td>
@@ -156,7 +156,7 @@
                     <td><input type="checkbox" id="{{actor._id}}-sick" name="data.conditions.sick" {{checked data.conditions.sick}}></td>
                     <td><label for="{{actor._id}}-sick">Sick</label></td>
 
-                    <td><input type="text" class="box-full bg-choice"></td>
+                    <td><input type="text" class="box-full bg-choice" name="data.flawsAndFavors[2]" value="{{lookup data.flawsAndFavors 2}}"></td>
                 </tr>
                 <tr>
                     <td rowspan="2"><input type="checkbox" id="{{actor._id}}-lostConfidence" name="data.conditions.lostConfidence" {{checked data.conditions.lostConfidence}}></td>
@@ -165,12 +165,12 @@
                     <td rowspan="2"><input type="checkbox" id="{{actor._id}}-thirdMajor" name="data.conditions.thirdMajor" {{checked data.conditions.thirdMajor}}></td>
                     <td><label for="{{actor._id}}-thirdMajor">Other Major:</label></td>
 
-                    <td><input type="text" class="box-full bg-choice-alt"></td>
+                    <td><input type="text" class="box-full bg-choice-alt" name="data.flawsAndFavors[3]" value="{{lookup data.flawsAndFavors 3}}"></td>
                 </tr>
                 <tr>
                     <td><input type="text" class="box-full" name="data.conditions.lostConfidenceText" value="{{data.conditions.lostConfidenceText}}"></td>
                     <td><input type="text" class="box-full" name="data.conditions.thirdMajorText" value="{{data.conditions.thirdMajorText}}"></td>
-                    <td><input type="text" class="box-full bg-choice"></td>
+                    <td><input type="text" class="box-full bg-choice" name="data.flawsAndFavors[4]" value="{{lookup data.flawsAndFavors 4}}"></td>
                 </tr>
             </tbody>
         </table>
