@@ -4,6 +4,12 @@ import StrikeItem from "../items/StrikeItem";
 import Target from "./Target.js";
 import Hit from "./Hit.js";
 
+export type PickTargetsOptions = {
+    count?: number, 
+    range?: number,
+    self?: boolean
+}
+
 export default interface MacroAPI {
     dice: typeof dice;
     
@@ -23,7 +29,7 @@ export default interface MacroAPI {
      * @param count Maximum number of targets. Default: Unlimited within a Burst, 1 otherwise.
      * @param range Maximum distance to each target. Default: Calculated based on power Range and Burst Size.
      */
-    pickTargets(options: {count: number, range: number}): Promise<Target[]>;
+    pickTargets(options: PickTargetsOptions): Promise<Target[]>;
 
     /**
      * Makes attack rolls and returns the hit state (missed, glancing, solid, critical) of each target.

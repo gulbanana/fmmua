@@ -15,8 +15,7 @@
     - https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/item/entity.js#L297
 
 * macro apis
-    - configure target and modifiers
-    - make attack rolls
+    - advantage/disadvantage from target picker
     - gather/apply effects
     - encounter power used state
 

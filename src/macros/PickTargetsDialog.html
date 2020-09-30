@@ -1,0 +1,10 @@
+{{#each pickers}}
+<p class="pick-targets">
+    <select>
+        {{#each tokens}}
+            <option value="{{data._id}}">{{name}}</option>
+        {{/each}}
+    </select>
+    <img src="{{initialImg}}" />
+</p>
+{{/each}}

@@ -1,0 +1,20 @@
+.pick-targets {
+    position: relative;
+
+    > select {
+        font-size: 2em; 
+        height: 68px; 
+        width: 100%;
+        padding-left: 64px;        
+    }
+
+    > img {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        bottom: 2px;
+        width: 64px;
+        height: 64px;
+        border: none;
+    }
+}

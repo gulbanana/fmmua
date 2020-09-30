@@ -7,6 +7,9 @@ declare let canvas: {
 		get(id: string): Token;
 		_hover: Token;
 		placeables: Token[];
+	},
+	grid: CanvasLayer & {
+		measureDistance(origin: {x: number, y: number}, target: {x: number, y: number}): number;
 	}
 }
 

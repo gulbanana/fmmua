@@ -1,18 +1,20 @@
 import * as dice from "../dice/dice.js";
 import StrikeActor from "../actors/StrikeActor";
 import StrikeItem from "../items/StrikeItem";
-import MacroAPI from "./MacroAPI";
+import MacroAPI, { PickTargetsOptions } from "./MacroAPI";
 import Target from "./Target.js";
 import Hit from "./Hit.js";
 import PowerData from "../items/PowerData.js";
 import Cancellation from "./Cancellation.js";
+import PickTargetsDialog from "./PickTargetsDialog.js";
 
 export default class MacroHost implements MacroAPI {
     dice: typeof dice;
 
     token: Token;
     actor: StrikeActor;
-    power: StrikeItem; 
+    power: StrikeItem;
+    _data: PowerData;
 
     constructor(actor?: StrikeActor, power?: StrikeItem) {
         this.dice = dice;
@@ -22,10 +24,12 @@ export default class MacroHost implements MacroAPI {
             this.actor = actor;
             this.token = canvas.tokens.get(speaker.token);
             this.power = power;
+            this._data = power.data.data as PowerData;
         } else {
             this.actor = undefined as any;
             this.token = undefined as any;
             this.power = undefined as any;
+            this._data = undefined as any;
         }
     }
 
@@ -80,15 +84,64 @@ export default class MacroHost implements MacroAPI {
         });
         this._note(this.actor.name, `@${resource} -${amount}`);
     }
-    
+
     _lastTargets?: Target[];
-    pickTargets = (options: {count?: number, range?: number} = {}) => this._seq(this._pickTargets, options);
-    async _pickTargets(options: {count?: number, range?: number} = {}): Promise<Target[]> {
-        let targets = [];
-        let token = canvas.tokens.placeables.find(t => t.name == "Villain");
-        if (token) {
-            targets.push(new Target(token, false, false));
+    pickTargets = (options: PickTargetsOptions = {}) => this._seq(this._pickTargets, options);
+    async _pickTargets(options: PickTargetsOptions = {}): Promise<Target[]> {
+        // derive N from power data
+        let count = options.count;
+        if (typeof count === "undefined") {
+            if (!this._data.targets.length) {
+                ui.notifications.error("Power has no configured target. Please set melee, set range or specify pickTargets({count: n}). n should be 1 or higher for a fixed number of targets, -1 for unlimited.");
+                return [];
+            }
+
+            if (this._data.targets.some(t => t.burst)) {
+                count = -1;
+            } else {
+                count = 1;
+            }
         }
+
+        if (count === 0) {
+            return [];
+        }
+
+        // derive R from power data
+        let range = options.range;
+        if (typeof range === "undefined") {
+            if (!this._data.targets.length) {
+                ui.notifications.error("Power has no configured range. Please set melee, set range or specify pickTargets({range: n}).");
+                return [];
+            }
+
+            range = 1;
+            for (let t of this._data.targets) {
+                if (t.mode === "ranged") {
+                    if (t.range > range) {
+                        range = t.range;
+                    }
+                }
+            }
+        }
+
+        // find tokens within R, and pick N of them
+        let potentialTargets: Token[] = []
+        for (let t of canvas.tokens.placeables) { 
+            if (options.self || t != this.token) {
+                let distance = canvas.grid.measureDistance(this.token, t);
+                if (distance <= range) {
+                    potentialTargets.push(t);
+                }
+            }
+        }
+
+        if (!potentialTargets.length) {
+            ui.notifications.warn(`No valid targets within range ${range}.`);
+            throw new Cancellation();
+        }
+
+        let targets = await PickTargetsDialog.run(count, potentialTargets);                
 
         this._lastTargets = targets;
         return targets;
