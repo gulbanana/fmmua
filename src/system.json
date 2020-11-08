@@ -37,8 +37,8 @@
     "gridUnits": "sq",
     "primaryTokenAttribute": "hp",
     "secondaryTokenAttribute": null,
-    "minimumCoreVersion": "0.7.1",
-    "compatibleCoreVersion": "0.7.2",
+    "minimumCoreVersion": "0.7.3",
+    "compatibleCoreVersion": "0.7.3",
     "url": "https://github.com/gulbanana/fmmua/",
     "manifest": "https://raw.githubusercontent.com/gulbanana/fmmua/master/src/system.json",
     "download": "https://github.com/gulbanana/fmmua/releases/download/v0.3.1/fmmua.zip"

@@ -69,26 +69,26 @@
                     {{/if}}
 
                     <div class="token-effects">
-                        {{#each this.token.effects}}
-                        <img class="token-effect" src="{{this}}?np"/>
+                        {{#each this.effects}}
+                        <img class="token-effect" src="{{this}}"/>
                         {{/each}}
                     </div>
                 </div>
             </div>
 
+            {{#if this.hasResource}}
             <div class="token-resource">
                 {{#each this.resources}}
                 <span class="resource" style="--resource-color: {{this.color}}" title="{{this.tooltip}}">{{this.value}}</span>
                 {{/each}}                
             </div>
+            {{/if}}
 
             <div class="token-initiative">
                 {{#if this.hasRolled}}
                 <span class="initiative">{{this.initiative}}</span>
                 {{else if this.owner}}
-                <a class="combatant-control roll" title="{{localize 'COMBAT.InitiativeRoll'}}" data-control="rollInitiative">
-                    <i class="fas fa-dice-d6"></i>
-                </a>
+                <a class="combatant-control roll" title="{{localize 'COMBAT.InitiativeRoll'}}" data-control="rollInitiative"></a>
                 {{/if}}
             </div>
         </li>

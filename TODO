@@ -26,3 +26,7 @@
 * update on submit mode setting (latency issue)
 
 * use qfa icons for powers
+
+* combat update on alternate resources 
+    unfortunately this is in Token - _onUpdateBaseActor and _onUpdateTokenActor, which hardcode handling a single resource
+    can call canvas.addPendingOperation(`CombatTracker.render`, ui.combat.render, ui.combat); from anywhere though

@@ -1,10 +1,22 @@
 import StrikeCombat from "./StrikeCombat";
 
+// tracks multiple resources - vestigial support for this existed prior to 0.7.3 but it's now in-house
 export default class StrikeTracker extends CombatTracker<StrikeCombat> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             template: "systems/fmmua/combat/StrikeTracker.html"
         });
+    }
+
+    /**
+     * Cache the values of additional tracked resources for each Token in Combat
+     * @type {Object}
+     */
+    trackedResources: Record<string, Record<string, number>>;
+
+    constructor(options: any) {
+        super(options);
+        this.trackedResources = {};
     }
 
     async getData(options: any) {
@@ -58,7 +70,11 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
         return result;
     }
 
-    // modified version of the base class implementation which ignores token permissions and supports multiple resources
+    render(force?: boolean, options?: RenderOptions) {
+        this.updateTrackedResources();
+        return super.render(force, options);
+    }
+
     updateTrackedResources() {
         const combat = this.combat;
         if ( !combat ) return this.trackedResources = {};
@@ -88,5 +104,5 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
             callback: li => this.combat?.duplicateCombatant(li.data('combatant-id'))
         })
         return contextMenu;
-      }
+    }
 }
