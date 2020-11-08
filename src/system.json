@@ -2,7 +2,7 @@
     "name": "fmmua",
     "title": "FMMUA - Foundry Strike",
     "description": "<a href='https://www.strikerpg.com/'>https://www.strikerpg.com/</a> for Foundry VTT.",
-    "version": "0.3.1",
+    "background": "system-background.png",
     "author": "Thomas Castiglione",
     "scripts": [
       "lib/highlight.pack.js",
@@ -37,10 +37,11 @@
     "gridUnits": "sq",
     "primaryTokenAttribute": "hp",
     "secondaryTokenAttribute": null,
-    "minimumCoreVersion": "0.7.3",
-    "compatibleCoreVersion": "0.7.3",
     "url": "https://github.com/gulbanana/fmmua/",
     "manifest": "https://raw.githubusercontent.com/gulbanana/fmmua/master/src/system.json",
-    "download": "https://github.com/gulbanana/fmmua/releases/download/v0.3.1/fmmua.zip"
-  }
+    "download": "https://github.com/gulbanana/fmmua/releases/download/v0.3.1/fmmua.zip",
+    "version": "0.3.1",
+    "minimumCoreVersion": "0.7.3",
+    "compatibleCoreVersion": "0.7.4"
+}
   
