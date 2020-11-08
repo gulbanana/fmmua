@@ -8,9 +8,6 @@
     - monster traits for gm
     - entire sample monsters?
 
-* character sheets are unfinished
-    - feat title tooltip includes html
-
 * popout power cards
     - https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/item/entity.js#L297
 
@@ -18,6 +15,7 @@
     - advantage/disadvantage from target picker
     - gather/apply effects
     - encounter power used state
+        - statuses, maybe duration?
 
 * structured character creation?
     - make it easier for players to reuse elements

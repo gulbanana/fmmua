@@ -12,6 +12,15 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
         html.find('.item-display').click(ev => this.onItemDisplay($(ev.currentTarget).parents(".item")));
         html.find('.item-edit').click(ev => this.onItemEdit($(ev.currentTarget).parents(".item")));
         html.find('.item-use').click(ev => this.onItemUse($(ev.currentTarget).parents(".item")));
+
+        html.find(".trait > .text").each((_index, div) => {
+            //@ts-ignore - types for tippy/popper would probably require a bundler
+            tippy(div, { 
+                content: div.innerHTML,
+                allowHTML: true,
+                delay: [400, 0]
+            });
+        });
     }
 
     resizeFloats(html: JQuery) {        
