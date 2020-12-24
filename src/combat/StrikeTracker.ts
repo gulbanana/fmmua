@@ -24,18 +24,13 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
 
         for (let t of result.turns) {
             t.resources = [];   
+            t.strikes = [];
 
             let strikes = this.trackedResources[t.tokenId]?.["strikes.value"];
             if (strikes) {
-                let text = "";
                 for (let i = 0; i < strikes; i++) {
-                    text = text + "❗";
+                    t.strikes.push({});
                 }
-                t.resources.push({
-                    tooltip: game.i18n.localize("fmmua.actor.strikes"),
-                    value: text,
-                    color: "inherit"
-                });      
             }
         
             let ap = this.trackedResources[t.tokenId]?.["ap.value"];                
