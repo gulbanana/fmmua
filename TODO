@@ -3,7 +3,7 @@ In rough priority order, most to least important
 * update to support stable releases 0.7.5-0.7.9, then stick with stable probably
 
 * power cards improvements
-    - fit in sidebar without VSR
+    - fit in sidebar without VSR (272px is default available space)
     - popout? https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/item/entity.js#L297
 
 * macro apis
