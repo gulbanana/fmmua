@@ -4,7 +4,8 @@ import Target from "./Target.js";
 export default class PickTargetsDialog extends Dialog {
     static async run(n: number, candidates: Token[]): Promise<Target[]> {
         let pickers = [];
-        for (let i = 0; i < n; i++) {
+        let max = n == -1 ? candidates.length: n;
+        for (let i = 0; i < max; i++) {
             pickers.push({
                 initialImg: candidates[0].data.img,
                 tokens: candidates
@@ -18,7 +19,7 @@ export default class PickTargetsDialog extends Dialog {
         return await new Promise<Target[]>((resolve, reject) => {
             new this({
                 content,
-                title: n > 1 ? "Pick Targets" : "Pick Target",
+                title: max > 1 ? "Pick Targets" : "Pick Target",
                 buttons: {
                     cancel: {
                         icon: '<i class="fas fa-times"></i>',
