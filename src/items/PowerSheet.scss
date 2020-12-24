@@ -25,6 +25,8 @@
     .macro-container {
         position: relative;
         z-index: 0;
+        height: 100%;
+        align-items: stretch;
     }
 
     .macro-input {
