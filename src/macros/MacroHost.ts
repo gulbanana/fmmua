@@ -129,7 +129,8 @@ export default class MacroHost implements MacroAPI {
         let potentialTargets: Token[] = []
         for (let t of canvas.tokens.placeables) { 
             if (options.self || t != this.token) {
-                let distance = canvas.grid.measureDistance(this.token, t);
+                let ray = new Ray(this.token, t);
+                let distance = canvas.grid.measureDistances([{ray}], {gridSpaces: true})
                 if (distance <= range) {
                     potentialTargets.push(t);
                 }
