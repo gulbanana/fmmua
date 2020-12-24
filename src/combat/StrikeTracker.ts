@@ -70,6 +70,15 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
         return super.render(force, options);
     }
 
+    activateListeners(html: JQuery) {
+        super.activateListeners(html);
+
+        html.find(".fmmua-combat-settings").click(ev => {
+            ev.preventDefault();
+            new CombatTrackerConfig(undefined, {template: "systems/fmmua/combat/combat-config.html"}).render(true);
+        });
+    }
+
     updateTrackedResources() {
         const combat = this.combat;
         if ( !combat ) return this.trackedResources = {};

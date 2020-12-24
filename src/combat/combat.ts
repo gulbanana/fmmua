@@ -5,4 +5,18 @@ export function _init() {
     CONFIG.Combat.initiative.decimals = 0;
     CONFIG.Combat.entityClass = StrikeCombat;
     CONFIG.ui.combat = StrikeTracker;
+
+    Hooks.on("updateActor", onUpdateActor);
+}
+
+// hardcoded list replaces the configurable one in base foundry
+let trackedResources = ["ap.value", "hp.value", "mt.value", "strikes.value"];
+
+async function onUpdateActor(actor: Actor, data: ActorData, _options: {}, _userId: string) {
+    actor.getActiveTokens().forEach(token => {
+        if (token.inCombat && data.data && trackedResources.some(r => hasProperty(data.data, r))) {
+            game.combat.setupTurns();
+            ui.combat.render();
+        }
+    });
 }
