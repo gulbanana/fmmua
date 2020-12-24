@@ -6,6 +6,7 @@ const concat = require('gulp-concat');
 const stripJsonComments = require('gulp-strip-json-comments');
 const ts = require("gulp-typescript");
 const sass = require('gulp-sass');
+const { fstat, existsSync } = require('fs');
 sass.compiler = require('node-sass');
 
 // build src -> dist
@@ -45,10 +46,17 @@ exports.clean = cleanBuild;
 exports.default = build;
 
 // install dist -> data
-let dataPath = process.env.FOUNDRY_VTT_DATA_PATH;
-if (!dataPath || dataPath === "") {
+let dataPath = "";
+if (existsSync(process.env.FOUNDRY_VTT_DATA_PATH)) {
+    dataPath = process.env.FOUNDRY_VTT_DATA_PATH;
+} else if (existsSync(process.env.LOCALAPPDATA)) {
     dataPath = path.join(process.env.LOCALAPPDATA, 'FoundryVTT');
+} else if (existsSync(process.env.HOME + '/Library/Application Support')) {
+    dataPath = path.join(process.env.HOME, 'Library', 'Application Support', 'FoundryVTT');
+} else {
+    throw Error("FOUNDRY_VTT_DATA_PATH not set");
 }
+
 const deployPath = path.join(dataPath, 'Data', 'systems', 'fmmua') + '/';
 
 function cleanDeploy() {

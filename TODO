@@ -1,6 +1,16 @@
-* glossary improvements
-    - world-editable
-    - localizable
+In rough priority order, most to least important
+
+* update to support stable releases 0.7.5-0.7.9, then stick with stable probably
+
+* power cards improvements
+    - fit in sidebar without VSR
+    - popout? https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/item/entity.js#L297
+
+* macro apis
+    - advantage/disadvantage from target picker
+    - statuses (arbitrary active effects? initial version could just be note+icon, for people to rules-apply themselves)
+    - maybe duration?
+    - encounter power used state
 
 * compendium packs 
     - i've got the common powers in there, but nothing else
@@ -8,27 +18,23 @@
     - monster traits for gm
     - entire sample monsters?
 
-* popout power cards
-    - https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/item/entity.js#L297
-
-* macro apis
-    - advantage/disadvantage from target picker
-    - gather/apply effects
-    - encounter power used state
-        - statuses, maybe duration?
-
-* structured character creation?
-    - make it easier for players to reuse elements
-    - initial setup, use compendiua
-    - feat/role boost levels
-    - advances
-
-* update on submit mode setting (latency issue)
-
-* use qfa icons for powers
+* reconsider update on submit mode setting (latency issue)
 
 * combat update on alternate resources 
     unfortunately this is in Token - _onUpdateBaseActor and _onUpdateTokenActor, which hardcode handling a single resource
     can call canvas.addPendingOperation(`CombatTracker.render`, ui.combat.render, ui.combat); from anywhere though
 
+* use qfa icons for powers - or replace everything with the new icon library
+
 * use message core.initiativeRoll flag somehow (what we really need is for it to put a tag on the dice.. override Roll?)
+
+* glossary improvements
+    - localizable
+    - world-editable
+
+* structured character creation?
+    - make it easier for players to reuse elements
+    - initial setup, use compendia
+    - feat/role boost levels
+    - advances
+    - gm review?
