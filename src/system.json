@@ -42,6 +42,6 @@
     "download": "https://github.com/gulbanana/fmmua/releases/download/v0.3.1/fmmua.zip",
     "version": "0.3.1",
     "minimumCoreVersion": "0.7.5",
-    "compatibleCoreVersion": "0.7.7"
+    "compatibleCoreVersion": "0.7.8"
 }
   

@@ -2,7 +2,7 @@ import StrikeCombat from "./StrikeCombat.js";
 import StrikeTracker from "./StrikeTracker.js";
 
 export function _init() {
-    CONFIG.Combat.initiative.decimals = 0;
+    CONFIG.Combat.initiative.decimals = 0; // only needed 0.7.5 -> 0.7.7, but harmless 0.7.8+
     CONFIG.Combat.entityClass = StrikeCombat;
     CONFIG.ui.combat = StrikeTracker;
 
