@@ -1,5 +1,5 @@
 .power-card {
-    min-width: 350px;
+    min-width: 250px;
     font-size: 16px;
     font-weight: bold;
     display: grid;
@@ -24,11 +24,23 @@
 
     & > .usage {
         grid-area: usage;
+        white-space: nowrap;
+
         display: grid;
         align-items: center;
 
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: 'type subtype';
+        grid-template-columns: 1fr 0.5em 1fr;
+        grid-template-areas: 'type . subtype';
+
+        & > .type {
+            grid-area: type;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        & > .subtype {
+            grid-area: subtype;
+        }
 
         & > .target {
             display: grid;
@@ -53,7 +65,7 @@
             margin-right: 0.5em;
         }
     }
-
+    
     .gap-half {
         display: inline-block;
         width: 0.5em;

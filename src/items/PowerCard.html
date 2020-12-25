@@ -1,5 +1,5 @@
 <div class="power-card kind-{{data.kind}} action-{{data.action}} usage-{{data.usage}}">
-    <div class="action no-glossary">        
+    <div class="action no-glossary" title="{{name}}">        
         {{#if data.actionIcon}}
             <span class="gap-quarter"></span>
             <i class="qfas qfa-{{data.actionIcon}}"/></i>
@@ -9,16 +9,16 @@
         {{name}}
     </div>
     <div class="usage no-glossary">
-        <div>
+        <div class="type" title="{{data.usageText}}">
             {{data.usageText}}
         </div>
         {{#if data.subtypeText}}
-            <div>
+            <div class="subtype">
                 {{data.subtypeText}}
             </div>
         {{else}}
             {{#if data.targetHtml}}
-                <div class="target">
+                <div class="subtype target">
                     <span>
                         {{{data.targetHtml}}}
                     </span>
@@ -29,7 +29,7 @@
                     </span>
                 </div>
             {{else}}
-                <div></div>
+                <div class="subtype"></div>
             {{/if}}
         {{/if}}
     </div>

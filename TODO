@@ -1,9 +1,5 @@
 In rough priority order, most to least important
 
-* power cards improvements
-    - fit in sidebar without VSR (272px is default available space; 250px looks ok apart from "Encounter" being long for its space)
-    - popout? https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/item/entity.js#L297
-
 * macro apis
     - advantage/disadvantage from target picker
     - correct multitarget picking - prevent reselection, allow *de*selection

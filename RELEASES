@@ -7,4 +7,4 @@
 - Power macros - see MacroAPI.d.ts for the DSL.
 - Improved tooltips which display HTML and don't underlap the sidebar.
 - Sheet UI tweaks.
-- Power cards in the chat log can now be popped out.
+- Power cards now fit into smaller spaces such as the default chatlog. Power messages in the chat log can be popped out into their own window.
