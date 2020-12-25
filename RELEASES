@@ -1,0 +1,10 @@
+0.3 series
+- Initial usable version. 
+- Major features: character sheets, power cards, custom dice and a glossary.
+
+0.4.0
+- Support for latest, stable Foundry release.
+- Power macros - see MacroAPI.d.ts for the DSL.
+- Improved tooltips which display HTML and don't underlap the sidebar.
+- Sheet UI tweaks.
+- Power cards in the chat log can now be popped out.

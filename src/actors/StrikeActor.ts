@@ -92,7 +92,11 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         if (traitOrPower != null) {
             let content = await traitOrPower.render();
             let speaker = ChatMessage.getSpeaker({ actor: this });
-            await ChatMessage.create({ content, speaker });
+            await ChatMessage.create({ 
+                content, 
+                speaker,
+                flags: {"core.canPopout": true}
+            });
         }
     }
 
