@@ -1,7 +1,6 @@
 In rough priority order, most to least important
 
 * macro apis
-    - correct multitarget picking - prevent reselection, allow *de*selection
     - statuses (via active events - needs parameterisation, tint, no rules effect initially)
     - maybe duration?
     - encounter power used state?

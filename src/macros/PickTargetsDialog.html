@@ -2,11 +2,16 @@
 <div class="pick-target">
     <div class="dropdown">
         <select>
+            <option value="">&nbsp;</option>
             {{#each tokens}}
-                {{#if this}}
-                    <option value="{{data._id}}" selected>{{name}}</option>
+                {{#if selected}}
+                    <option value="{{token.data._id}}" selected>{{token.name}}</option>
                 {{else}}
-                    <option value="">&nbsp;</option>
+                    {{#if disabled}}
+                        <option value="{{token.data._id}}" disabled>{{token.name}}</option>
+                    {{else}}
+                        <option value="{{token.data._id}}">{{token.name}}</option>
+                    {{/if}}
                 {{/if}}
             {{/each}}
         </select>

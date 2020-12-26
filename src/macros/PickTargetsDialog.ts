@@ -6,10 +6,13 @@ export default class PickTargetsDialog extends Dialog {
         let pickers = [];
         let max = n == -1 ? candidates.length: n;
         for (let i = 0; i < max; i++) {
-            pickers.push({
-                initialImg: candidates[i].data.img,
-                tokens: n == 1 ? candidates : [null, candidates[i]]
-            });
+            let initialImg = candidates[i].data.img;
+            let tokens = candidates.map((t, ix) => { return {
+                token: t,
+                selected: ix == i,
+                disabled: ix < max 
+            };});
+            pickers.push({ initialImg, tokens });
         }
 
         let content = await renderTemplate("systems/fmmua/macros/PickTargetsDialog.html", {
@@ -58,10 +61,19 @@ export default class PickTargetsDialog extends Dialog {
         for (let picker of html.find(".pick-target")) {
             let select = picker.querySelector("select")!;
             let img = picker.querySelector("img")!;
+            let checkboxes = picker.querySelectorAll<HTMLInputElement>("input[type=checkbox]");
+
             select.addEventListener("change", ev => {
                 let token: Token|null = canvas.tokens.get(select.value);
+                
                 img.src = token?.data?.img || "";
                 img.style.display = token == null ? "none" : "inherit";
+                for (let checkbox of checkboxes) {
+                    checkbox.disabled = token == null;
+                    checkbox.checked = checkbox.checked && token != null;
+                }
+
+                this._enableTargets(html);
             });
 
             for (let option of picker.querySelectorAll<HTMLInputElement>("input[type=checkbox]")) {
@@ -74,6 +86,18 @@ export default class PickTargetsDialog extends Dialog {
                         }
                     }
                 })
+            }
+        }
+    }
+
+    _enableTargets(html: JQuery) {
+        let allOptions = html.find<HTMLOptionElement>(`option[value]`).get();
+        for (let picker of html.find(".pick-target")) {
+            let select = picker.querySelector("select")!;
+            for (let option of select.querySelectorAll<HTMLOptionElement>("option[value]")) {
+                if (option.value != "") {
+                    option.disabled = !option.selected && allOptions.filter(o => o.selected && o.value == option.value).length > 0;
+                }
             }
         }
     }
