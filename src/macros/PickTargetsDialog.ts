@@ -38,19 +38,36 @@ export default class PickTargetsDialog extends Dialog {
     }
 
     static _submit(html: JQuery): Target[] {
-        let selects = Array.from(html.find<HTMLSelectElement>(".pick-targets>select"));
-        return selects.map(select => new Target(canvas.tokens.get(select.value), false, false));
+        let pickers = html.find<HTMLDivElement>(".pick-target");
+        return pickers.map<Target>(function() {
+            let select = this.querySelector("select")!;
+            let a = this.querySelector<HTMLInputElement>("input[name=advantage]")!;
+            let d = this.querySelector<HTMLInputElement>("input[name=disadvantage]")!;
+            return new Target(canvas.tokens.get(select.value), a.checked, d.checked);
+        }).get();
     }
 
     activateListeners(html: JQuery) {
         super.activateListeners(html);
 
-        for (let picker of html.find(".pick-targets")) {
+        for (let picker of html.find(".pick-target")) {
             let select = picker.querySelector("select")!;
             let img = picker.querySelector("img")!;
             select.addEventListener("change", ev => {
                 img.src = canvas.tokens.get(select.value).data.img;
             });
+
+            for (let option of picker.querySelectorAll<HTMLInputElement>("input[type=checkbox]")) {
+                option.addEventListener("change", () => {
+                    if (option.checked) {
+                        for (let other of picker.querySelectorAll<HTMLInputElement>("input[type=checkbox]")) {
+                            if (other != option) {
+                                other.checked = false;
+                            }
+                        }
+                    }
+                })
+            }
         }
     }
 }

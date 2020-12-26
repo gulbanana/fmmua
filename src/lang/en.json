@@ -43,6 +43,8 @@
     "fmmua.error.deleteTokens.UntrustedUser": "Untrusted player {name} attempted to delete tokens.",
     "fmmua.error.deleteTokens.UnownedTokens": "Player {name} attempted to delete unowned tokens.",
     "fmmua.glossary.windowTitle": "Glossary",
+    "fmmua.macros.advantage": "Advantage",
+    "fmmua.macros.disadvantage": "Disadvantage",
     "fmmua.settings.actorsGroupPowers": "Group powers by source.",
     "fmmua.settings.actorsGroupPowersHint": "Display role, class and other powers separately on character sheets.",
     "fmmua.settings.glossaryChatLinks": "Glossary Chat Links",

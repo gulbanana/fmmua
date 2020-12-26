@@ -1,10 +1,22 @@
 {{#each pickers}}
-<p class="pick-targets">
-    <select>
-        {{#each tokens}}
-            <option value="{{data._id}}">{{name}}</option>
-        {{/each}}
-    </select>
-    <img src="{{initialImg}}" />
-</p>
+<div class="pick-target">
+    <div class="dropdown">
+        <select>
+            {{#each tokens}}
+                <option value="{{data._id}}">{{name}}</option>
+            {{/each}}
+        </select>
+        <img src="{{initialImg}}" />
+    </div>
+    <div class="options">
+        <label>
+            <input type="checkbox" name="advantage">
+            {{localize "fmmua.macros.advantage"}}
+        </label>
+        <label>
+            <input type="checkbox" name="disadvantage">
+            {{localize "fmmua.macros.disadvantage"}}
+        </label>
+    </div>
+</div>
 {{/each}}
