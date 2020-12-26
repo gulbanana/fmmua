@@ -117,6 +117,7 @@ export default class MacroHost implements MacroAPI {
 
             range = 1;
             for (let t of this._data.targets) {
+                range = t.burst || 1;
                 if (t.mode === "ranged") {
                     if (t.range > range) {
                         range = t.range;
