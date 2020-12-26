@@ -7,8 +7,8 @@ export default class PickTargetsDialog extends Dialog {
         let max = n == -1 ? candidates.length: n;
         for (let i = 0; i < max; i++) {
             pickers.push({
-                initialImg: candidates[0].data.img,
-                tokens: candidates
+                initialImg: candidates[i].data.img,
+                tokens: n == 1 ? candidates : [null, candidates[i]]
             });
         }
 
@@ -38,13 +38,18 @@ export default class PickTargetsDialog extends Dialog {
     }
 
     static _submit(html: JQuery): Target[] {
-        let pickers = html.find<HTMLDivElement>(".pick-target");
-        return pickers.map<Target>(function() {
-            let select = this.querySelector("select")!;
-            let a = this.querySelector<HTMLInputElement>("input[name=advantage]")!;
-            let d = this.querySelector<HTMLInputElement>("input[name=disadvantage]")!;
-            return new Target(canvas.tokens.get(select.value), a.checked, d.checked);
-        }).get();
+        return html
+            .find<HTMLDivElement>(".pick-target")
+            .filter(function(_index, _element): boolean {
+                let select = this.querySelector("select")!;
+                return typeof select.value === "string" && select.value != "";
+            })
+            .map<Target>(function() {
+                let select = this.querySelector("select")!;
+                let a = this.querySelector<HTMLInputElement>("input[name=advantage]")!;
+                let d = this.querySelector<HTMLInputElement>("input[name=disadvantage]")!;
+                return new Target(canvas.tokens.get(select.value), a.checked, d.checked);
+            }).get();
     }
 
     activateListeners(html: JQuery) {
@@ -54,7 +59,9 @@ export default class PickTargetsDialog extends Dialog {
             let select = picker.querySelector("select")!;
             let img = picker.querySelector("img")!;
             select.addEventListener("change", ev => {
-                img.src = canvas.tokens.get(select.value).data.img;
+                let token: Token|null = canvas.tokens.get(select.value);
+                img.src = token?.data?.img || "";
+                img.style.display = token == null ? "none" : "inherit";
             });
 
             for (let option of picker.querySelectorAll<HTMLInputElement>("input[type=checkbox]")) {

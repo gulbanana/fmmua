@@ -143,7 +143,7 @@ export default class MacroHost implements MacroAPI {
             throw new Cancellation();
         }
 
-        let targets = await PickTargetsDialog.run(count, potentialTargets);                
+        let targets = await PickTargetsDialog.run(count, potentialTargets.sort((a, b) => a.name.localeCompare(b.name)));                
 
         this._lastTargets = targets;
         return targets;

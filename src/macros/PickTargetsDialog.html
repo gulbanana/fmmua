@@ -3,7 +3,11 @@
     <div class="dropdown">
         <select>
             {{#each tokens}}
-                <option value="{{data._id}}">{{name}}</option>
+                {{#if this}}
+                    <option value="{{data._id}}" selected>{{name}}</option>
+                {{else}}
+                    <option value="">&nbsp;</option>
+                {{/if}}
             {{/each}}
         </select>
         <img src="{{initialImg}}" />
