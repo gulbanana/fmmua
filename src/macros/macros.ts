@@ -37,7 +37,7 @@ export async function execute(actor: StrikeActor, power: StrikeItem): Promise<bo
            .concat(fns.map(k => (host[k] as Function).bind(host)));
 
         // final parameter is the function body
-        params.push(`${power.data.data.script}; return true;`);            
+        params.push(`${power.data.data.script};\n return true;`);            
 
         // can't call/apply new() directly, but we can bind it
         let AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
@@ -66,6 +66,8 @@ export async function execute(actor: StrikeActor, power: StrikeItem): Promise<bo
 
             return false;
         }
+    } else {
+        await actor.display(power);
     }
 
     return true;
