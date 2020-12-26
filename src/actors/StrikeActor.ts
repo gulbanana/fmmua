@@ -64,12 +64,12 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         return super.create(data, options) as Promise<StrikeActor>;
     }
 
-    // prepareData() {
-    //     super.prepareData();
-    //     if (this.data.type == "character") {
-    //         let characterData = this.data.data as CharacterData;
-    //     }
-    // }
+    // workaround 0.7.9 change where the data of owned items is duplicate()d, 
+    // meaning their derived data isn't visible in actor.data
+    prepareData() {
+        super.prepareData();
+        this.data.items = Array.from(this.items.values()).map(i => duplicate(i.data));
+    }
 
     getOwnedItem(itemId: string): StrikeItem | null {
         return super.getOwnedItem(itemId) as StrikeItem | null;
@@ -86,7 +86,7 @@ export default class StrikeActor extends Actor<StrikeActorData> {
 
     async display(traitOrPower: string | StrikeItem | null): Promise<void> {
         if (typeof traitOrPower == "string") {
-            traitOrPower = this.items.find((i: Item) => i.name === name) as StrikeItem | null;
+            traitOrPower = this.items.find((i: Item) => i.name === traitOrPower) as StrikeItem | null;
         }
 
         if (traitOrPower != null) {
