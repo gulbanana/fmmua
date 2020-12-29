@@ -37,6 +37,14 @@
                 border-top: 2px solid var(--section-border);
             }
 
+            .trait {
+                padding-left: 0.5em;
+
+                > a:last-child {
+                    margin-right: 0.5em;
+                }
+            }
+
             .overlay-ne {
                 > a {
                     padding: 0 0.5em;
@@ -65,10 +73,17 @@
         margin-top: 0.5em;        
     }
 
+    .stat-grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-auto-rows: auto;
+        grid-column-gap: 0.5em;
+        align-items: center;
+    }
+
     .trait {
         display: flex;
         align-items: flex-start;
-        padding-left: 0.5em;
 
         > .name {
             font-weight: 600;
@@ -93,8 +108,25 @@
             }
         }
 
+
         > a {
             margin-right: 0.5em;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .effect {
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
+        grid-column-gap: 0.5em;
+
+        > .icon {
+            width: 16px;
+            height: 16px;
+            background: black;
         }
     }
 

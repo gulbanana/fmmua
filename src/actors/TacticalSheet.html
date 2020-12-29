@@ -1,56 +1,3 @@
-<div class="stat-block">
-    <div class="stat-row">
-        <div class="pair">
-            <label>{{localize "fmmua.actor.class"}}</label>
-            <input type="text" class="box10 bg-class" name="data.class" value="{{data.class}}">
-        </div>
-
-        <div class="pair">
-            <label>{{localize "fmmua.actor.role"}}</label>
-            <input type="text" class="box10 bg-role" name="data.role" value="{{data.role}}">
-        </div>
-    </div>
-
-    <div class="stat-row">
-        <div class="pair">
-            <label>{{localize "fmmua.actor.hp"}}</label>
-            <input type="text" class="box2 bg-choice" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
-            /
-            <input type="text" class="box2 bg-choice" name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
-        </div>
-
-        <div class="pair">
-            <label>{{localize "fmmua.actor.ap"}}</label>
-            <input type="text" class="box2 bg-choice" name="data.ap.value" value="{{data.ap.value}}" data-dtype="Number">
-        </div>
-
-        <div class="pair">
-            <label>{{localize "fmmua.actor.speed"}}</label>
-            <input type="text" class="box2 bg-choice" name="data.speed" value="{{data.speed}}" data-dtype="Number">
-        </div>
-        
-        <div class="pair">
-            <label>{{localize "fmmua.actor.mt"}}</label>
-            <input type="text" class="box2 bg-choice" name="data.mt.value" value="{{data.mt.value}}" data-dtype="Number">
-        </div>
-
-        <div class="pair">
-            <label>{{localize "fmmua.actor.strikes"}}</label>
-            <input type="text" class="box2 bg-choice" name="data.strikes.value" value="{{data.strikes.value}}" data-dtype="Number">
-        </div>
-    </div>
-</div>
-
-{{#*inline "trait"}}
-    <div class="item trait" data-item-id="{{_id}}">
-        <div class="name">{{name}}</div>
-        <div class="text">{{{data.text}}}</div>
-        <a class="item-display" title="{{localize "fmmua.controls.display"}}"><i class="fas fa-eye"></i></a>
-        <a class="item-edit editable-only" title="{{localize "fmmua.controls.edit"}}"><i class="fas fa-edit"></i></a>            
-        <a class="item-delete editable-only" title="{{localize "fmmua.controls.delete"}}"><i class="fas fa-trash"></i></a>
-    </div>
-{{/inline}}
-
 {{#*inline "power"}}
     <div class="item power" data-item-id="{{_id}}">
         {{#> "systems/fmmua/items/PowerCard.html"}}
@@ -64,15 +11,82 @@
     </div>
 {{/inline}}
 
-<section class="items feats" data-item-type="trait" data-item-source="feat">
-    <h3>
-        {{localize "fmmua.actor.feats"}}
-        <a class="item-add editable-only" title="{{localize "fmmua.controls.addTrait"}}"><i class="fas fa-plus"></i></a>
-    </h3>
-    {{#each feats as |t|}}
-        {{> trait t}}
-    {{/each}}
-</section>
+{{#*inline "trait"}}
+    <div class="item trait" data-item-id="{{_id}}">
+        <div class="name">{{name}}</div>
+        <div class="text">{{{data.text}}}</div>
+        <a class="item-display" title="{{localize "fmmua.controls.display"}}"><i class="fas fa-eye"></i></a>
+        <a class="item-edit editable-only" title="{{localize "fmmua.controls.edit"}}"><i class="fas fa-edit"></i></a>            
+        <a class="item-delete editable-only" title="{{localize "fmmua.controls.delete"}}"><i class="fas fa-trash"></i></a>
+    </div>
+{{/inline}}
+
+{{#*inline "effect"}}
+    <div class="effect" data-effect-id="{{_id}}">
+        <img class="icon" src="{{icon}}">
+        <div class="label">{{label}}</div>
+        <a class="effect-edit editable-only" title="{{localize "fmmua.controls.edit"}}"><i class="fas fa-edit"></i></a>            
+        <a class="effect-delete editable-only" title="{{localize "fmmua.controls.delete"}}"><i class="fas fa-trash"></i></a>
+    </div>
+{{/inline}}
+
+<div class="tactical-layout">
+    <div class="character">
+        <h2>Character</h2>
+        <div class="stat-grid">
+            <label>{{localize "fmmua.actor.class"}}</label>
+            <input type="text" class="box-full bg-class" name="data.class" value="{{data.class}}">
+
+            <label>{{localize "fmmua.actor.role"}}</label>
+            <input type="text" class="box-full bg-role" name="data.role" value="{{data.role}}">
+
+            <label>{{localize "fmmua.actor.speed"}}</label>
+            <input type="text" class="box2 bg-choice" name="data.speed" value="{{data.speed}}" data-dtype="Number">
+        </div>
+    </div>
+
+    <div class="status">
+        <h2>Status</h2>
+        <div class="stat-grid">
+            <label>{{localize "fmmua.actor.hp"}}</label>
+            <div>
+                <input type="text" class="box2 bg-choice" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number">
+                /
+                <input type="text" class="box2 bg-choice" name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number">
+            </div>
+
+            <label>{{localize "fmmua.actor.ap"}}</label>
+            <input type="text" class="box2 bg-choice" name="data.ap.value" value="{{data.ap.value}}" data-dtype="Number">
+
+            <label>{{localize "fmmua.actor.mt"}}</label>
+            <input type="text" class="box2 bg-choice" name="data.mt.value" value="{{data.mt.value}}" data-dtype="Number">
+
+            <label>{{localize "fmmua.actor.strikes"}}</label>
+            <input type="text" class="box2 bg-choice" name="data.strikes.value" value="{{data.strikes.value}}" data-dtype="Number">
+        </div>
+    </div>
+
+    <div class="effects">
+        <h2>
+            Effects
+            <a class="effect-add editable-only" title="{{localize "fmmua.controls.addTrait"}}"><i class="fas fa-plus"></i></a>
+        </h2>
+        {{#each effects as |e|}}
+            {{> effect e}}
+            {{log e}}
+        {{/each}}
+    </div>
+
+    <div class="items feats" data-item-type="trait" data-item-source="feat">
+        <h2>
+            {{localize "fmmua.actor.feats"}}
+            <a class="item-add editable-only" title="{{localize "fmmua.controls.addTrait"}}"><i class="fas fa-plus"></i></a>
+        </h2>
+        {{#each feats as |t|}}
+            {{> trait t}}
+        {{/each}}
+    </div>
+</div>
 
 <section class="items role" data-item-type="trait" data-item-source="role">
     <h3>

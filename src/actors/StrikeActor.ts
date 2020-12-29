@@ -69,6 +69,7 @@ export default class StrikeActor extends Actor<StrikeActorData> {
     prepareData() {
         super.prepareData();
         this.data.items = Array.from(this.items.values()).map(i => duplicate(i.data));
+        this.data.effects = Array.from(this.getEmbeddedCollection("ActiveEffect").values()).map(e => duplicate(e));
     }
 
     getOwnedItem(itemId: string): StrikeItem | null {

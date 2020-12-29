@@ -4,6 +4,14 @@ import PowerData from "../items/PowerData.js";
 
 // base class with common listeners for item management
 export default class StrikeActorSheet extends ActorSheet<StrikeActorData, StrikeActor> {
+    getData() {
+        let data = super.getData() as any;
+
+        data.effects = data.actor.effects;
+
+        return data;
+    }
+    
     activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
 
@@ -12,6 +20,10 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
         html.find('.item-display').click(ev => this.onItemDisplay($(ev.currentTarget).parents(".item")));
         html.find('.item-edit').click(ev => this.onItemEdit($(ev.currentTarget).parents(".item")));
         html.find('.item-use').click(ev => this.onItemUse($(ev.currentTarget).parents(".item")));
+        
+        html.find('.effect-add').click(ev => this.onEffectAdd($(ev.currentTarget).parents(".effects")));
+        html.find('.effect-edit').click(ev => this.onEffectEdit($(ev.currentTarget).parents(".effect")));
+        html.find('.effect-delete').click(ev => this.onEffectDelete($(ev.currentTarget).parents(".effect")));
 
         html.find(".trait > .text").each((_index, div) => {
             //@ts-ignore - types for tippy/popper would probably require a bundler
@@ -127,6 +139,52 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
             }));
         } else {
             this.actor.use(item);
+        }
+    }
+
+    onEffectAdd(html: JQuery) {
+        if (!this.isEditable) {
+            return;
+        }
+
+        this.actor.createEmbeddedEntity("ActiveEffect", {});
+    }
+
+    onEffectEdit(html: JQuery) {
+        if (!this.isEditable) {
+            return;
+        }
+
+        const effectId = html.data("effectId");
+        const effect = this.actor.getEmbeddedEntity("ActiveEffect", effectId);
+
+        if (effect == null) {
+            ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
+                actor: this.actor.name,
+                item: effectId
+            }));
+        } else {
+            effect.sheet.render(true);
+        }
+    }
+
+    onEffectDelete(html: JQuery) {
+        if (!this.isEditable) {
+            return;
+        }
+
+        const effectId = html.data("effectId");
+        const effect = this.actor.getEmbeddedEntity("ActiveEffect", effectId);
+
+        if (effect == null) {
+            ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
+                actor: this.actor.name,
+                item: effectId
+            }));
+        } else {
+            html.slideUp(200, () => {
+                this.actor.deleteEmbeddedEntity("ActiveEffect", effectId);
+            });
         }
     }
 

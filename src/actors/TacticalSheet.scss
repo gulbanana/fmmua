@@ -31,6 +31,29 @@
         --section-header: rgba(0, 0, 0, 0.1);
     }
 
+    .tactical-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column-gap: 1em;
+
+        & > * {
+            overflow: hidden;
+        }
+
+        h2 {
+            width: 100%;
+            text-align: center;
+            position: relative;    
+            
+            & > a {
+                position: absolute;
+                right: 0.5em;
+                top: 5px;
+                font-size: 14px;
+            }
+        }
+    }
+
     .powers {
         flex: 1;
     }
