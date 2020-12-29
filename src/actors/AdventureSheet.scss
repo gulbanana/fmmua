@@ -24,6 +24,8 @@
     }
 
     .adventure-layout {
+        margin-top: 0;
+
         display: grid;
         grid-template-areas: 'bg-skills og-skills notes kit'
                              'bg-skills og-skills rep kit'
@@ -53,6 +55,10 @@
 
         > .fallback {
             grid-area: fallback;
+            .vertical-radio {
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         > .motivation-notes {
@@ -76,6 +82,7 @@
 
             table {
                 border-spacing: 0;
+                margin: 0;
                 td {
                     padding: 0;
                 }

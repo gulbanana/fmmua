@@ -84,12 +84,10 @@
         <p class="notes">Use your Fallback to reverse Twists once per session. Gain at first level-up.</p>
         <input type="text" class="box-full bg-choice" placeholder="L2*" name="data.fallback" value="{{data.fallback}}">
 
-        <div class="editable-only">
-            <h2>Roll Unskilled</h2>
-            <p class="notes">Enter anything and click to roll or right-click to configure.</p>
-            <div class="box-full rollable">
-                <input type="text">
-                <a class="unskilled-roll" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
+        <div>
+            <h2>Wealth</h2>
+            <div class="vertical-radio">
+                {{radioBoxes "wealth" wealthChoices checked=wealthChoice localize=false}}
             </div>
         </div>
     </div>

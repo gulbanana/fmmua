@@ -6,6 +6,8 @@ import StrikeActorSheet from "./StrikeActorSheet.js";
 import RollDialog from "../dice/RollDialog.js";
 
 type SheetData = ActorSheetData<CharacterData> & {
+    data: CharacterData;
+
     feats: ItemData<StrikeItemData>[];
     role: ItemData<StrikeItemData>[]
     class: ItemData<StrikeItemData>[];
@@ -17,6 +19,9 @@ type SheetData = ActorSheetData<CharacterData> & {
     otherPowers: ItemData<PowerData>[];
     rolePowers: ItemData<PowerData>[];
     classPowers: ItemData<PowerData>[];    
+
+    wealthChoice: string;
+    wealthChoices: Record<string, string>;
 };
 
 export default class CharacterSheet extends StrikeActorSheet {
@@ -24,7 +29,7 @@ export default class CharacterSheet extends StrikeActorSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet", "actor", "character"],
             width: 1000,
-            height: 700,
+            height: 800,
             template: "systems/fmmua/actors/CharacterSheet.html",
             tabs: [{ navSelector: ".tab-headers", contentSelector: ".tab-content", initial: "adventure" }]
         });
@@ -40,6 +45,14 @@ export default class CharacterSheet extends StrikeActorSheet {
         data.classPowers = [];
         data.rolePowers = [];
         data.otherPowers = [];
+
+        data.wealthChoice = data.data.wealth.toString();
+        data.wealthChoices = {
+            "0": "Penniless",
+            "1": "Poor",
+            "2": "Rich",
+            "3": "Super-rich"
+        }
 
         data.items.forEach((item: ItemData<StrikeItemData>) => {
             switch (item.type) {
@@ -143,7 +156,7 @@ export default class CharacterSheet extends StrikeActorSheet {
         this.readArray(data, "tricks", 5);
         this.readArray(data, "advances", 6);
         this.readArray(data, "flawsAndFavors", 5);
-
+        data["data.wealth"] = parseInt(data.wealth);
         return data;
     }
 

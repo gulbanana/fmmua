@@ -1,4 +1,16 @@
-.fmmua.sheet.actor.character {    
+.fmmua.sheet.actor.character {
+    .sheet-header h1 input {
+        width: initial;
+        margin: initial;
+    }
+
+    .sheet-header h1 {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        grid-column-gap: 0.5em;
+        align-items: center;
+    }
+
     nav.tab-headers {
         margin-right: 20px;
     }

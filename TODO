@@ -1,14 +1,17 @@
 In rough priority order, most to least important
 
+* statuses (active effects)
+    - view/edit on character sheet
+    - apply via code (for macros)
+    - parameterisation - just in label initially?
+    - tint
+    - initially don't bother with rules effects
+
 * macro apis
+    - gather/apply after optionally adjusting (miss tokens etc)
     - statuses (via active events - needs parameterisation, tint, no rules effect initially)
     - maybe duration?
     - encounter power used state?
-
-* improve character sheet
-    - should be 1000x810 currently
-    - basic fields after name would allow shortening
-    - status view/editor
 
 * compendium packs 
     - i've got the common powers in there, but nothing else

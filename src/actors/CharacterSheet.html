@@ -5,25 +5,12 @@
             <a class="item" data-tab="tactical">Tactical Sheet</a>
         </nav>
         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
-        <h1 class="charname"><input class="bg-choice" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-    </header>
-
-    <div class="stat-row">
-        <div class="pair">
+        <h1>
+            <input class="bg-choice" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
             <label>{{localize "fmmua.actor.level"}}</label>
             <input type="text" class="box2 bg-choice" name="data.level" value="{{data.level}}" data-dtype="Number">
-        </div>
-        
-        <div class="pair">
-            <label>{{localize "fmmua.actor.wealth"}}</label>
-            <input type="text" class="box2 bg-choice" name="data.wealth" value="{{data.wealth}}" data-dtype="Number">
-        </div>
-
-        <div class="pair">
-            <label>{{localize "fmmua.actor.ap"}}</label>
-            <input type="text" class="box2 bg-choice" name="data.ap.value" value="{{data.ap.value}}" data-dtype="Number">
-        </div>
-    </div>
+        </h1>
+    </header>
 
     <article class="tab-content">
         <div class="tab" data-tab="adventure">
