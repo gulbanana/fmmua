@@ -1,5 +1,5 @@
 ## Building
-Set `FOUNDRY_VTT_DATA_PATH` if you're using Linux.
+Set `FOUNDRY_VTT_DATA_PATH` if you're using Linux.\
 `npm i`\
 `npx gulp`
 
