@@ -25,12 +25,36 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
         html.find('.effect-edit').click(ev => this.onEffectEdit($(ev.currentTarget).parents(".effect")));
         html.find('.effect-delete').click(ev => this.onEffectDelete($(ev.currentTarget).parents(".effect")));
 
-        html.find(".trait > .text").each((_index, div) => {
+        if (this._canDragStart(".item")) {
+            let handler = (ev: DragEvent) => this._onDragStart(ev);
+            html.find('.item').each((_index, div) => {
+              div.setAttribute("draggable", "true");
+              div.addEventListener("dragstart", handler, false);
+            });
+        }
+
+        if (this._canDragStart(".effect")) {
+            let handler = (ev: DragEvent) => this._onDragStart(ev);
+            html.find('.effect').each((_index, div) => {
+              div.setAttribute("draggable", "true");
+              div.addEventListener("dragstart", handler, false);
+            });
+        }
+
+        html.find(".trait .text").each((_index, div) => {
             //@ts-ignore - types for tippy/popper would probably require a bundler
             tippy(div, { 
                 content: div.innerHTML,
                 allowHTML: true,
                 delay: [400, 0]
+            });
+        });
+
+        html.find("[data-tooltip]").each((_index, div) => {
+            //@ts-ignore - types for tippy/popper would probably require a bundler
+            tippy(div, { 
+                content: div.dataset["tooltip"],
+                allowHTML: true
             });
         });
     }

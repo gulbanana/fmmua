@@ -116,14 +116,6 @@ export default class CharacterSheet extends StrikeActorSheet {
         html.find('.unskilled-roll').click(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), false, false));
         html.find('.unskilled-roll').contextmenu(ev => this.onSkillRoll($(ev.currentTarget).siblings("input"), true, false));
 
-        if (this._canDragStart(".item.power")) {
-            let handler = (ev: DragEvent) => this._onDragStart(ev);
-            html.find('.item.power').each((_index, div) => {
-              div.setAttribute("draggable", "true");
-              div.addEventListener("dragstart", handler, false);
-            });
-        }
-
         if (this._tabs[0].active == "tactical") {
             super.resizeFloats(html);
         }
