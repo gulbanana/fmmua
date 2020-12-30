@@ -130,7 +130,7 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
         }
 
         const itemId = html.data("itemId");
-        const item = this.actor.getOwnedItem(itemId);
+        const item = this.actor.items.get(itemId);
 
         if (item == null) {
             ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
@@ -156,7 +156,7 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
         }
 
         const effectId = html.data("effectId");
-        const effect = this.actor.getEmbeddedEntity("ActiveEffect", effectId);
+        const effect = this.actor.effects.get(effectId);
 
         if (effect == null) {
             ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
