@@ -1,47 +1,48 @@
 {
-    "name": "fmmua",
-    "title": "FMMUA - Foundry Strike",
-    "description": "<a href='https://www.strikerpg.com/'>https://www.strikerpg.com/</a> for Foundry VTT.",
-    "background": "system-background.png",
-    "author": "Thomas Castiglione",
-    "scripts": [
-      "lib/highlight.pack.js",
-      "lib/popper.min.js",
-      "lib/tippy-bundle.umd.min.js"
-    ],
-    "esmodules": ["main.js"],
-    "styles": [
-      "lib/highlight.theme.css", 
-      "main.css"
-    ],
-    "packs": [
-      {
-        "name": "commonPowers",
-        "label": "Common Powers",
-        "system": "fmmua",
-        "module": "fmmua",
-        "path": "packs/commonPowers.db",
-        "entity": "Item"
-      }
-    ],
-    "languages": [
-      {
-        "lang": "en",
-        "name": "English",
-        "path": "lang/en.json"
-      }
-    ],
-    "socket": true,
-    "initiative": "1d6",
-    "gridDistance": 1,
-    "gridUnits": "sq",
-    "primaryTokenAttribute": "hp",
-    "secondaryTokenAttribute": null,
-    "url": "https://github.com/gulbanana/fmmua/",
-    "manifest": "https://raw.githubusercontent.com/gulbanana/fmmua/master/src/system.json",
-    "download": "https://github.com/gulbanana/fmmua/releases/download/v0.4.2/fmmua.zip",
-    "version": "0.4.2",
-    "minimumCoreVersion": "0.7.5",
-    "compatibleCoreVersion": "0.7.10"
+  "name": "fmmua",
+  "title": "FMMUA - Foundry Strike",
+  "description": "<a href='https://www.strikerpg.com/'>https://www.strikerpg.com/</a> for Foundry VTT.",
+  "background": "system-background.png",
+  "author": "Thomas Castiglione",
+  "scripts": [
+    "lib/highlight.pack.js",
+    "lib/popper.min.js",
+    "lib/tippy-bundle.umd.min.js"
+  ],
+  "esmodules": [
+    "main.js"
+  ],
+  "styles": [
+    "lib/highlight.theme.css",
+    "main.css"
+  ],
+  "packs": [
+    {
+      "name": "commonPowers",
+      "label": "Common Powers",
+      "system": "fmmua",
+      "module": "fmmua",
+      "path": "packs/commonPowers.db",
+      "entity": "Item"
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "socket": true,
+  "initiative": "1d6",
+  "gridDistance": 1,
+  "gridUnits": "sq",
+  "primaryTokenAttribute": "hp",
+  "secondaryTokenAttribute": null,
+  "url": "https://github.com/gulbanana/fmmua/",
+  "manifest": "https://raw.githubusercontent.com/gulbanana/fmmua/master/src/system.json",
+  "download": "https://github.com/gulbanana/fmmua/releases/download/v0.4.3/fmmua.zip",
+  "version": "0.4.3",
+  "minimumCoreVersion": "0.7.5",
+  "compatibleCoreVersion": "0.7.10"
 }
-  
