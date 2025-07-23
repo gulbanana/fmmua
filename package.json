@@ -1,13 +1,12 @@
 {
   "type": "module",
   "scripts": {
-    "build": "vite build && npm run copy-assets-dev && npm run process-json-dev",
+    "build": "vite build && npm run copy-assets-dev",
     "dev": "npm run build && npm run install-dev",
     "watch": "npm run dev && npm run watch-dev",
     "release": "npm run build && node scripts/release.js",
     "clean": "rm -rf dist",
     "copy-assets-dev": "node scripts/copy-assets.js",
-    "process-json-dev": "node scripts/process-json.js",
     "install-dev": "node scripts/install.js",
     "watch-dev": "node scripts/watch.js"
   },
