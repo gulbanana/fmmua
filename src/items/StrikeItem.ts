@@ -12,7 +12,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
                     img: "icons/svg/book.svg"
                 }, { overwrite: false });
                 break;
-        
+
             case "power":
                 mergeObject(data, {
                     name: "New Power",
@@ -50,11 +50,11 @@ export default class StrikeItem extends Item<StrikeItemData> {
         }
     }
 
-    preparePowerData() {        
+    preparePowerData() {
         const itemData = this.data;
         const powerData = itemData.data as PowerData;
 
-        switch (powerData.action) {     
+        switch (powerData.action) {
             case "free":
                 powerData.actionIcon = "circle";
                 break;
@@ -65,9 +65,9 @@ export default class StrikeItem extends Item<StrikeItemData> {
 
             case "role":
                 powerData.actionIcon = "users";
-                break;   
+                break;
 
-            case "move":            
+            case "move":
                 powerData.actionIcon = "running";
                 break;
 
@@ -122,7 +122,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
         } else if (powerData.action === "none") {
             powerData.subtypeText = "No Action";
         }
-        
+
         let effectiveSource: string | null = powerData.source;
         if (effectiveSource == "feat") {
             effectiveSource = "common";
@@ -143,24 +143,24 @@ export default class StrikeItem extends Item<StrikeItemData> {
         //     let key = powerData.action == "role" ? "role" : powerData.source;
         //     (powerData.kind as string) = key + "-" + powerData.usage;
         // }
-        
+
         this.data.img = this.prepareImage();
         if (powerData.customImage == null) {
             powerData.customImage = this.data.img;
         }
 
-        for (let target of powerData.targets) {
-            if (target.burst === 0) {
-                target.burst = undefined;
-            }
-        }
+        // for (let target of powerData.targets) {
+        //     if (target.burst === 0) {
+        //         target.burst = undefined;
+        //     }
+        // }
 
         if (powerData.damage === 0) {
             powerData.damage = undefined;
         }
     }
 
-    prepareTraitData() {        
+    prepareTraitData() {
         const itemData = this.data;
         const traitData = itemData.data as TraitData;
 
@@ -203,7 +203,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
             } else {
                 return "icons/svg/acid.svg";
             }
-        } else if (powerData.action == "role" ) {
+        } else if (powerData.action == "role") {
             return "icons/svg/blood.svg";
         } else if (powerData.action == "reaction" || powerData.action == "interrupt") {
             return "icons/svg/lightning.svg";
@@ -217,7 +217,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
         if (typeof customImage === "string") {
             if (customImage === this.prepareImage()) {
                 data["data.customImage"] = null;
-            } 
+            }
         }
 
         return super.update(data, options);
