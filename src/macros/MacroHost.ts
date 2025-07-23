@@ -39,7 +39,6 @@ export default class MacroHost implements MacroAPI {
             await pending;
         }
 
-        //@ts-ignore
         let g = f.bind(this);
         let nextPromise = g(...args);
 
@@ -48,9 +47,11 @@ export default class MacroHost implements MacroAPI {
         try {
             return await nextPromise;
         }
-        catch (err) {
-            // i solemnly swear to handle this rejection
-            err.deferred = true;
+        catch (err: any) {
+            if (typeof(err) == "object") {
+                // i solemnly swear to handle this rejection
+                err.deferred = true;
+            }            
             throw err;
         }
     }
