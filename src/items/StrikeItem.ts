@@ -106,7 +106,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
 
             if (t.mode == "ranged") {
                 powerData.targetHtml = powerData.targetHtml + `<i class="qfas qfa-bow-arrow"></i> ${t.range}`;
-            } else if (t.burst !== undefined || t.burst !== null) {
+            } else if (t.burst === undefined || t.burst === null) {
                 powerData.targetHtml = powerData.targetHtml + `<i class="qfas qfa-axe"></i>`;
             }
         }
