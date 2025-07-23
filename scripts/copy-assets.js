@@ -27,7 +27,7 @@ allFiles.forEach(file => {
   
   copyFileSync(file, destFile);
   copiedCount++;
-  console.log(`Processed: ${file} -> ${destFile}`);
+  //console.log(`Processed: ${file} -> ${destFile}`);
 });
 
 // Process JSON files with comment stripping
@@ -59,10 +59,10 @@ jsonFiles.forEach(file => {
     
     writeFileSync(destFile, stripped);
     copiedCount++;
-    console.log(`Processed: ${file} -> ${destFile}`);
+    //console.log(`Processed: ${file} -> ${destFile}`);
   } catch (error) {
-    console.error(`Error processing ${file}:`, error.message);
+    console.error(`❌ Error processing ${file}:`, error.message);
   }
 });
 
-console.log(`Processed ${copiedCount} static files.`);
+console.log(`✓ Copied ${copiedCount} static files.`);

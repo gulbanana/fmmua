@@ -1,14 +1,11 @@
 {
   "type": "module",
   "scripts": {
-    "build": "vite build && npm run copy-assets-dev",
-    "dev": "npm run build && npm run install-dev",
-    "watch": "npm run dev && npm run watch-dev",
+    "build": "vite build && node scripts/copy-assets.js",
+    "dev": "npm run build && node scripts/install.js",
     "release": "npm run build && node scripts/release.js",
-    "clean": "rm -rf dist",
-    "copy-assets-dev": "node scripts/copy-assets.js",
-    "install-dev": "node scripts/install.js",
-    "watch-dev": "node scripts/watch.js"
+    "watch": "npm run dev && node scripts/watch.js",    
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
     "@vitejs/plugin-legacy": "^6.1.1",

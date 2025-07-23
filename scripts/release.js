@@ -11,9 +11,6 @@ try {
     if (!existsSync(releaseDir)) {
         mkdirSync(releaseDir);
     }
-
-    // Create zip file using PowerShell on Windows
-    console.log('Creating fmmua.zip...');
     
     const distPath = resolve('dist');
     const zipPath = resolve('rel', 'fmmua.zip');
@@ -22,7 +19,7 @@ try {
     const command = `powershell -Command "Compress-Archive -Path '${distPath}\\*' -DestinationPath '${zipPath}' -Force"`;
     execSync(command, { stdio: 'inherit' });
     
-    console.log('✅ Release package created: rel/fmmua.zip');
+    console.log('✓ Release package created: rel/fmmua.zip');
 } catch (error) {
     console.error('❌ Release packaging failed:', error.message);
     console.log('Note: This script requires PowerShell on Windows');
