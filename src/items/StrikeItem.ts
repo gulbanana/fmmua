@@ -97,7 +97,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
                 powerData.targetHtml = powerData.targetHtml + "/";
             }
 
-            if (t.burst) {
+            if (t.burst !== undefined && t.burst !== null) {
                 powerData.targetHtml = powerData.targetHtml + `<i class="qfas qfa-bullseye"></i> ${t.burst}`;
                 if (t.mode == "ranged") {
                     powerData.targetHtml = powerData.targetHtml + " ";
