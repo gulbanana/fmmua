@@ -5,9 +5,8 @@ const zip = require('gulp-zip');
 const concat = require('gulp-concat');
 const stripJsonComments = require('gulp-strip-json-comments');
 const ts = require("gulp-typescript");
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const { fstat, existsSync } = require('fs');
-sass.compiler = require('node-sass');
 
 // build src -> dist
 var tsProject = ts.createProject("tsconfig.json");
@@ -60,7 +59,7 @@ if (existsSync(process.env.FOUNDRY_VTT_DATA_PATH)) {
 const deployPath = path.join(dataPath, 'Data', 'systems', 'fmmua') + '/';
 
 function cleanDeploy() {
-    return del([deployPath], {force: true});
+    return del([deployPath], { force: true });
 }
 
 function deploy() {
@@ -69,7 +68,7 @@ function deploy() {
 }
 
 exports.install = series(build, cleanDeploy, deploy);
-exports.watch = function() {
+exports.watch = function () {
     w('src/**', build);
 }
 exports['watch-install'] = series(cleanDeploy, deploy, function watch() {
@@ -79,8 +78,8 @@ exports['watch-install'] = series(cleanDeploy, deploy, function watch() {
 // publish dist -> zip
 function publish() {
     return src('dist/**')
-		.pipe(zip('fmmua.zip'))
-		.pipe(dest('rel/'));
+        .pipe(zip('fmmua.zip'))
+        .pipe(dest('rel/'));
 }
 
 exports.release = series(cleanBuild, build, publish);
