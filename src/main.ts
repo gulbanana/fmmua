@@ -1,3 +1,5 @@
+import "./main.scss";
+
 import { _init as initActors } from "./actors/actors.js";
 import { _init as initCombat } from "./combat/combat.js";
 import { _init as initCommands } from "./commands.js";

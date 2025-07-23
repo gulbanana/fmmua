@@ -1,0 +1,34 @@
+// Main SCSS entry point - imports all component stylesheets
+// This replaces the gulp concatenation approach
+
+@import "colors";
+@import "icons"; 
+@import "sheets";
+@import "overlays";
+
+// Actor stylesheets
+@import "actors/AdventureSheet";
+@import "actors/CharacterSheet"; 
+@import "actors/MonsterSheet";
+@import "actors/StrikeActorSheet";
+@import "actors/TacticalSheet";
+
+// Combat stylesheets
+@import "combat/StrikeTracker";
+
+// Dice stylesheets  
+@import "dice/roll";
+
+// Glossary stylesheets
+@import "glossary/chat";
+@import "glossary/GlossaryWindow";
+
+// Item stylesheets
+@import "items/PowerCard";
+@import "items/PowerSheet";
+@import "items/StrikeItemSheet";
+@import "items/TraitCard";
+@import "items/TraitSheet";
+
+// Macro stylesheets
+@import "macros/PickTargetsDialog";
