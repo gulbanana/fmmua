@@ -3,7 +3,7 @@ import TraitSheet from "./TraitSheet.js";
 import PowerSheet from "./PowerSheet.js";
 
 export function _init() {
-    CONFIG.Item.entityClass = StrikeItem as any;
+    CONFIG.Item.documentClass = StrikeItem as any;
 
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("fmmua", TraitSheet, { types: ["trait"], makeDefault: true });

@@ -15,6 +15,10 @@ export default defineConfig({
       formats: ['es'],
       fileName: 'main'
     },
+    minify: 'terser',
+    terserOptions: {
+      keep_classnames: true,
+    },
     rollupOptions: {
       output: {
         entryFileNames: 'main.js',

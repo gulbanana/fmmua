@@ -4,7 +4,7 @@
     "build": "vite build && node scripts/copy-assets.js",
     "dev": "npm run build && node scripts/install.js",
     "release": "npm run build && node scripts/release.js",
-    "watch": "npm run dev && node scripts/watch.js",    
+    "watch": "npm run dev && node scripts/watch.js",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
@@ -12,12 +12,12 @@
     "chokidar": "^4.0.3",
     "glob": "^11.0.3",
     "sass": "^1.89.2",
-    "typescript": "^4.9.5",
+    "typescript": "~5.7",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "@types/highlight.js": "^9.12.4",
-    "@league-of-foundry-developers/foundry-vtt-types": "0.7.10-0"
+    "@league-of-foundry-developers/foundry-vtt-types": "^9.280.1",
+    "@types/highlight.js": "^9.12.4"
   }
 }

@@ -1,14 +1,14 @@
 import { RollTag, StrikeRoll } from "./StrikeRoll.js";
 import RollDialog from "./RollDialog.js";
 
-export function _init() {    
-    // render rolled strike dice with semantic interpretation    
+export function _init() {
+    // render rolled strike dice with semantic interpretation
     (globalThis as any).Handlebars.registerHelper("strike-roll", StrikeRoll.helper);
     CONFIG.Dice.rolls = [StrikeRoll];
     Roll.CHAT_TEMPLATE = "systems/fmmua/dice/roll.html";
 
     // add a quick shortcut for a UI-based roll
-    Hooks.on("renderChatLog", (_app: Application, html: JQuery<HTMLElement>, _data: any) => {
+    Hooks.on("renderChatLog", (_app: any, html: JQuery<HTMLElement>, _data: any) => {
         html.on("click", ".chat-control-icon", () => RollDialog.run());
         let icon = html[0].querySelector(".chat-control-icon > i")!;
         icon.classList.remove("fa-dice-d20");
@@ -25,7 +25,7 @@ export async function strikeRoll(options: {advantage?: boolean, disadvantage?: b
         : (!options?.advantage && options?.disadvantage) ? "2d6kl"+label
         : "1d6"+label;
 
-    let r = Roll.create(ex).evaluate();
+    let r = await Roll.create(ex).evaluate({async: true});
 
     await r.toMessage({ flavor: options?.flavor }, {
         create: true,

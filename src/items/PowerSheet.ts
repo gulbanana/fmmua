@@ -2,14 +2,15 @@ import StrikeItem from "./StrikeItem.js";
 import StrikeItemData from "./StrikeItemData.js";
 import PowerData, { Target } from "./PowerData.js";
 
-type SheetData = ItemSheet.Data<StrikeItem> & {
+type SheetData = {
     data: PowerData;
     tMelee: boolean;
     tRange: string;
     tBurst: string;
+    [key: string]: any;
 };
 
-export default class PowerSheet extends ItemSheet<ItemSheet.Data<StrikeItem>, StrikeItem> {
+export default class PowerSheet extends ItemSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet", "item", "power"],
@@ -19,14 +20,17 @@ export default class PowerSheet extends ItemSheet<ItemSheet.Data<StrikeItem>, St
         });
     }
 
-    getData() {
-        const data = super.getData() as SheetData;
+    getData(): any {
+        const data = super.getData() as any;
+        // In V9, super.getData() returns {data: {_id, name, type, data: PowerData, ...}}
+        // so system data is at data.data.data
+        const powerData = data.data.data as PowerData;
 
         data.tMelee = false;
         data.tRange = "";
         data.tBurst = "";
 
-        for (let t of data.data.targets) {
+        for (let t of powerData.targets) {
             if (t.mode == "melee") {
                 data.tMelee = true;
             } else {

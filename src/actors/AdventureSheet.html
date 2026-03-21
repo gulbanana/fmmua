@@ -2,7 +2,7 @@
     <div class="background-skills">
         <h2>Background</h2>
         <p class="notes">Gives Skills (at most two of which may go to Wealth), and your first Trick.</p>
-        <input type="text" class="box-full bg-background" name="data.background" value="{{data.background}}">
+        <input type="text" class="box-full bg-background" name="data.background" value="{{data.data.background}}">
         <p class="notes">
             For first level characters, fill in your basic details: 
             <span class="fg-background">Green</span> cells come from your Background, and 
@@ -13,76 +13,76 @@
         <h2>Skills</h2>
         <p class="notes">Use Skills to perform actions within the game world.</p>
         <div class="box-full rollable">
-            <input type="text" name="data.skills[0]" value="{{lookup data.skills 0}}" class="bg-background">
+            <input type="text" name="data.skills[0]" value="{{lookup data.data.skills 0}}" class="bg-background">
             <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
-            <input type="text" name="data.skills[1]" value="{{lookup data.skills 1}}" class="bg-background-alt">
+            <input type="text" name="data.skills[1]" value="{{lookup data.data.skills 1}}" class="bg-background-alt">
             <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
-            <input type="text" name="data.skills[2]" value="{{lookup data.skills 2}}" class="bg-background">
+            <input type="text" name="data.skills[2]" value="{{lookup data.data.skills 2}}" class="bg-background">
             <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
-            <input type="text" name="data.skills[3]" value="{{lookup data.skills 3}}" class="bg-background-alt">
+            <input type="text" name="data.skills[3]" value="{{lookup data.data.skills 3}}" class="bg-background-alt">
             <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
-            <input type="text" name="data.skills[4]" value="{{lookup data.skills 4}}" class="bg-background">
+            <input type="text" name="data.skills[4]" value="{{lookup data.data.skills 4}}" class="bg-background">
             <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
-            <input type="text" name="data.skills[5]" value="{{lookup data.skills 5}}" class="bg-background-alt">
+            <input type="text" name="data.skills[5]" value="{{lookup data.data.skills 5}}" class="bg-background-alt">
             <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
-            <input type="text" name="data.skills[6]" value="{{lookup data.skills 6}}" class="bg-origin">
+            <input type="text" name="data.skills[6]" value="{{lookup data.data.skills 6}}" class="bg-origin">
             <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
-            <input type="text" name="data.skills[7]" value="{{lookup data.skills 7}}" class="bg-origin-alt">
+            <input type="text" name="data.skills[7]" value="{{lookup data.data.skills 7}}" class="bg-origin-alt">
             <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <div class="box-full rollable">
-            <input type="text" name="data.skills[8]" value="{{lookup data.skills 8}}" class="bg-choice" placeholder="L1">
+            <input type="text" name="data.skills[8]" value="{{lookup data.data.skills 8}}" class="bg-choice" placeholder="L1">
             <a class="skill-roll editable-only" title="{{localize "fmmua.controls.use"}}"><i class="fas fa-dice-d6"></i></a>
         </div>
         <p class="notes">Earn additional Skills through succeeding at Unskilled tasks.</p>
-        <input type="text" name="data.skills[9]" value="{{lookup data.skills 9}}" class="box-full bg-choice">
-        <input type="text" name="data.skills[10]" value="{{lookup data.skills 10}}" class="box-full bg-choice-alt">
-        <input type="text" name="data.skills[11]" value="{{lookup data.skills 11}}" class="box-full bg-choice">
-        <input type="text" name="data.skills[12]" value="{{lookup data.skills 12}}" class="box-full bg-choice-alt">
-        <input type="text" name="data.skills[13]" value="{{lookup data.skills 13}}" class="box-full bg-choice">
-        <input type="text" name="data.skills[14]" value="{{lookup data.skills 14}}" class="box-full bg-choice-alt">
-        <input type="text" name="data.skills[15]" value="{{lookup data.skills 15}}" class="box-full bg-choice">
+        <input type="text" name="data.skills[9]" value="{{lookup data.data.skills 9}}" class="box-full bg-choice">
+        <input type="text" name="data.skills[10]" value="{{lookup data.data.skills 10}}" class="box-full bg-choice-alt">
+        <input type="text" name="data.skills[11]" value="{{lookup data.data.skills 11}}" class="box-full bg-choice">
+        <input type="text" name="data.skills[12]" value="{{lookup data.data.skills 12}}" class="box-full bg-choice-alt">
+        <input type="text" name="data.skills[13]" value="{{lookup data.data.skills 13}}" class="box-full bg-choice">
+        <input type="text" name="data.skills[14]" value="{{lookup data.data.skills 14}}" class="box-full bg-choice-alt">
+        <input type="text" name="data.skills[15]" value="{{lookup data.data.skills 15}}" class="box-full bg-choice">
     </div>
 
     <div class="origin-skills">
         <h2>Origin</h2>
         <p class="notes">Gives two Skills (one of which may go to Wealth) and one Complication.</p>
-        <input type="text" class="box-full bg-origin" name="data.origin" value="{{data.origin}}">
+        <input type="text" class="box-full bg-origin" name="data.origin" value="{{data.data.origin}}">
 
         <h2>Complications</h2>
         <p class="notes">Use Complications to create Twists in the story and earn Action Points.</p>
-        <input type="text" name="data.complications[0]" value="{{lookup data.complications 0}}" class="box-full bg-origin">
-        <input type="text" name="data.complications[1]" value="{{lookup data.complications 1}}" class="box-full bg-choice" placeholder="L1">
-        <input type="text" name="data.complications[2]" value="{{lookup data.complications 2}}" class="box-full bg-choice-alt" placeholder="L4">
-        <input type="text" name="data.complications[3]" value="{{lookup data.complications 3}}" class="box-full bg-choice" placeholder="L8">
+        <input type="text" name="data.complications[0]" value="{{lookup data.data.complications 0}}" class="box-full bg-origin">
+        <input type="text" name="data.complications[1]" value="{{lookup data.data.complications 1}}" class="box-full bg-choice" placeholder="L1">
+        <input type="text" name="data.complications[2]" value="{{lookup data.data.complications 2}}" class="box-full bg-choice-alt" placeholder="L4">
+        <input type="text" name="data.complications[3]" value="{{lookup data.data.complications 3}}" class="box-full bg-choice" placeholder="L8">
 
         <h2>Tricks</h2>
         <p class="notes">Spend an Action Point and use your Trick to auto-succeed on a task.</p>
-        <input type="text" name="data.tricks[0]" value="{{lookup data.tricks 0}}" class="box-full bg-background">
-        <input type="text" name="data.tricks[1]" value="{{lookup data.tricks 1}}" class="box-full bg-choice" placeholder="L1">
-        <input type="text" name="data.tricks[2]" value="{{lookup data.tricks 2}}" class="box-full bg-choice-alt" placeholder="L2">
-        <input type="text" name="data.tricks[3]" value="{{lookup data.tricks 3}}" class="box-full bg-choice" placeholder="L6">
-        <input type="text" name="data.tricks[4]" value="{{lookup data.tricks 4}}" class="box-full bg-choice-alt" placeholder="L10">        
+        <input type="text" name="data.tricks[0]" value="{{lookup data.data.tricks 0}}" class="box-full bg-background">
+        <input type="text" name="data.tricks[1]" value="{{lookup data.data.tricks 1}}" class="box-full bg-choice" placeholder="L1">
+        <input type="text" name="data.tricks[2]" value="{{lookup data.data.tricks 2}}" class="box-full bg-choice-alt" placeholder="L2">
+        <input type="text" name="data.tricks[3]" value="{{lookup data.data.tricks 3}}" class="box-full bg-choice" placeholder="L6">
+        <input type="text" name="data.tricks[4]" value="{{lookup data.data.tricks 4}}" class="box-full bg-choice-alt" placeholder="L10">        
     </div>
 
     <div class="fallback">
         <h2>Fallback</h2>
         <p class="notes">Use your Fallback to reverse Twists once per session. Gain at first level-up.</p>
-        <input type="text" class="box-full bg-choice" placeholder="L2*" name="data.fallback" value="{{data.fallback}}">
+        <input type="text" class="box-full bg-choice" placeholder="L2*" name="data.fallback" value="{{data.data.fallback}}">
 
         <div>
             <h2>Wealth</h2>
@@ -94,23 +94,23 @@
 
     <div class="motivation-notes col-fill">
         <h2>Motivation & Notes</h2>
-        <textarea class="bg-choice" name="data.notes">{{data.notes}}</textarea>
+        <textarea class="bg-choice" name="data.notes">{{data.data.notes}}</textarea>
     </div>
 
     <div class="items-rep col-fill">
         <h2>Items, Relationships and Reputations</h2>
-        <textarea class="bg-choice" name="data.relationships">{{data.relationships}}</textarea>
+        <textarea class="bg-choice" name="data.relationships">{{data.data.relationships}}</textarea>
     </div>
 
     <div class="kit col-fill">
         <h2>Kit Advances</h2>
         <div class="advances">
-            <textarea class="bg-choice" placeholder="Base" name="data.advances[0]">{{lookup data.advances 0}}</textarea>
-            <textarea class="bg-choice-alt" placeholder="L1" name="data.advances[1]">{{lookup data.advances 1}}</textarea>
-            <textarea class="bg-choice" placeholder="L3" name="data.advances[2]">{{lookup data.advances 2}}</textarea>
-            <textarea class="bg-choice-alt" placeholder="L5" name="data.advances[3]">{{lookup data.advances 3}}</textarea>
-            <textarea class="bg-choice" placeholder="L7" name="data.advances[4]">{{lookup data.advances 4}}</textarea>
-            <textarea class="bg-choice-alt" placeholder="L9" name="data.advances[5]">{{lookup data.advances 5}}</textarea>
+            <textarea class="bg-choice" placeholder="Base" name="data.advances[0]">{{lookup data.data.advances 0}}</textarea>
+            <textarea class="bg-choice-alt" placeholder="L1" name="data.advances[1]">{{lookup data.data.advances 1}}</textarea>
+            <textarea class="bg-choice" placeholder="L3" name="data.advances[2]">{{lookup data.data.advances 2}}</textarea>
+            <textarea class="bg-choice-alt" placeholder="L5" name="data.advances[3]">{{lookup data.data.advances 3}}</textarea>
+            <textarea class="bg-choice" placeholder="L7" name="data.advances[4]">{{lookup data.data.advances 4}}</textarea>
+            <textarea class="bg-choice-alt" placeholder="L9" name="data.advances[5]">{{lookup data.data.advances 5}}</textarea>
         </div>
     </div>
 
@@ -127,48 +127,48 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="checkbox" id="{{actor._id}}-minorMental" name="data.conditions.minorMental" {{checked data.conditions.minorMental}}></td>
+                    <td><input type="checkbox" id="{{actor._id}}-minorMental" name="data.conditions.minorMental" {{checked data.data.conditions.minorMental}}></td>
                     <td><label for="{{actor._id}}-minorMental">Angry/Minor Mental</label></td>
 
-                    <td><input type="checkbox" id="{{actor._id}}-majorMental" name="data.conditions.majorMental" {{checked data.conditions.majorMental}}></td>
+                    <td><input type="checkbox" id="{{actor._id}}-majorMental" name="data.conditions.majorMental" {{checked data.data.conditions.majorMental}}></td>
                     <td><label for="{{actor._id}}-majorMental">Enraged/Major Mental</label></td>
 
-                    <td><input type="text" class="box-full bg-choice" name="data.flawsAndFavors[0]" value="{{lookup data.flawsAndFavors 0}}"></td>
+                    <td><input type="text" class="box-full bg-choice" name="data.flawsAndFavors[0]" value="{{lookup data.data.flawsAndFavors 0}}"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="{{actor._id}}-winded" name="data.conditions.winded1" {{checked data.conditions.winded1}}></td>
+                    <td><input type="checkbox" id="{{actor._id}}-winded" name="data.conditions.winded1" {{checked data.data.conditions.winded1}}></td>
                     <td>
-                        <input type="checkbox" style="margin-left: 0" name="data.conditions.winded2" {{checked data.conditions.winded2}}>
+                        <input type="checkbox" style="margin-left: 0" name="data.conditions.winded2" {{checked data.data.conditions.winded2}}>
                         <label for="{{actor._id}}-winded">Winded</label>
                     </td>
 
-                    <td><input type="checkbox" id="{{actor._id}}-injured" name="data.conditions.injured" {{checked data.conditions.injured}}></td>
+                    <td><input type="checkbox" id="{{actor._id}}-injured" name="data.conditions.injured" {{checked data.data.conditions.injured}}></td>
                     <td><label for="{{actor._id}}-injured">Injured</label></td>       
 
-                    <td><input type="text" class="box-full bg-choice-alt" name="data.flawsAndFavors[1]" value="{{lookup data.flawsAndFavors 1}}"></td>
+                    <td><input type="text" class="box-full bg-choice-alt" name="data.flawsAndFavors[1]" value="{{lookup data.data.flawsAndFavors 1}}"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="{{actor._id}}-exhausted" name="data.conditions.exhausted" {{checked data.conditions.exhausted}}></td>
+                    <td><input type="checkbox" id="{{actor._id}}-exhausted" name="data.conditions.exhausted" {{checked data.data.conditions.exhausted}}></td>
                     <td><label for="{{actor._id}}-exhausted">Exhausted</label></td>
 
-                    <td><input type="checkbox" id="{{actor._id}}-sick" name="data.conditions.sick" {{checked data.conditions.sick}}></td>
+                    <td><input type="checkbox" id="{{actor._id}}-sick" name="data.conditions.sick" {{checked data.data.conditions.sick}}></td>
                     <td><label for="{{actor._id}}-sick">Sick</label></td>
 
-                    <td><input type="text" class="box-full bg-choice" name="data.flawsAndFavors[2]" value="{{lookup data.flawsAndFavors 2}}"></td>
+                    <td><input type="text" class="box-full bg-choice" name="data.flawsAndFavors[2]" value="{{lookup data.data.flawsAndFavors 2}}"></td>
                 </tr>
                 <tr>
-                    <td rowspan="2"><input type="checkbox" id="{{actor._id}}-lostConfidence" name="data.conditions.lostConfidence" {{checked data.conditions.lostConfidence}}></td>
+                    <td rowspan="2"><input type="checkbox" id="{{actor._id}}-lostConfidence" name="data.conditions.lostConfidence" {{checked data.data.conditions.lostConfidence}}></td>
                     <td><label for="{{actor._id}}-lostConfidence">Lost Confidence:</label></td>
 
-                    <td rowspan="2"><input type="checkbox" id="{{actor._id}}-thirdMajor" name="data.conditions.thirdMajor" {{checked data.conditions.thirdMajor}}></td>
+                    <td rowspan="2"><input type="checkbox" id="{{actor._id}}-thirdMajor" name="data.conditions.thirdMajor" {{checked data.data.conditions.thirdMajor}}></td>
                     <td><label for="{{actor._id}}-thirdMajor">Other Major:</label></td>
 
-                    <td><input type="text" class="box-full bg-choice-alt" name="data.flawsAndFavors[3]" value="{{lookup data.flawsAndFavors 3}}"></td>
+                    <td><input type="text" class="box-full bg-choice-alt" name="data.flawsAndFavors[3]" value="{{lookup data.data.flawsAndFavors 3}}"></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="box-full" name="data.conditions.lostConfidenceText" value="{{data.conditions.lostConfidenceText}}"></td>
-                    <td><input type="text" class="box-full" name="data.conditions.thirdMajorText" value="{{data.conditions.thirdMajorText}}"></td>
-                    <td><input type="text" class="box-full bg-choice" name="data.flawsAndFavors[4]" value="{{lookup data.flawsAndFavors 4}}"></td>
+                    <td><input type="text" class="box-full" name="data.conditions.lostConfidenceText" value="{{data.data.conditions.lostConfidenceText}}"></td>
+                    <td><input type="text" class="box-full" name="data.conditions.thirdMajorText" value="{{data.data.conditions.thirdMajorText}}"></td>
+                    <td><input type="text" class="box-full bg-choice" name="data.flawsAndFavors[4]" value="{{lookup data.data.flawsAndFavors 4}}"></td>
                 </tr>
             </tbody>
         </table>

@@ -4,15 +4,15 @@ import StrikeItem from "../items/StrikeItem.js";
 import PowerData from "../items/PowerData.js";
 
 // base class with common listeners for item management
-export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeActor>, StrikeActor> {
+export default class StrikeActorSheet extends ActorSheet {
     getData() {
         let data = super.getData() as any;
 
-        data.effects = data.actor.effects;
+        data.effects = Array.from(data.actor.effects.values()).map((e: any) => e.data);
 
         return data;
     }
-    
+
     activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
 
@@ -21,7 +21,7 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
         html.find('.item-display').click(ev => this.onItemDisplay($(ev.currentTarget).parents(".item")));
         html.find('.item-edit').click(ev => this.onItemEdit($(ev.currentTarget).parents(".item")));
         html.find('.item-use').click(ev => this.onItemUse($(ev.currentTarget).parents(".item")));
-        
+
         html.find('.effect-add').click(ev => this.onEffectAdd($(ev.currentTarget).parents(".effects")));
         html.find('.effect-edit').click(ev => this.onEffectEdit($(ev.currentTarget).parents(".effect")));
         html.find('.effect-delete').click(ev => this.onEffectDelete($(ev.currentTarget).parents(".effect")));
@@ -44,7 +44,7 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
 
         html.find(".trait .text").each((_index, div) => {
             //@ts-ignore - types for tippy/popper would probably require a bundler
-            tippy(div, { 
+            tippy(div, {
                 content: div.innerHTML,
                 allowHTML: true,
                 delay: [400, 0]
@@ -53,19 +53,19 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
 
         html.find("[data-tooltip]").each((_index, div) => {
             //@ts-ignore - types for tippy/popper would probably require a bundler
-            tippy(div, { 
+            tippy(div, {
                 content: div.dataset["tooltip"],
                 allowHTML: true
             });
         });
     }
 
-    resizeFloats(html: JQuery) {        
+    resizeFloats(html: JQuery) {
         // mostly-functional hack to get a bottom-right float
         var textContainers = html.find(".power-card > .text");
         for (let textContainer of textContainers) {
             var commands = textContainer.getElementsByClassName("commands")[0] as HTMLElement;
-            
+
             let resizeFloat = (max: number) => {
                 let outerHeight = textContainer.offsetHeight;
                 commands.style.height = `${outerHeight}px`;
@@ -88,13 +88,13 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
         const itemType = html.data("itemType");
         const itemSource = html.data("itemSource");
 
-        this.actor.createOwnedItem({
+        this.actor.createEmbeddedDocuments("Item", [{
             type: itemType,
             name: "New " + itemType.charAt(0).toUpperCase() + itemType.slice(1),
             data: {
                 source: itemSource
             }
-        });
+        }]);
     }
 
     onItemDelete(html: JQuery) {
@@ -103,31 +103,31 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
         }
 
         const itemId = html.data("itemId");
-        const item = this.actor.getOwnedItem(itemId);
+        const item = this.actor.items.get(itemId);
 
         if (item == null) {
             ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                actor: this.actor.name,
+                actor: this.actor.name!,
                 item: itemId
             }));
         } else {
             html.slideUp(200, () => {
-                this.actor.deleteOwnedItem(itemId);
+                this.actor.deleteEmbeddedDocuments("Item", [itemId]);
             });
         }
     }
 
     onItemDisplay(html: JQuery) {
         const itemId = html.data("itemId");
-        const item = this.actor.getOwnedItem(itemId);
+        const item = this.actor.items.get(itemId);
 
         if (item == null) {
             ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                actor: this.actor.name,
+                actor: this.actor.name!,
                 item: itemId
             }));
         } else {
-            this.actor.display(item);
+            (this.actor as StrikeActor).display(item as unknown as StrikeItem);
         }
     }
 
@@ -137,11 +137,11 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
         }
 
         const itemId = html.data("itemId");
-        const item = this.actor.getOwnedItem(itemId);
+        const item = this.actor.items.get(itemId);
 
         if (item == null) {
             ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                actor: this.actor.name,
+                actor: this.actor.name!,
                 item: itemId
             }));
         } else {
@@ -155,15 +155,15 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
         }
 
         const itemId = html.data("itemId");
-        const item = this.actor.getOwnedItem(itemId);
+        const item = this.actor.items.get(itemId);
 
         if (item == null) {
             ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                actor: this.actor.name,
+                actor: this.actor.name!,
                 item: itemId
             }));
         } else {
-            this.actor.use(item as StrikeItem);
+            (this.actor as StrikeActor).use(item as StrikeItem);
         }
     }
 
@@ -172,7 +172,10 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
             return;
         }
 
-        this.actor.createEmbeddedEntity("ActiveEffect", {});
+        this.actor.createEmbeddedDocuments("ActiveEffect", [{
+            label: "New Effect",
+            icon: "icons/svg/aura.svg"
+        }]);
     }
 
     onEffectEdit(html: JQuery) {
@@ -185,11 +188,11 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
 
         if (effect == null) {
             ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                actor: this.actor.name,
+                actor: this.actor.name!,
                 item: effectId
             }));
         } else {
-            effect.sheet.render(true);
+            effect.sheet!.render(true);
         }
     }
 
@@ -199,21 +202,21 @@ export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeA
         }
 
         const effectId = html.data("effectId");
-        const effect = this.actor.getEmbeddedEntity("ActiveEffect", effectId);
+        const effect = this.actor.effects.get(effectId);
 
         if (effect == null) {
             ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
-                actor: this.actor.name,
+                actor: this.actor.name!,
                 item: effectId
             }));
         } else {
             html.slideUp(200, () => {
-                this.actor.deleteEmbeddedEntity("ActiveEffect", effectId);
+                this.actor.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
             });
         }
     }
 
-    comparePowers(a: Item.Data<PowerData>, b: Item.Data<PowerData>): number {
+    comparePowers(a: StrikeItemDataObject<PowerData>, b: StrikeItemDataObject<PowerData>): number {
         let result = sourceToKey(a.data) - sourceToKey(b.data);
         if (result != 0) return result;
 
@@ -231,7 +234,7 @@ function sourceToKey(power: PowerData) {
     switch (power.source) {
         case null:
             return 0;
-        
+
         case "feat":
             return 0;
 
@@ -239,7 +242,7 @@ function sourceToKey(power: PowerData) {
             return 1;
 
         case "class":
-            return 2;        
+            return 2;
     }
 }
 
@@ -264,7 +267,7 @@ function actionToKey(power: PowerData) {
             return 0;
         case "move":
             return 1;
-        case "role":          
+        case "role":
             return 2;
         case "attack":
             return 3;

@@ -2,7 +2,7 @@ import StrikeItemData from "./StrikeItemData.js";
 import PowerData from "./PowerData.js";
 import TraitData from "./TraitData.js";
 
-export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
+export default class StrikeItem extends Item {
     static create(data: any, options: any = {}) {
         data.name = data.name || undefined;
         switch (data.type) {
@@ -24,13 +24,13 @@ export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
         return super.create(data, options) as Promise<StrikeItem>;
     }
 
-    static createPower(data: DeepPartial<Item.Data<PowerData>>, options = {}) {
+    static createPower(data: any, options = {}) {
         return this.create(mergeObject(data, {
             type: "power"
         }), options);
     }
 
-    static createTrait(data: DeepPartial<Item.Data<PowerData>>, options = {}) {
+    static createTrait(data: any, options = {}) {
         return this.create(mergeObject(data, {
             type: "trait"
         }), options);
@@ -51,7 +51,7 @@ export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
     }
 
     preparePowerData() {
-        const itemData = this.data;
+        const itemData = this.data as any;
         const powerData = itemData.data as PowerData;
 
         switch (powerData.action) {
@@ -127,7 +127,7 @@ export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
         if (effectiveSource == "feat") {
             effectiveSource = "common";
         } else if (!effectiveSource) {
-            if (this.isOwned && this.actor?.data.type == "monster") {
+            if (this.isOwned && this.parent?.data?.type == "monster") {
                 effectiveSource = "monster";
             } else {
                 effectiveSource = "common";
@@ -135,25 +135,10 @@ export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
         }
         (powerData.kind as string) = effectiveSource;
 
-        // if (this.isOwned && this.actor?.data.type == "monster" && !powerData.source) {
-        //     powerData.kind = "monster-power";
-        // } else if (powerData.usage == "custom") {
-        //     powerData.kind = "other-encounter";
-        // } else {
-        //     let key = powerData.action == "role" ? "role" : powerData.source;
-        //     (powerData.kind as string) = key + "-" + powerData.usage;
-        // }
-
-        this.data.img = this.prepareImage();
+        itemData.img = this.prepareImage();
         if (powerData.customImage == null) {
-            powerData.customImage = this.data.img;
+            powerData.customImage = itemData.img;
         }
-
-        // for (let target of powerData.targets) {
-        //     if (target.burst === 0) {
-        //         target.burst = undefined;
-        //     }
-        // }
 
         if (powerData.damage === 0) {
             powerData.damage = undefined;
@@ -161,10 +146,10 @@ export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
     }
 
     prepareTraitData() {
-        const itemData = this.data;
+        const itemData = this.data as any;
         const traitData = itemData.data as TraitData;
 
-        if (this.isOwned && this.actor?.data.type == "monster") {
+        if (this.isOwned && this.parent?.data?.type == "monster") {
             traitData.kind = "monster-trait";
             traitData.kindText = "Trait";
         } else switch (traitData.source) {
@@ -192,7 +177,7 @@ export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
     }
 
     prepareImage() {
-        let powerData = this.data.data as PowerData;
+        let powerData = (this.data as any).data as PowerData;
         if (powerData.action == "attack") {
             if (powerData.targets.length == 0 || powerData.targets.filter(t => t.mode == "melee").length > 0) {
                 if (powerData.targets.filter(t => t.mode == "melee" && t.burst).length > 0) {
@@ -212,7 +197,7 @@ export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
         }
     }
 
-    update(data: any, options: any) {
+    update(data: any, options?: any) {
         let customImage = data["data.customImage"];
         if (typeof customImage === "string") {
             if (customImage === this.prepareImage()) {
@@ -224,6 +209,6 @@ export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
     }
 
     render(): Promise<string> {
-        return renderTemplate(this.type == "power" ? "systems/fmmua/items/PowerCard.html" : "systems/fmmua/items/TraitCard.html", this.data);
+        return renderTemplate(this.type == "power" ? "systems/fmmua/items/PowerCard.html" : "systems/fmmua/items/TraitCard.html", this.data as any);
     }
 }

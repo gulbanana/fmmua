@@ -1,6 +1,6 @@
 import * as dice from "../dice/dice.js";
-import StrikeActor from "../actors/StrikeActor";
-import StrikeItem from "../items/StrikeItem";
+import StrikeActor from "../actors/StrikeActor.js";
+import StrikeItem from "../items/StrikeItem.js";
 import Target from "./Target.js";
 import Hit from "./Hit.js";
 

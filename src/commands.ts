@@ -35,14 +35,14 @@ let commands: Record<string, Command> = {
                 helpText += `<tr><td>${invoke}</td><td>${command.help}</td></tr>\n`;
             }
             helpText += "</table>";
-            ChatMessage.create({ 
-                content: helpText, 
+            ChatMessage.create({
+                content: helpText,
                 speaker: {
                     scene: data.speaker.scene,
                     actor: data.speaker.actor,
                     token: data.speaker.token,
                     alias: "FMMUA"
-                }, 
+                },
                 whisper: [game.user!]
             } as any);
         },
@@ -75,30 +75,30 @@ let commands: Record<string, Command> = {
     "/spower": {
         param: "name",
         f: (data, name) => {
-            if (canvas.tokens.controlled.length < 1) {
+            if (canvas.tokens!.controlled.length < 1) {
                 ui.notifications.warn("No controlled tokens.");
                 return;
-            } 
-            let actor = canvas.tokens.controlled[0].actor as unknown as StrikeActor;
-            
+            }
+            let actor = canvas.tokens!.controlled[0].actor as unknown as StrikeActor;
+
             if (name.length > 0) {
                 actor.use(name);
             } else {
                 let helpText = `<h3>Powers for ${actor.name}</h3><table>`;
                 let powers = Array.from(actor.items.filter(i => i.type == "power")).sort((a, b) => a.name!.localeCompare(b.name!));
                 for (let p of powers) {
-                    let data = (p.data as Item.Data<PowerData>).data;
-                    helpText += `<tr><td>${p.name}</td><td>${data.usage}</td><td>${data.action}</td></tr>\n`;
+                    let pData = (p.data as any).data as PowerData;
+                    helpText += `<tr><td>${p.name}</td><td>${pData.usage}</td><td>${pData.action}</td></tr>\n`;
                 }
                 helpText += "</table>";
-                ChatMessage.create({ 
-                    content: helpText, 
+                ChatMessage.create({
+                    content: helpText,
                     speaker: {
                         scene: data.speaker.scene,
                         actor: data.speaker.actor,
                         token: data.speaker.token,
                         alias: "FMMUA"
-                    }, 
+                    },
                     whisper: [game.user!]
                 } as any);
             }
@@ -114,7 +114,7 @@ let commands: Record<string, Command> = {
 }
 
 export function _init() {
-    if (game.world.data.name != "test-world") {
+    if ((game.world as any).data.name != "test-world") {
         delete commands["/reset"];
     }
 
@@ -126,16 +126,16 @@ export function _init() {
             command.f(data, content.substring(commandName.length + 1));
             return false;
         }
-    });    
+    });
 }
 
 // debug
 async function reset() {
     let scene = game.scenes!.getName("Scene")!;
-    let tokens = scene.getEmbeddedCollection("Token");
+    let tokens = scene.tokens;
 
-    for (let token of tokens) {        
-        await scene.deleteEmbeddedEntity("Token", token._id);
+    for (let token of tokens) {
+        await scene.deleteEmbeddedDocuments("Token", [token.id!]);
     }
 
     for (let actor of game.actors!.values()) {
@@ -192,7 +192,7 @@ async function reset() {
     let duelPower = await StrikeItem.createPower({
         name: "Duel",
         data: {
-            source: "class",            
+            source: "class",
             action: "free",
             usage: "encounter",
             targets: [],
@@ -205,7 +205,7 @@ async function reset() {
     let changePower = await StrikeItem.createPower({
         name: "Change Target",
         data: {
-            source: "class",            
+            source: "class",
             action: "attack",
             usage: "at-will",
             targets: [],
@@ -237,12 +237,12 @@ async function reset() {
             text: `<p><b>Effect:</b> Target has Disadvantage to attack you. It makes a Saving Throw against this Status each time it hits you with an attack.</p>`
         }
     });
-    
+
     let hero = await StrikeActor.create({
-        name: "Hero", 
+        name: "Hero",
         type: "character",
         permission: {
-            [game.users!.getName("Player 2")!.id!]: CONST.ENTITY_PERMISSIONS.OWNER
+            [game.users!.getName("Player 2")!.id!]: CONST.DOCUMENT_PERMISSION_LEVELS.OWNER
         },
         data: {
             class: "Duelist",
@@ -252,25 +252,26 @@ async function reset() {
             skills: ["Trucking"]
         } as CharacterData
     });
-    let heroData = (duplicate(hero.data) as any).token;
+    let heroData = (foundry.utils.deepClone(hero!.data) as any).token;
     let heroPosition = {x: 9*300, y: 7*300, actorLink: true};
 
-    await hero.createOwnedItem(toughnessFeat!.data);
+    await hero!.createEmbeddedDocuments("Item", [toughnessFeat!.data as any]);
 
-    await hero.createOwnedItem(openingFeature!.data);
-    await hero.createOwnedItem(duelPower!.data);
-    await hero.createOwnedItem(pdPower!.data);
-    await hero.createOwnedItem(changePower!.data);
+    await hero!.createEmbeddedDocuments("Item", [openingFeature!.data as any]);
+    await hero!.createEmbeddedDocuments("Item", [duelPower!.data as any]);
+    await hero!.createEmbeddedDocuments("Item", [pdPower!.data as any]);
+    await hero!.createEmbeddedDocuments("Item", [changePower!.data as any]);
 
-    await hero.createOwnedItem(stickinessBoost!.data);
-    await hero.createOwnedItem(gohPower!.data);
-    await hero.createOwnedItem(cagiPower!.data);
-    await hero.createOwnedItem(markPower!.data);
+    await hero!.createEmbeddedDocuments("Item", [stickinessBoost!.data as any]);
+    await hero!.createEmbeddedDocuments("Item", [gohPower!.data as any]);
+    await hero!.createEmbeddedDocuments("Item", [cagiPower!.data as any]);
+    await hero!.createEmbeddedDocuments("Item", [markPower!.data as any]);
 
-    await Token.create(mergeObject(heroData, heroPosition, {inplace: true}));
+    scene = game.scenes!.getName("Scene")!;
+    await scene.createEmbeddedDocuments("Token", [mergeObject(heroData, heroPosition, {inplace: true})]);
 
     let villain = await StrikeActor.create({name: "Villain", type: "monster"});
-    let villainData = (duplicate(villain.data) as any).token;
+    let villainData = (foundry.utils.deepClone(villain!.data) as any).token;
     let villainPosition = {x: 11*300, y: 7*300};
 
     let iaPower = await StrikeItem.createPower({
@@ -278,7 +279,7 @@ async function reset() {
         data: {
             action: "attack",
             usage: "at-will",
-            targets: [ 
+            targets: [
                 { mode: "melee" },
                 { mode: "ranged", range: 5 }
             ],
@@ -292,7 +293,7 @@ async function reset() {
         data: {
             action: "attack",
             usage: "at-will",
-            targets: [ 
+            targets: [
                 { mode: "ranged", range: 10, burst: 2 }
             ],
             damage: 1,
@@ -300,8 +301,8 @@ async function reset() {
         }
     });
 
-    await villain.createOwnedItem(iaPower!.data);
-    await villain.createOwnedItem(slPower!.data);
+    await villain!.createEmbeddedDocuments("Item", [iaPower!.data as any]);
+    await villain!.createEmbeddedDocuments("Item", [slPower!.data as any]);
 
-    await Token.create(mergeObject(villainData, villainPosition, {inplace: true}));
+    await scene.createEmbeddedDocuments("Token", [mergeObject(villainData, villainPosition, {inplace: true})]);
 }

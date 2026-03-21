@@ -5,7 +5,7 @@
             <a class="item" data-tab="macro">Power Macro</a>
         </nav>
         <header class="form-fields sheet-header">
-            <img src="{{item.data.customImage}}" data-edit="data.customImage" title="{{item.name}}" height="64" width="64"/>
+            <img src="{{item.data.data.customImage}}" data-edit="data.customImage" title="{{item.name}}" height="64" width="64"/>
             <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
         </header>
     </div>
@@ -15,8 +15,8 @@
             <div class="form-group final-text">
                 <label>Command</label>
                 <div class="macro-container form-fields">
-                    <textarea class="macro-input" name="data.script" spellcheck="false">{{data.script}}</textarea>
-                    <pre class="macro-output"><div class="code javascript">{{data.script}}</div></pre>
+                    <textarea class="macro-input" name="data.script" spellcheck="false">{{data.data.script}}</textarea>
+                    <pre class="macro-output"><div class="code javascript">{{data.data.script}}</div></pre>
                 </div>
             </div>
         </div>
@@ -26,8 +26,8 @@
                 <label>Source</label>
                 <div class="form-fields">
                     <select name="data.source">
-                        {{#select data.source}}
-                        <option value=""></option>                
+                        {{#select data.data.source}}
+                        <option value=""></option>
                         <option value="role">Role Power</option>
                         <option value="class">Class Power</option>
                         <option value="feat">Common Power</option>
@@ -40,10 +40,10 @@
                 <label>Action</label>
                 <div class="form-fields">
                     <select name="data.action">
-                        {{#select data.action}}
+                        {{#select data.data.action}}
                         <option value="none"></option>
                         <option value="free">Free Action</option>
-                        <option value="move">Move Action</option>                
+                        <option value="move">Move Action</option>
                         <option value="role">Role Action</option>
                         <option value="attack">Attack</option>
                         <option value="reaction">Reaction</option>
@@ -57,10 +57,10 @@
                 <label>Usage</label>
                 <div class="form-fields">
                     <select name="data.usage">
-                        {{#select data.usage}}
+                        {{#select data.data.usage}}
                         <option value="custom"></option>
                         <option value="at-will">At-Will</option>
-                        <option value="encounter">Encounter</option>                
+                        <option value="encounter">Encounter</option>
                         {{/select}}
                     </select>
                 </div>
@@ -69,7 +69,7 @@
             <div class="form-group">
                 <label>Custom Usage</label>
                 <div class="form-fields">
-                    <input type="text" name="data.customUsage" value="{{data.customUsage}}">
+                    <input type="text" name="data.customUsage" value="{{data.data.customUsage}}">
                 </div>
             </div>
 
@@ -94,7 +94,7 @@
 
                         <div class="pair">
                             <label>Damage</label>
-                            <input class="box2" type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number">
+                            <input class="box2" type="text" name="data.damage" value="{{data.data.damage}}" data-dtype="Number">
                         </div>
                     </div>
                 </div>
@@ -103,14 +103,14 @@
             <div class="form-group">
                 <label>Custom Target</label>
                 <div class="form-fields">
-                    <input type="text" name="data.customTarget" value="{{data.customTarget}}">
+                    <input type="text" name="data.customTarget" value="{{data.data.customTarget}}">
                 </div>
             </div>
 
             <div class="form-group final-text">
                 <label>Text</label>
                 <div class="editor-field">
-                    {{editor content=data.text target="data.text" button=true owner=owner editable=editable}}
+                    {{editor content=data.data.text target="data.text" button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>

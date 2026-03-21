@@ -1,32 +1,17 @@
-interface ChatOptions {
-    isPrivate: boolean;
-    user: string;
-    flavor: string | null;
-    template: string;
-    blind: boolean;
-}
-
 export type RollTag = "attack" | "save" | "skilled" | "unskilled";
 
 export class StrikeRoll extends Roll {
-    async render(chatOptions: Partial<ChatOptions> = {}) {
-        chatOptions = mergeObject({
-          user: game.user!._id,
-          flavor: null,
-          template: Roll.CHAT_TEMPLATE,
-          blind: false,
-          isPrivate: false
-        }, chatOptions);
-        const isPrivate = chatOptions.isPrivate;
-    
+    async render({flavor, template, isPrivate = false}: {flavor?: string, template?: string, isPrivate?: boolean} = {}) {
+        template = template || (this.constructor as typeof Roll).CHAT_TEMPLATE;
+
         // Execute the roll, if needed
-        if (!this._rolled) this.roll();
-        
+        if (!(this as any)._evaluated) await this.evaluate({async: true});
+
         // Define chat data
         const chatData = {
           formula: isPrivate ? "???" : this._formula,
-          flavor: isPrivate ? null : chatOptions.flavor,
-          user: chatOptions.user,
+          flavor: isPrivate ? null : flavor,
+          user: game.user!.id,
           tooltip: isPrivate ? "" : await this.getTooltip(),
           total: isPrivate ? "?" : Math.round(this.total! * 100) / 100,
           d1: this.terms[0] instanceof DiceTerm ? this.terms[0].results[0].result : 0,
@@ -35,7 +20,7 @@ export class StrikeRoll extends Roll {
         };
 
         // Render the roll display template
-        return renderTemplate(chatOptions.template || Roll.CHAT_TEMPLATE, chatData);
+        return renderTemplate(template, chatData);
     }
 
     static helper(total: number, d1: number, d2: number, tag: RollTag|undefined): string {
@@ -46,17 +31,17 @@ export class StrikeRoll extends Roll {
                     : total == 3 ? "Glancing Hit"
                     : total == 2 ? "Miss"
                     : "Strike!"}`;
-    
+
             case "save":
                 return `${total} - ${(total > 3) ? "Success" : "Failure"}`;
-    
+
             case "skilled":
                 return `${total} - ${total == 6 ? "Success with a Bonus"
                     : total > 3 ? "Success"
                     : total == 3 ? "Success with a Cost"
                     : total == 2 ? "Twist"
                     : "Twist with a Cost"}`;
-    
+
             case "unskilled":
                 if ((d1 == 6 && (d2 == 0 || d2 > 4)) || (d2 == 6 && d1 > 4)) {
                     return `${total} - ${total == 6 ? "Success with a Bonus or learn Skill!" : "Success and learn Skill!" }`;

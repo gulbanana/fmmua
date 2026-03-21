@@ -1,4 +1,4 @@
-import StrikeCombat from "./StrikeCombat";
+import StrikeCombat from "./StrikeCombat.js";
 
 // tracks multiple resources - vestigial support for this existed prior to 0.7.3 but it's now in-house
 export default class StrikeTracker extends CombatTracker {
@@ -21,8 +21,14 @@ export default class StrikeTracker extends CombatTracker {
 
     async getData(options: any) {
         let result = await super.getData(options) as any;
+        const combat = this.viewed;
 
         for (let t of result.turns) {
+            // V9: base getData() turns have combatant `id` but not `tokenId`.
+            // Look up the combatant to get the token ID for resource tracking.
+            const combatant = combat?.combatants.get(t.id);
+            t.tokenId = combatant?.token?.id;
+
             t.resources = [];
             t.strikes = [];
 
@@ -60,12 +66,14 @@ export default class StrikeTracker extends CombatTracker {
                         hp > 0 ? "green" :
                         "red"
             });
+
+            t.hasResource = t.resources.length > 0;
         }
 
         return result;
     }
 
-    render(force?: boolean, options?: Application.RenderOptions) {
+    render(force?: boolean, options?: any) {
         this.updateTrackedResources();
         return super.render(force, options);
     }
@@ -75,21 +83,21 @@ export default class StrikeTracker extends CombatTracker {
 
         html.find(".fmmua-combat-settings").click(ev => {
             ev.preventDefault();
-            new CombatTrackerConfig(undefined, {template: "systems/fmmua/combat/combat-config.html"}).render(true);
+            new CombatTrackerConfig(undefined as any, {template: "systems/fmmua/combat/combat-config.html"} as any).render(true);
         });
     }
 
     updateTrackedResources() {
-        const combat = this.combat;
+        const combat = this.viewed;
         if ( !combat ) return this.trackedResources = {};
 
         const keys = ["hp.value", "hp.max", "ap.value", "mt.value", "strikes.value"];
 
         this.trackedResources = combat.turns.reduce((obj: Record<string, any>, t: any) => {
             if ( !t.token ) return obj;
-            const token = new Token(t.token);
-            obj[token.id] = keys.reduce((res: Record<string, number|null>, r) => {
-                res[r] = t.actor ? getProperty(token.actor!.data.data, r) : null;
+            const tokenId = t.tokenId || t.token?.id;
+            obj[tokenId] = keys.reduce((res: Record<string, number|null>, r) => {
+                res[r] = t.actor ? getProperty(t.actor.data.data, r) : null;
                 return res;
             }, {});
             return obj;
@@ -105,7 +113,7 @@ export default class StrikeTracker extends CombatTracker {
         contextMenu.push({
             name: game.i18n.localize("fmmua.combat.CombatantDuplicate"),
             icon: '<i class="fas fa-dice-d6"></i>',
-            callback: (li: JQuery) => (this.combat as StrikeCombat)?.duplicateCombatant(li.data('combatant-id'))
+            callback: (li: JQuery) => (this.viewed as StrikeCombat)?.duplicateCombatant(li.data('combatant-id'))
         })
         return contextMenu;
     }

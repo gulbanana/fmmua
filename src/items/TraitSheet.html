@@ -7,7 +7,7 @@
         <label>Source</label>
         <div class="form-fields">
             <select name="data.source">
-                {{#select data.source}}
+                {{#select data.data.source}}
                 <option value=""></option>
                 <option value="feat">Feat</option>
                 <option value="role">Role Boost</option>
@@ -20,7 +20,7 @@
     <div class="form-group final-text">
         <label>Text</label>
         <div class="editor-field">
-            {{editor content=data.text target="data.text" button=true owner=owner editable=editable}}
+            {{editor content=data.data.text target="data.text" button=true owner=owner editable=editable}}
         </div>
     </div>
 </form>

@@ -6,7 +6,7 @@ export default class PickTargetsDialog extends Dialog {
         let pickers = [];
         let max = n == -1 ? candidates.length: n;
         for (let i = 0; i < max; i++) {
-            let initialImg = candidates[i].data.img;
+            let initialImg = (candidates[i] as any).data?.img;
             let tokens = candidates.map((t, ix) => { return {
                 token: t,
                 selected: ix == i,
@@ -51,7 +51,7 @@ export default class PickTargetsDialog extends Dialog {
                 let select = this.querySelector("select")!;
                 let a = this.querySelector<HTMLInputElement>("input[name=advantage]")!;
                 let d = this.querySelector<HTMLInputElement>("input[name=disadvantage]")!;
-                return new Target(canvas.tokens.get(select.value), a.checked, d.checked);
+                return new Target(canvas.tokens!.get(select.value)!, a.checked, d.checked);
             }).get();
     }
 
@@ -64,9 +64,9 @@ export default class PickTargetsDialog extends Dialog {
             let checkboxes = picker.querySelectorAll<HTMLInputElement>("input[type=checkbox]");
 
             select.addEventListener("change", ev => {
-                let token: Token|null = canvas.tokens.get(select.value);
+                let token: Token|null = canvas.tokens!.get(select.value) || null;
                 
-                img.src = token?.data?.img || "";
+                img.src = (token as any)?.data?.img || "";
                 img.style.display = token == null ? "none" : "inherit";
                 for (let checkbox of checkboxes) {
                     checkbox.disabled = token == null;

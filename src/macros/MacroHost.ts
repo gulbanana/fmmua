@@ -1,7 +1,7 @@
 import * as dice from "../dice/dice.js";
-import StrikeActor from "../actors/StrikeActor";
-import StrikeItem from "../items/StrikeItem";
-import MacroAPI, { PickTargetsOptions } from "./MacroAPI";
+import StrikeActor from "../actors/StrikeActor.js";
+import StrikeItem from "../items/StrikeItem.js";
+import MacroAPI, { PickTargetsOptions } from "./MacroAPI.js";
 import Target from "./Target.js";
 import Hit from "./Hit.js";
 import PowerData from "../items/PowerData.js";
@@ -22,7 +22,7 @@ export default class MacroHost implements MacroAPI {
         if (actor && power) {
             let speaker = ChatMessage.getSpeaker({ actor: actor as any });
             this.actor = actor;
-            this.token = canvas.tokens.get(speaker.token!);
+            this.token = canvas.tokens!.get(speaker.token!)!;
             this.power = power;
             this._data = power.data.data as PowerData;
         } else {
@@ -129,10 +129,10 @@ export default class MacroHost implements MacroAPI {
 
         // find tokens within R, and pick N of them
         let potentialTargets: Token[] = []
-        for (let t of canvas.tokens.placeables) {
+        for (let t of canvas.tokens!.placeables) {
             if (options.self || t != this.token) {
                 let ray = new Ray(this.token, t);
-                let distance = canvas.grid.measureDistances([{ray}], {gridSpaces: true}) as any as number;
+                let distance = canvas.grid!.measureDistances([{ray}], {gridSpaces: true}) as any as number;
                 if (distance <= range) {
                     potentialTargets.push(t);
                 }
@@ -186,7 +186,7 @@ export default class MacroHost implements MacroAPI {
                 if (hit.damage) {
                     let x = hit.critical ? damage * 2 : damage;
                     await hit.actor.update({
-                        "data.hp.value": (this.actor.data.data.hp.value - x)
+                        "data.hp.value": ((this.actor.data.data as any).hp.value - x)
                     } as any);
                     this._note(hit.actor.name!, `takes ${x} damage`);
                 }

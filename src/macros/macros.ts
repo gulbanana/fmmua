@@ -6,10 +6,10 @@ import MacroHost from "./MacroHost.js";
 import MacroSheet from "./MacroSheet.js";
 
 export function _init() {
-    CONFIG.Macro.sheetClass = MacroSheet;
- 
+    (CONFIG.Macro as any).sheetClass = MacroSheet;
+
     Hooks.on("hotbarDrop", onHotbarDrop);
-    Hooks.on("preUpdateOwnedItem", onPreUpdateOwnedItem);
+    Hooks.on("preUpdateItem", onPreUpdateItem);
 
     let api = new MacroHost();
     let pps = Object.getOwnPropertyNames(api)
@@ -26,9 +26,9 @@ export function _init() {
 }
 
 export async function execute(actor: StrikeActor, power: StrikeItem): Promise<boolean> {
-    if (power.data.data.script && Macros.canUseScripts(game.user!)) {
+    if ((power.data.data as any).script && (Macros as any).canUseScripts(game.user!)) {
         let host = new MacroHost(actor, power);
-        
+
         // the macro api as parameters (keys) and args (values) to f()
         let pps = Object.getOwnPropertyNames(host).filter(p => !p.startsWith("_")) as (keyof MacroHost)[];
         let fns = Object.getOwnPropertyNames(Object.getPrototypeOf(host)).filter(p => !p.startsWith("_") && p !== "constructor") as (keyof MacroHost)[];
@@ -37,7 +37,7 @@ export async function execute(actor: StrikeActor, power: StrikeItem): Promise<bo
            .concat(fns.map(k => (host[k] as Function).bind(host)));
 
         // final parameter is the function body
-        params.push(`${power.data.data.script};\n return true;`);
+        params.push(`${(power.data.data as any).script};\n return true;`);
 
         // can't call/apply new() directly, but we can bind it
         let AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
@@ -76,7 +76,7 @@ export async function execute(actor: StrikeActor, power: StrikeItem): Promise<bo
 type DropData = {
     type: "Item",
     actorId: string,
-    data: Item.Data<PowerData>
+    data: StrikeItemDataObject<PowerData>
 } | {
     type: "Actor" | "Scene"
 }
@@ -88,7 +88,7 @@ async function onHotbarDrop(_hotbar: any, data: DropData, slot: number): Promise
 
     let power = data.data;
     let script = `actor?.use(this.name)`;
-    let macro = (ui.hotbar.macros as any[]).map(m => m.macro).find((m: Macro) => m != null && m.data.command == script && m.data.name == power.name);
+    let macro = (ui.hotbar as any).macros.map((m: any) => m.macro).find((m: Macro) => m != null && (m.data as any).command == script && (m.data as any).name == power.name);
 
     if (!macro) {
       macro = await Macro.create({
@@ -101,15 +101,15 @@ async function onHotbarDrop(_hotbar: any, data: DropData, slot: number): Promise
     }
 
     game.user!.assignHotbarMacro(macro, slot);
-    
+
     return false;
 }
 
-function onPreUpdateOwnedItem(actor: StrikeActor, itemData: Record<string, any>, updateData: Record<string, any>, _options: {diff: boolean}, userId: string) {
-    if (itemData.type == "power" && updateData.name && updateData.name != itemData.name) {
+function onPreUpdateItem(item: Item, updateData: Record<string, any>, _options: any, _userId: string) {
+    if (item.type == "power" && updateData.name && updateData.name != item.name) {
         // try to find a corresponding macro and update it
         let script = `actor?.use(this.name)`;
-        let macro = (ui.hotbar.macros as any[]).map(m => m.macro).find((m: Macro) => m != null && m.data.command == script && m.data.name == itemData.name);
+        let macro = (ui.hotbar as any).macros.map((m: any) => m.macro).find((m: Macro) => m != null && (m.data as any).command == script && (m.data as any).name == item.name);
         if (macro) {
             macro?.update({
                 "name": updateData.name

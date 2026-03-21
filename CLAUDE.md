@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-FMMUA is a **Foundry VTT system** implementing the [Strike RPG](https://www.strikerpg.com/) tabletop game. It targets **Foundry VTT 0.7** (0.7.5–0.7.10). It provides character/monster sheets, custom dice rolling, combat tracking, a rules glossary, and scriptable power macros.
+FMMUA is a **Foundry VTT system** implementing the [Strike RPG](https://www.strikerpg.com/) tabletop game. It targets **Foundry VTT V9**. It provides character/monster sheets, custom dice rolling, combat tracking, a rules glossary, and scriptable power macros.
 
 ## Build Commands
 

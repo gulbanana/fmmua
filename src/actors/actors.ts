@@ -4,7 +4,7 @@ import CharacterSheet from "./CharacterSheet.js";
 import MonsterSheet from "./MonsterSheet.js";
 
 export function _init(handlers: MessageHandler[]) {
-    CONFIG.Actor.entityClass = StrikeActor as any;
+    CONFIG.Actor.documentClass = StrikeActor as any;
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("fmmua", CharacterSheet, { types: ["character"], makeDefault: true });
@@ -46,15 +46,15 @@ async function onUpdateActor(entity: StrikeActor, data: any, _options: {render: 
     if (typeof data?.data?.size === "object") {
         await entity.update({ token: data.data.size } as any)
         for (let token of entity.getActiveTokens(true)) {
-            await (token as Token).update(data.data.size);
+            await (token as any).document.update(data.data.size);
         }
     }
 }
 
-async function onUpdateToken(_parent: Scene, _doc: Token.Data, update: {_id: string, actorData: any}, _options: {diff: boolean}, _userId: string) {
+async function onUpdateToken(_parent: Scene, _doc: any, update: {_id: string, actorData: any}, _options: {diff: boolean}, _userId: string) {
     if (typeof update.actorData?.data?.size === "object") {
-        let token = canvas.tokens.get(update._id);
-        await token.update(update.actorData.data.size);
+        let token = canvas.tokens!.get(update._id);
+        await (token as any)?.document?.update(update.actorData.data.size);
     }
 }
 
@@ -63,10 +63,10 @@ function onKeyDown(ev: KeyboardEvent) {
     if (!["Backspace", "Delete"].includes(ev.key)) return;
     if (!(ev.target instanceof HTMLElement) || ev.target.tagName != 'BODY') return;
     if (ui.controls.activeControl != 'token') return;
-    if (game.user!.data.role != CONST.USER_ROLES.TRUSTED) return;
+    if (game.user!.role != CONST.USER_ROLES.TRUSTED) return;
 
     // request deletion for selected owned tokens
-    let tokens = canvas.tokens.controlled.filter(t => t.owner).map(t => t.id);
+    let tokens = canvas.tokens!.controlled.filter(t => t.isOwner).map(t => t.id);
     if (tokens.length) {
         // , if possible
         let gm = game.users!.find((u: User) => u.active && u.isGM);
@@ -77,29 +77,29 @@ function onKeyDown(ev: KeyboardEvent) {
 
         let message: StrikeMessage = {
             event: "deleteTokens",
-            user: game.user!.id,
-            scene: canvas.scene!.id,
+            user: game.user!.id!,
+            scene: canvas.scene!.id!,
             tokens
         };
-        game.socket.emit("system.fmmua", message);
+        game.socket!.emit("system.fmmua", message);
         ev.preventDefault();
     }
 }
 
 function handleDeleteTokens(message: DeleteTokensMessage) {
     let user = game.users!.get(message.user)!;
-    if (user.data.role < CONST.USER_ROLES.TRUSTED) {
+    if (user.role < CONST.USER_ROLES.TRUSTED) {
         ui.notifications.warn(game.i18n.format("fmmua.error.deleteTokens.UntrustedUser", { user: user.name! }));
         return;
     }
 
     let scene = game.scenes!.get(message.scene)!;
-    let tokens = message.tokens.map(id => new Token(scene.getEmbeddedEntity("Token", id) as any));
+    let tokens = message.tokens.map(id => scene.tokens.get(id)!);
 
-    if (tokens.some(t => !t.actor!.hasPerm(user, CONST.ENTITY_PERMISSIONS.OWNER))) {
+    if (tokens.some(t => !t.actor?.testUserPermission(user, "OWNER"))) {
         ui.notifications.warn(game.i18n.format("fmmua.error.deleteTokens.UnownedTokens", { user: user.name! }));
         return;
     }
 
-    scene.deleteEmbeddedEntity("Token", message.tokens);
+    scene.deleteEmbeddedDocuments("Token", message.tokens);
 }

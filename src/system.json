@@ -21,9 +21,8 @@
       "name": "commonPowers",
       "label": "Common Powers",
       "system": "fmmua",
-      "module": "fmmua",
       "path": "packs/commonPowers.db",
-      "entity": "Item"
+      "type": "Item"
     }
   ],
   "languages": [
@@ -43,6 +42,6 @@
   "manifest": "https://raw.githubusercontent.com/gulbanana/fmmua/master/src/system.json",
   "download": "https://github.com/gulbanana/fmmua/releases/download/v0.4.6/fmmua.zip",
   "version": "0.4.6",
-  "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "0.7.10"
+  "minimumCoreVersion": "9",
+  "compatibleCoreVersion": "9"
 }

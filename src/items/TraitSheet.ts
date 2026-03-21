@@ -1,7 +1,7 @@
 import StrikeItem from "./StrikeItem.js";
 import StrikeItemData from "./StrikeItemData.js";
 
-export default class TraitSheet extends ItemSheet<ItemSheet.Data<StrikeItem>, StrikeItem> {
+export default class TraitSheet extends ItemSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet", "item", "trait"],

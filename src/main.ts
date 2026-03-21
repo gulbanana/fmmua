@@ -11,10 +11,10 @@ import { _init as initMacros } from "./macros/macros.js";
 let handlers: MessageHandler[] = [];
 
 Hooks.once("init", function() {
-    console.log("FMMUA: begin init");  
+    console.log("FMMUA: begin init");
 
     // init subsystems
-    initActors(handlers);    
+    initActors(handlers);
     initCombat();
     initCommands();
     initDice();
@@ -23,7 +23,7 @@ Hooks.once("init", function() {
     initMacros();
 
     // subscribe to socket messages
-    game.socket.on("system.fmmua", onMessage);
+    game.socket!.on("system.fmmua", onMessage);
 
     console.log("FMMUA: end init");
 });

@@ -1,7 +1,7 @@
 import insertLinks from "./insertLinks.js";
 
-export function onRenderChatMessage(_app: Application, html: JQuery<HTMLElement>, _data: any) {
-    if (game.settings.get("fmmua", "glossaryChatLinks")) {    
+export function onRenderChatMessage(_app: any, html: JQuery<HTMLElement>, _data: any) {
+    if (game.settings.get("fmmua", "glossaryChatLinks")) {
         let content = html.find(".message-content");
         if (content.length > 0 && content[0] instanceof HTMLElement) {
             insertLinks(content[0], true); // XXX skip Rules?
@@ -17,10 +17,10 @@ export async function refreshLog() {
         if (messageElement instanceof HTMLElement) {
             let messageId = messageElement.dataset["messageId"] || "";
             let message = game.messages!.get(messageId);
-            let replacementQuery = await message?.render();
+            let replacementQuery = await message?.getHTML();
             if (replacementQuery && replacementQuery.length > 0) {
                 logQuery[0].replaceChild(replacementQuery[0], messageElement);
             }
         }
-    }    
+    }
 }

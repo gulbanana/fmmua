@@ -4,9 +4,11 @@ import TraitData from "../items/TraitData.js";
 import PowerData from "../items/PowerData.js";
 import StrikeItemData from "../items/StrikeItemData.js";
 
-type SheetData = ActorSheet.Data<StrikeActor> & {
-    traits: Item.Data<TraitData>[];
-    powers: Item.Data<PowerData>[];
+type SheetData = {
+    traits: StrikeItemDataObject<TraitData>[];
+    powers: StrikeItemDataObject<PowerData>[];
+    items: StrikeItemDataObject<StrikeItemData>[];
+    [key: string]: any;
 };
 
 export default class MonsterSheet extends StrikeActorSheet {
@@ -25,14 +27,14 @@ export default class MonsterSheet extends StrikeActorSheet {
         data.traits = [];
         data.powers = [];
 
-        (data.items as Item.Data<StrikeItemData>[]).forEach(item => {
+        (data.items as StrikeItemDataObject<StrikeItemData>[]).forEach(item => {
             switch (item.type) {
                 case "trait":
-                    data.traits.push(item as Item.Data<TraitData>);
+                    data.traits.push(item as StrikeItemDataObject<TraitData>);
                     break;
 
                 case "power":
-                    data.powers.push(item as Item.Data<PowerData>);
+                    data.powers.push(item as StrikeItemDataObject<PowerData>);
                     break;
             }
         });

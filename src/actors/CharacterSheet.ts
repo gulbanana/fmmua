@@ -6,24 +6,26 @@ import StrikeActor from "./StrikeActor.js";
 import StrikeActorSheet from "./StrikeActorSheet.js";
 import RollDialog from "../dice/RollDialog.js";
 
-type SheetData = Omit<ActorSheet.Data<StrikeActor>, 'data' | 'items'> & {
-    data: CharacterData;
-    items: Item.Data<StrikeItemData>[];
+type SheetData = {
+    data: { data: CharacterData; [key: string]: any };
+    items: StrikeItemDataObject<StrikeItemData>[];
 
-    feats: Item.Data<StrikeItemData>[];
-    role: Item.Data<StrikeItemData>[]
-    class: Item.Data<StrikeItemData>[];
+    feats: StrikeItemDataObject<StrikeItemData>[];
+    role: StrikeItemDataObject<StrikeItemData>[]
+    class: StrikeItemDataObject<StrikeItemData>[];
 
     ungroupedPowers: boolean;
-    powers: Item.Data<PowerData>[];
+    powers: StrikeItemDataObject<PowerData>[];
 
     groupedPowers: boolean;
-    otherPowers: Item.Data<PowerData>[];
-    rolePowers: Item.Data<PowerData>[];
-    classPowers: Item.Data<PowerData>[];
+    otherPowers: StrikeItemDataObject<PowerData>[];
+    rolePowers: StrikeItemDataObject<PowerData>[];
+    classPowers: StrikeItemDataObject<PowerData>[];
 
     wealthChoice: string;
     wealthChoices: Record<string, string>;
+
+    [key: string]: any;
 };
 
 export default class CharacterSheet extends StrikeActorSheet {
@@ -39,7 +41,7 @@ export default class CharacterSheet extends StrikeActorSheet {
 
     getData() {
         let data = super.getData() as SheetData;
-        
+
         data.feats = [];
         data.role = [];
         data.class = [];
@@ -48,7 +50,7 @@ export default class CharacterSheet extends StrikeActorSheet {
         data.rolePowers = [];
         data.otherPowers = [];
 
-        data.wealthChoice = `${(data.data as CharacterData).wealth}`;
+        data.wealthChoice = `${(data.data.data as CharacterData).wealth}`;
         data.wealthChoices = {
             "0": "Penniless",
             "1": "Poor",
@@ -56,7 +58,7 @@ export default class CharacterSheet extends StrikeActorSheet {
             "3": "Super-rich"
         };
 
-        (data.items as Item.Data<StrikeItemData>[]).forEach((item: Item.Data<StrikeItemData>) => {
+        (data.items as StrikeItemDataObject<StrikeItemData>[]).forEach((item: StrikeItemDataObject<StrikeItemData>) => {
             switch (item.type) {
                 case "trait":
                     switch (item.data.source) {
@@ -71,7 +73,7 @@ export default class CharacterSheet extends StrikeActorSheet {
                         case "class":
                             data.class.push(item);
                             break;
-                            
+
                         default:
                             data.feats.push(item);
                             break;
@@ -79,7 +81,7 @@ export default class CharacterSheet extends StrikeActorSheet {
                     break;
 
                 case "power":
-                    let power = item as Item.Data<PowerData>;
+                    let power = item as StrikeItemDataObject<PowerData>;
                     data.powers.push(power);
 
                     switch (item.data.source) {
@@ -94,7 +96,7 @@ export default class CharacterSheet extends StrikeActorSheet {
                         default:
                             data.otherPowers.push(power);
                             break;
-                    }                    
+                    }
                     break;
             }
         });
@@ -130,7 +132,7 @@ export default class CharacterSheet extends StrikeActorSheet {
 
         const skillName = html.val();
         if (typeof skillName == "string" && skillName) {
-            if (dialog) { 
+            if (dialog) {
                 if (skilled) {
                     RollDialog.run(`${this.actor.name} rolls ${skillName}.`);
                 } else {
@@ -159,9 +161,9 @@ export default class CharacterSheet extends StrikeActorSheet {
             super.resizeFloats($(this.form!));
         }
     }
-    
-    readArray(data: Record<string, any>, name: { [P in keyof CharacterData]: CharacterData[P] extends string[] ? P : never }[keyof CharacterData], max: number) {        
-        let array = duplicate((this.actor.data.data as CharacterData)[name]);
+
+    readArray(data: Record<string, any>, name: { [P in keyof CharacterData]: CharacterData[P] extends string[] ? P : never }[keyof CharacterData], max: number) {
+        let array = foundry.utils.deepClone((this.actor.data.data as CharacterData)[name]);
         while (array.length < max) {
             array.push("");
         }
