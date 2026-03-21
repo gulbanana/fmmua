@@ -9,3 +9,7 @@
 - Power cards now fit into smaller areas such as the default chatlog. Power messages in the chat log can be popped out into their own window.
 - Status effect editing (just access to the builtin cosmetic features).
 - Power macros, mostly useful for targeting. See MacroAPI.d.ts for the full DSL.
+
+0.5 series
+- Support for newer Foundry versions (currently 9.x)
+- Bursts can now be range 0.

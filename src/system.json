@@ -40,8 +40,8 @@
   "secondaryTokenAttribute": null,
   "url": "https://github.com/gulbanana/fmmua/",
   "manifest": "https://raw.githubusercontent.com/gulbanana/fmmua/master/src/system.json",
-  "download": "https://github.com/gulbanana/fmmua/releases/download/v0.4.6/fmmua.zip",
-  "version": "0.4.6",
+  "download": "https://github.com/gulbanana/fmmua/releases/download/v0.5.0/fmmua.zip",
+  "version": "0.5.0",
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9"
 }
