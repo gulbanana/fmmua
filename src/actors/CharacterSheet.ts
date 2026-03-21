@@ -2,23 +2,25 @@ import * as dice from "../dice/dice.js";
 import CharacterData from "./CharacterData.js";
 import StrikeItemData from "../items/StrikeItemData.js";
 import PowerData from "../items/PowerData.js";
+import StrikeActor from "./StrikeActor.js";
 import StrikeActorSheet from "./StrikeActorSheet.js";
 import RollDialog from "../dice/RollDialog.js";
 
-type SheetData = ActorSheetData<CharacterData> & {
+type SheetData = Omit<ActorSheet.Data<StrikeActor>, 'data' | 'items'> & {
     data: CharacterData;
+    items: Item.Data<StrikeItemData>[];
 
-    feats: ItemData<StrikeItemData>[];
-    role: ItemData<StrikeItemData>[]
-    class: ItemData<StrikeItemData>[];
-    
+    feats: Item.Data<StrikeItemData>[];
+    role: Item.Data<StrikeItemData>[]
+    class: Item.Data<StrikeItemData>[];
+
     ungroupedPowers: boolean;
-    powers: ItemData<PowerData>[];
-    
+    powers: Item.Data<PowerData>[];
+
     groupedPowers: boolean;
-    otherPowers: ItemData<PowerData>[];
-    rolePowers: ItemData<PowerData>[];
-    classPowers: ItemData<PowerData>[];    
+    otherPowers: Item.Data<PowerData>[];
+    rolePowers: Item.Data<PowerData>[];
+    classPowers: Item.Data<PowerData>[];
 
     wealthChoice: string;
     wealthChoices: Record<string, string>;
@@ -46,15 +48,15 @@ export default class CharacterSheet extends StrikeActorSheet {
         data.rolePowers = [];
         data.otherPowers = [];
 
-        data.wealthChoice = data.data.wealth.toString();
+        data.wealthChoice = `${(data.data as CharacterData).wealth}`;
         data.wealthChoices = {
             "0": "Penniless",
             "1": "Poor",
             "2": "Rich",
             "3": "Super-rich"
-        }
+        };
 
-        data.items.forEach((item: ItemData<StrikeItemData>) => {
+        (data.items as Item.Data<StrikeItemData>[]).forEach((item: Item.Data<StrikeItemData>) => {
             switch (item.type) {
                 case "trait":
                     switch (item.data.source) {
@@ -77,7 +79,7 @@ export default class CharacterSheet extends StrikeActorSheet {
                     break;
 
                 case "power":
-                    let power = item as ItemData<PowerData>;
+                    let power = item as Item.Data<PowerData>;
                     data.powers.push(power);
 
                     switch (item.data.source) {
@@ -102,7 +104,7 @@ export default class CharacterSheet extends StrikeActorSheet {
         data.rolePowers.sort(this.comparePowers);
         data.otherPowers.sort(this.comparePowers);
 
-        data.groupedPowers = game.settings.get("fmmua", "actorsGroupPowers");
+        data.groupedPowers = game.settings.get("fmmua", "actorsGroupPowers") as boolean;
         data.ungroupedPowers = !data.groupedPowers;
 
         return data;
@@ -148,13 +150,13 @@ export default class CharacterSheet extends StrikeActorSheet {
         this.readArray(data, "tricks", 5);
         this.readArray(data, "advances", 6);
         this.readArray(data, "flawsAndFavors", 5);
-        data["data.wealth"] = parseInt(data.wealth);
+        data["data.wealth"] = parseInt(data.wealth as string);
         return data;
     }
 
     _onChangeTab(_event: MouseEvent, _tabs: Tabs, active: string) {
         if (active == "tactical") {
-            super.resizeFloats($(this.form));
+            super.resizeFloats($(this.form!));
         }
     }
     
@@ -165,7 +167,7 @@ export default class CharacterSheet extends StrikeActorSheet {
         }
 
         for (let i = 0; i < max; i++) {
-            let arrayInput = this.form.querySelector<HTMLInputElement|HTMLTextAreaElement>(`[name=data\\.${name}\\[${i}\\]]`);
+            let arrayInput = this.form!.querySelector<HTMLInputElement|HTMLTextAreaElement>(`[name=data\\.${name}\\[${i}\\]]`);
             if (arrayInput != null) {
                 delete data[`data.${name}[${i}]`];
                 array[i] = arrayInput.value;

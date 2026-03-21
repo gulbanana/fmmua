@@ -18,6 +18,6 @@
   },
   "dependencies": {
     "@types/highlight.js": "^9.12.4",
-    "foundry-pc-types": "gitlab:foundry-projects/foundry-pc/foundry-pc-types#e9cca6fbbe811fb439a3d0cdba7433746530cd97"
+    "@league-of-foundry-developers/foundry-vtt-types": "0.7.10-0"
   }
 }

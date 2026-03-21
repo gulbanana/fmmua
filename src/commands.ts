@@ -43,8 +43,8 @@ let commands: Record<string, Command> = {
                     token: data.speaker.token,
                     alias: "FMMUA"
                 }, 
-                whisper: [game.user]
-            });
+                whisper: [game.user!]
+            } as any);
         },
         help: "List available commands.",
     },
@@ -79,15 +79,15 @@ let commands: Record<string, Command> = {
                 ui.notifications.warn("No controlled tokens.");
                 return;
             } 
-            let actor = canvas.tokens.controlled[0].actor as StrikeActor;
+            let actor = canvas.tokens.controlled[0].actor as unknown as StrikeActor;
             
             if (name.length > 0) {
                 actor.use(name);
             } else {
                 let helpText = `<h3>Powers for ${actor.name}</h3><table>`;
-                let powers = Array.from<StrikeItem>(actor.items.filter((i: Item) => i.type == "power")).sort((a, b) => a.name.localeCompare(b.name));
+                let powers = Array.from(actor.items.filter(i => i.type == "power")).sort((a, b) => a.name!.localeCompare(b.name!));
                 for (let p of powers) {
-                    let data = p.data.data as PowerData;
+                    let data = (p.data as Item.Data<PowerData>).data;
                     helpText += `<tr><td>${p.name}</td><td>${data.usage}</td><td>${data.action}</td></tr>\n`;
                 }
                 helpText += "</table>";
@@ -99,8 +99,8 @@ let commands: Record<string, Command> = {
                         token: data.speaker.token,
                         alias: "FMMUA"
                     }, 
-                    whisper: [game.user]
-                });
+                    whisper: [game.user!]
+                } as any);
             }
         },
         help: "Use one of the controlled token's powers, or list available powers."
@@ -114,7 +114,7 @@ let commands: Record<string, Command> = {
 }
 
 export function _init() {
-    if (game.world.name != "test-world") {
+    if (game.world.data.name != "test-world") {
         delete commands["/reset"];
     }
 
@@ -131,18 +131,18 @@ export function _init() {
 
 // debug
 async function reset() {
-    let scene = game.scenes.getName("Scene")!;
+    let scene = game.scenes!.getName("Scene")!;
     let tokens = scene.getEmbeddedCollection("Token");
 
     for (let token of tokens) {        
         await scene.deleteEmbeddedEntity("Token", token._id);
     }
 
-    for (let actor of game.actors.values()) {
+    for (let actor of game.actors!.values()) {
         await actor.delete();
     }
 
-    for (let item of game.items.values()) {
+    for (let item of game.items!.values()) {
         await item.delete();
     }
 
@@ -242,7 +242,7 @@ async function reset() {
         name: "Hero", 
         type: "character",
         permission: {
-            [game.users.getName("Player 2")!.id!]: CONST.ENTITY_PERMISSIONS.OWNER
+            [game.users!.getName("Player 2")!.id!]: CONST.ENTITY_PERMISSIONS.OWNER
         },
         data: {
             class: "Duelist",
@@ -252,25 +252,25 @@ async function reset() {
             skills: ["Trucking"]
         } as CharacterData
     });
-    let heroData = duplicate(hero.data).token;
+    let heroData = (duplicate(hero.data) as any).token;
     let heroPosition = {x: 9*300, y: 7*300, actorLink: true};
 
-    await hero.createOwnedItem(toughnessFeat);
+    await hero.createOwnedItem(toughnessFeat!.data);
 
-    await hero.createOwnedItem(openingFeature);    
-    await hero.createOwnedItem(duelPower);
-    await hero.createOwnedItem(pdPower);    
-    await hero.createOwnedItem(changePower);
+    await hero.createOwnedItem(openingFeature!.data);
+    await hero.createOwnedItem(duelPower!.data);
+    await hero.createOwnedItem(pdPower!.data);
+    await hero.createOwnedItem(changePower!.data);
 
-    await hero.createOwnedItem(stickinessBoost);    
-    await hero.createOwnedItem(gohPower);    
-    await hero.createOwnedItem(cagiPower);
-    await hero.createOwnedItem(markPower);    
+    await hero.createOwnedItem(stickinessBoost!.data);
+    await hero.createOwnedItem(gohPower!.data);
+    await hero.createOwnedItem(cagiPower!.data);
+    await hero.createOwnedItem(markPower!.data);
 
     await Token.create(mergeObject(heroData, heroPosition, {inplace: true}));
 
     let villain = await StrikeActor.create({name: "Villain", type: "monster"});
-    let villainData = duplicate(villain.data).token;
+    let villainData = (duplicate(villain.data) as any).token;
     let villainPosition = {x: 11*300, y: 7*300};
 
     let iaPower = await StrikeItem.createPower({
@@ -300,8 +300,8 @@ async function reset() {
         }
     });
 
-    await villain.createOwnedItem(iaPower);
-    await villain.createOwnedItem(slPower);
+    await villain.createOwnedItem(iaPower!.data);
+    await villain.createOwnedItem(slPower!.data);
 
     await Token.create(mergeObject(villainData, villainPosition, {inplace: true}));
 }

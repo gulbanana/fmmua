@@ -2,13 +2,14 @@ import StrikeItem from "./StrikeItem.js";
 import StrikeItemData from "./StrikeItemData.js";
 import PowerData, { Target } from "./PowerData.js";
 
-type SheetData = ItemSheetData<PowerData> & {
+type SheetData = ItemSheet.Data<StrikeItem> & {
+    data: PowerData;
     tMelee: boolean;
     tRange: string;
     tBurst: string;
 };
 
-export default class PowerSheet extends ItemSheet<StrikeItemData, StrikeItem> {
+export default class PowerSheet extends ItemSheet<ItemSheet.Data<StrikeItem>, StrikeItem> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["fmmua", "sheet", "item", "power"],
@@ -71,9 +72,9 @@ export default class PowerSheet extends ItemSheet<StrikeItemData, StrikeItem> {
     _getSubmitData(updateData={}): any {
         let data = super._getSubmitData(updateData);
 
-        let meleeInput = this.form.querySelector<HTMLInputElement>("input[name=tMelee]");
-        let rangeInput = this.form.querySelector<HTMLInputElement>("input[name=tRange]");
-        let burstInput = this.form.querySelector<HTMLInputElement>("input[name=tBurst]");
+        let meleeInput = this.form!.querySelector<HTMLInputElement>("input[name=tMelee]");
+        let rangeInput = this.form!.querySelector<HTMLInputElement>("input[name=tRange]");
+        let burstInput = this.form!.querySelector<HTMLInputElement>("input[name=tBurst]");
 
         let targets: Target[] = [];
         

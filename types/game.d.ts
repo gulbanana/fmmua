@@ -1,31 +1,16 @@
-// add some missing properties to the global apis
+// Narrow nullable globals for use within game hooks where they are guaranteed initialized.
+// foundry-vtt-types marks canvas as nullable and ui properties as optional.
 
-declare let canvas: {
-	scene: Scene;
-	tokens: {
-		controlled: Token[];
-		get(id: string): Token;
-		_hover: Token;
-		placeables: Token[];
-	},
-	grid: CanvasLayer & {
-		measureDistance(origin: {x: number, y: number}, target: {x: number, y: number}): number;
-		measureDistances(segments: {ray: Ray}[], options?: {gridSpaces: boolean});
-	}
-}
+declare let canvas: Canvas;
 
-declare let ui: {
-	notifications: Notifications;
-	tables: RollTableDirectory;
-	combat: CombatTracker;
+declare const ui: {
 	actors: ActorDirectory;
-    windows: Record<number, Application>; // not an array!
-    sidebar: Sidebar;
 	chat: ChatLog;
-	controls: any;
-	hotbar: {
-		macros: {
-			macro: Macro | null
-		}[]
-	}
+	combat: CombatTracker;
+	controls: SceneControls;
+	hotbar: Hotbar;
+	notifications: Notifications;
+	sidebar: Sidebar;
+	tables: RollTableDirectory;
+	windows: Record<number, Application>;
 };

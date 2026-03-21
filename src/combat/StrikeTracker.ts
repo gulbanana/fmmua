@@ -1,7 +1,7 @@
 import StrikeCombat from "./StrikeCombat";
 
 // tracks multiple resources - vestigial support for this existed prior to 0.7.3 but it's now in-house
-export default class StrikeTracker extends CombatTracker<StrikeCombat> {
+export default class StrikeTracker extends CombatTracker {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             template: "systems/fmmua/combat/StrikeTracker.html"
@@ -20,10 +20,10 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
     }
 
     async getData(options: any) {
-        let result = await super.getData(options);
+        let result = await super.getData(options) as any;
 
         for (let t of result.turns) {
-            t.resources = [];   
+            t.resources = [];
             t.strikes = [];
 
             let strikes = this.trackedResources[t.tokenId]?.["strikes.value"];
@@ -32,14 +32,14 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
                     t.strikes.push({});
                 }
             }
-        
-            let ap = this.trackedResources[t.tokenId]?.["ap.value"];                
+
+            let ap = this.trackedResources[t.tokenId]?.["ap.value"];
             if (ap) {
                 t.resources.push({
                     tooltip: game.i18n.localize("fmmua.actor.ap"),
                     value: ap,
                     color: "gold"
-                });      
+                });
             }
 
             let mt = this.trackedResources[t.tokenId]?.["mt.value"];
@@ -48,7 +48,7 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
                     tooltip: game.i18n.localize("fmmua.actor.mt"),
                     value: mt,
                     color: "mediumorchid"
-                });      
+                });
             }
 
             let hp = this.trackedResources[t.tokenId]?.["hp.value"];
@@ -56,7 +56,7 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
             t.resources.push({
                 tooltip: game.i18n.localize("fmmua.actor.hp"),
                 value: hp,
-                color: hp > (maxHp/2) ? "lightgreen" : 
+                color: hp > (maxHp/2) ? "lightgreen" :
                         hp > 0 ? "green" :
                         "red"
             });
@@ -65,7 +65,7 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
         return result;
     }
 
-    render(force?: boolean, options?: RenderOptions) {
+    render(force?: boolean, options?: Application.RenderOptions) {
         this.updateTrackedResources();
         return super.render(force, options);
     }
@@ -82,21 +82,21 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
     updateTrackedResources() {
         const combat = this.combat;
         if ( !combat ) return this.trackedResources = {};
-        
+
         const keys = ["hp.value", "hp.max", "ap.value", "mt.value", "strikes.value"];
 
-        this.trackedResources = combat.turns.reduce((obj: Record<string, any>, t) => {
+        this.trackedResources = combat.turns.reduce((obj: Record<string, any>, t: any) => {
             if ( !t.token ) return obj;
-            const token = new Token(t.token);            
+            const token = new Token(t.token);
             obj[token.id] = keys.reduce((res: Record<string, number|null>, r) => {
-                res[r] = t.actor ? getProperty(token.actor.data.data, r) : null;
+                res[r] = t.actor ? getProperty(token.actor!.data.data, r) : null;
                 return res;
             }, {});
             return obj;
         }, {});
-    
+
         // Synchronize updates with the pop-out tracker
-        if ( this._popout ) this._popout.trackedResources = this.trackedResources;
+        if ( this._popout ) (this._popout as StrikeTracker).trackedResources = this.trackedResources;
         return this.trackedResources;
     }
 
@@ -105,7 +105,7 @@ export default class StrikeTracker extends CombatTracker<StrikeCombat> {
         contextMenu.push({
             name: game.i18n.localize("fmmua.combat.CombatantDuplicate"),
             icon: '<i class="fas fa-dice-d6"></i>',
-            callback: li => this.combat?.duplicateCombatant(li.data('combatant-id'))
+            callback: (li: JQuery) => (this.combat as StrikeCombat)?.duplicateCombatant(li.data('combatant-id'))
         })
         return contextMenu;
     }

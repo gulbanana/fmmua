@@ -21,19 +21,19 @@ export default class GlossaryWindow extends Application {
         this.selectedEntryName = selectEntry;
     }
 
-    getData(options?: any) {
-        let data = super.getData(options);
+    getData(options?: any): any {
+        let data = super.getData(options) as any;
 
         let entry = categories.flatMap(c => c.entries).filter(e => e.displayName === this.selectedEntryName)[0];
-        
-        data.displayName = entry.displayName;        
+
+        data.displayName = entry.displayName;
 
         let contents = typeof entry.content == "string" ? [entry.content] : entry.content;
         data.content = contents.map(p => `<p class="content">${p}</p>`).join("");
 
         data.categories = [];
         for (let c of categories) {
-            let category = 
+            let category =
             {
                 key: c.displayName,
                 entries: [] as any[]

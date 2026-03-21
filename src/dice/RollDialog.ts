@@ -16,7 +16,7 @@ export default class RollDialog extends Dialog {
         flavor: undefined
     }
 
-    constructor(dialogData = {}, options = {}) {
+    constructor(dialogData: Dialog.Data, options = {}) {
         super(dialogData, options);
         this.options.classes = ["fmmua", "dialog"];
     }
@@ -40,12 +40,13 @@ export default class RollDialog extends Dialog {
                     roll: {
                         icon: `<i class="fas fa-dice"></i>`,
                         label: "Roll",
-                        callback: async (html: JQuery<HTMLElement>) => {
+                        callback: async (html: HTMLElement | JQuery<HTMLElement>) => {
+                            let el = html instanceof HTMLElement ? html : html[0];
                             let result = {
-                                type: html[0].querySelector<HTMLSelectElement>(".fmmua-roll-type")!.value as RollTag,
-                                advantage: html[0].querySelector<HTMLInputElement>(".fmmua-advantage")!.checked,
-                                disadvantage: html[0].querySelector<HTMLInputElement>(".fmmua-disadvantage")!.checked,
-                                flavor: html[0].querySelector<HTMLInputElement>(".fmmua-flavor")!.value
+                                type: el.querySelector<HTMLSelectElement>(".fmmua-roll-type")!.value as RollTag,
+                                advantage: el.querySelector<HTMLInputElement>(".fmmua-advantage")!.checked,
+                                disadvantage: el.querySelector<HTMLInputElement>(".fmmua-disadvantage")!.checked,
+                                flavor: el.querySelector<HTMLInputElement>(".fmmua-flavor")!.value
                             };
                             this.defaults = result;
                             await dice.strikeRoll({

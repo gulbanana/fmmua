@@ -4,7 +4,7 @@ import CharacterSheet from "./CharacterSheet.js";
 import MonsterSheet from "./MonsterSheet.js";
 
 export function _init(handlers: MessageHandler[]) {
-    CONFIG.Actor.entityClass = StrikeActor as typeof Actor;  
+    CONFIG.Actor.entityClass = StrikeActor as any;
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("fmmua", CharacterSheet, { types: ["character"], makeDefault: true });
@@ -42,16 +42,16 @@ export function _init(handlers: MessageHandler[]) {
     });
 }
 
-async function onUpdateActor(entity: StrikeActor, data: ActorData<StrikeActorData>, _options: {render: boolean}, _userId: string) {
+async function onUpdateActor(entity: StrikeActor, data: any, _options: {render: boolean}, _userId: string) {
     if (typeof data?.data?.size === "object") {
-        await entity.update({ token: data.data.size })
+        await entity.update({ token: data.data.size } as any)
         for (let token of entity.getActiveTokens(true)) {
-            await token.update(data.data.size);
+            await (token as Token).update(data.data.size);
         }
     }
 }
 
-async function onUpdateToken(_parent: Scene, _doc: TokenData, update: {_id: string, actorData: Partial<ActorData<StrikeActorData>>}, _options: {diff: boolean}, _userId: string) {
+async function onUpdateToken(_parent: Scene, _doc: Token.Data, update: {_id: string, actorData: any}, _options: {diff: boolean}, _userId: string) {
     if (typeof update.actorData?.data?.size === "object") {
         let token = canvas.tokens.get(update._id);
         await token.update(update.actorData.data.size);
@@ -60,16 +60,16 @@ async function onUpdateToken(_parent: Scene, _doc: TokenData, update: {_id: stri
 
 function onKeyDown(ev: KeyboardEvent) {
     // preconditions: key pressed as non-gm player with the foundry frame focused on the token layer
-    if (!["Backspace", "Delete"].includes(ev.key)) return;    
+    if (!["Backspace", "Delete"].includes(ev.key)) return;
     if (!(ev.target instanceof HTMLElement) || ev.target.tagName != 'BODY') return;
     if (ui.controls.activeControl != 'token') return;
-    if (game.user.role != CONST.USER_ROLES.TRUSTED) return;
+    if (game.user!.data.role != CONST.USER_ROLES.TRUSTED) return;
 
     // request deletion for selected owned tokens
     let tokens = canvas.tokens.controlled.filter(t => t.owner).map(t => t.id);
     if (tokens.length) {
         // , if possible
-        let gm = game.users.find((u: User) => u.active && u.isGM);
+        let gm = game.users!.find((u: User) => u.active && u.isGM);
         if (!gm) {
             ui.notifications.error(game.i18n.localize("fmmua.error.deleteTokens.NoGM"));
             return;
@@ -77,8 +77,8 @@ function onKeyDown(ev: KeyboardEvent) {
 
         let message: StrikeMessage = {
             event: "deleteTokens",
-            user: game.user.id,
-            scene: canvas.scene.id,
+            user: game.user!.id,
+            scene: canvas.scene!.id,
             tokens
         };
         game.socket.emit("system.fmmua", message);
@@ -86,18 +86,18 @@ function onKeyDown(ev: KeyboardEvent) {
     }
 }
 
-function handleDeleteTokens(message: DeleteTokensMessage) {    
-    let user = game.users.get(message.user);    
-    if (user.role < CONST.USER_ROLES.TRUSTED) {
-        ui.notifications.warn(game.i18n.format("fmmua.error.deleteTokens.UntrustedUser", { user: user.name }));
+function handleDeleteTokens(message: DeleteTokensMessage) {
+    let user = game.users!.get(message.user)!;
+    if (user.data.role < CONST.USER_ROLES.TRUSTED) {
+        ui.notifications.warn(game.i18n.format("fmmua.error.deleteTokens.UntrustedUser", { user: user.name! }));
         return;
     }
 
-    let scene = game.scenes.get(message.scene);
-    let tokens = message.tokens.map(id => new Token(scene.getEmbeddedEntity("Token", id)));
+    let scene = game.scenes!.get(message.scene)!;
+    let tokens = message.tokens.map(id => new Token(scene.getEmbeddedEntity("Token", id) as any));
 
-    if (tokens.some(t => !t.actor.hasPerm(user, CONST.ENTITY_PERMISSIONS.OWNER))) {
-        ui.notifications.warn(game.i18n.format("fmmua.error.deleteTokens.UnownedTokens", { user: user.name }));
+    if (tokens.some(t => !t.actor!.hasPerm(user, CONST.ENTITY_PERMISSIONS.OWNER))) {
+        ui.notifications.warn(game.i18n.format("fmmua.error.deleteTokens.UnownedTokens", { user: user.name! }));
         return;
     }
 

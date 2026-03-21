@@ -20,9 +20,9 @@ export default class MacroHost implements MacroAPI {
         this.dice = dice;
 
         if (actor && power) {
-            let speaker = ChatMessage.getSpeaker({ actor });
+            let speaker = ChatMessage.getSpeaker({ actor: actor as any });
             this.actor = actor;
-            this.token = canvas.tokens.get(speaker.token);
+            this.token = canvas.tokens.get(speaker.token!);
             this.power = power;
             this._data = power.data.data as PowerData;
         } else {
@@ -51,7 +51,7 @@ export default class MacroHost implements MacroAPI {
             if (typeof(err) == "object") {
                 // i solemnly swear to handle this rejection
                 err.deferred = true;
-            }            
+            }
             throw err;
         }
     }
@@ -82,8 +82,8 @@ export default class MacroHost implements MacroAPI {
 
         await this.actor.update({
             ["data." + resource]: value - amount
-        });
-        this._note(this.actor.name, `@${resource} -${amount}`);
+        } as any);
+        this._note(this.actor.name!, `@${resource} -${amount}`);
     }
 
     _lastTargets?: Target[];
@@ -129,10 +129,10 @@ export default class MacroHost implements MacroAPI {
 
         // find tokens within R, and pick N of them
         let potentialTargets: Token[] = []
-        for (let t of canvas.tokens.placeables) { 
+        for (let t of canvas.tokens.placeables) {
             if (options.self || t != this.token) {
                 let ray = new Ray(this.token, t);
-                let distance = canvas.grid.measureDistances([{ray}], {gridSpaces: true})
+                let distance = canvas.grid.measureDistances([{ray}], {gridSpaces: true}) as any as number;
                 if (distance <= range) {
                     potentialTargets.push(t);
                 }
@@ -144,7 +144,7 @@ export default class MacroHost implements MacroAPI {
             throw new Cancellation();
         }
 
-        let targets = await PickTargetsDialog.run(count, potentialTargets.sort((a, b) => a.name.localeCompare(b.name)));                
+        let targets = await PickTargetsDialog.run(count, potentialTargets.sort((a, b) => a.name.localeCompare(b.name)));
 
         this._lastTargets = targets;
         return targets;
@@ -163,8 +163,8 @@ export default class MacroHost implements MacroAPI {
 
         let hits: Hit[] = [];
         for (let target of targets) {
-            let result = await dice.attackRoll(target.advantage, target.disadvantage, `${this.actor.name} rolls to hit ${target.token.actor.name}.`);
-            hits.push(new Hit(target.token.actor as StrikeActor, result > 2, result > 3, result == 6));
+            let result = await dice.attackRoll(target.advantage, target.disadvantage, `${this.actor.name} rolls to hit ${target.token.actor!.name}.`);
+            hits.push(new Hit(target.token.actor as unknown as StrikeActor, result > 2, result > 3, result == 6));
         }
 
         this._lastHits = hits;
@@ -187,8 +187,8 @@ export default class MacroHost implements MacroAPI {
                     let x = hit.critical ? damage * 2 : damage;
                     await hit.actor.update({
                         "data.hp.value": (this.actor.data.data.hp.value - x)
-                    });
-                    this._note(hit.actor.name, `takes ${x} damage`);
+                    } as any);
+                    this._note(hit.actor.name!, `takes ${x} damage`);
                 }
             }
         }
@@ -201,11 +201,11 @@ export default class MacroHost implements MacroAPI {
         }
 
         let content = "Applying effects: " + JSON.stringify(effects);
-        let speaker = ChatMessage.getSpeaker({ actor: this.actor });
-        await ChatMessage.create({ content, speaker });
+        let speaker = ChatMessage.getSpeaker({ actor: this.actor as any });
+        await ChatMessage.create({ content, speaker } as any);
     }
 
-    _committed: boolean = false;   
+    _committed: boolean = false;
     async _commit() {
         if (!this._committed) {
             this._committed = true;
@@ -225,8 +225,8 @@ export default class MacroHost implements MacroAPI {
     async _toMessage() {
         if (this._results && Object.getOwnPropertyNames(this._results).length) {
             let content = JSON.stringify(this._results);
-            let speaker = ChatMessage.getSpeaker({ actor: this.actor });
-            await ChatMessage.create({ content, speaker });
+            let speaker = ChatMessage.getSpeaker({ actor: this.actor as any });
+            await ChatMessage.create({ content, speaker } as any);
         }
     }
 }

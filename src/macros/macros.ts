@@ -26,7 +26,7 @@ export function _init() {
 }
 
 export async function execute(actor: StrikeActor, power: StrikeItem): Promise<boolean> {
-    if (power.data.data.script && Macros.canUseScripts(game.user)) {                      
+    if (power.data.data.script && Macros.canUseScripts(game.user!)) {
         let host = new MacroHost(actor, power);
         
         // the macro api as parameters (keys) and args (values) to f()
@@ -37,7 +37,7 @@ export async function execute(actor: StrikeActor, power: StrikeItem): Promise<bo
            .concat(fns.map(k => (host[k] as Function).bind(host)));
 
         // final parameter is the function body
-        params.push(`${power.data.data.script};\n return true;`);            
+        params.push(`${power.data.data.script};\n return true;`);
 
         // can't call/apply new() directly, but we can bind it
         let AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
@@ -76,7 +76,7 @@ export async function execute(actor: StrikeActor, power: StrikeItem): Promise<bo
 type DropData = {
     type: "Item",
     actorId: string,
-    data: ItemData<PowerData>
+    data: Item.Data<PowerData>
 } | {
     type: "Actor" | "Scene"
 }
@@ -88,7 +88,7 @@ async function onHotbarDrop(_hotbar: any, data: DropData, slot: number): Promise
 
     let power = data.data;
     let script = `actor?.use(this.name)`;
-    let macro = ui.hotbar.macros.map(m => m.macro).find(m => m != null && m.data.command == script && m.data.name == power.name);
+    let macro = (ui.hotbar.macros as any[]).map(m => m.macro).find((m: Macro) => m != null && m.data.command == script && m.data.name == power.name);
 
     if (!macro) {
       macro = await Macro.create({
@@ -100,7 +100,7 @@ async function onHotbarDrop(_hotbar: any, data: DropData, slot: number): Promise
       });
     }
 
-    game.user.assignHotbarMacro(macro, slot);
+    game.user!.assignHotbarMacro(macro, slot);
     
     return false;
 }
@@ -109,7 +109,7 @@ function onPreUpdateOwnedItem(actor: StrikeActor, itemData: Record<string, any>,
     if (itemData.type == "power" && updateData.name && updateData.name != itemData.name) {
         // try to find a corresponding macro and update it
         let script = `actor?.use(this.name)`;
-        let macro = ui.hotbar.macros.map(m => m.macro).find(m => m != null && m.data.command == script && m.data.name == itemData.name);
+        let macro = (ui.hotbar.macros as any[]).map(m => m.macro).find((m: Macro) => m != null && m.data.command == script && m.data.name == itemData.name);
         if (macro) {
             macro?.update({
                 "name": updateData.name

@@ -7,17 +7,17 @@ In rough priority order, most to least important
     - tint
     - initially don't bother with rules effects
 
-* macro apis
-    - gather/apply after optionally adjusting (miss tokens etc)
-    - statuses (via active events - needs parameterisation, tint, no rules effect initially)
-    - maybe duration?
-    - encounter power used state?
-
 * compendium packs 
     - i've got the common powers in there, but nothing else
     - core classes and roles? could prewrite macros. lots of effort. maybe licensing issues.
     - monster traits for gm
     - entire sample monsters?
+
+* delete macros or add these apis
+    - gather/apply after optionally adjusting (miss tokens etc)
+    - statuses (via active events - needs parameterisation, tint, no rules effect initially)
+    - maybe duration?
+    - encounter power used state?
 
 * reconsider update on submit mode setting (latency issue)
 

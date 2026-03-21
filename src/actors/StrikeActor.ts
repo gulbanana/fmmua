@@ -5,14 +5,14 @@ import CharacterData from "./CharacterData.js";
 import MonsterData from "./MonsterData.js";
 import { execute } from "../macros/macros.js";
 
-export default class StrikeActor extends Actor<StrikeActorData> {
-    constructor(data: ActorData<StrikeActorData>, options: any) {
+export default class StrikeActor extends Actor<Actor.Data<StrikeActorData, Item.Data<StrikeItemData>>, StrikeItem> {
+    constructor(data?: DeepPartial<Actor.Data<StrikeActorData, Item.Data<StrikeItemData>>>, options?: Entity.CreateOptions) {
         super(data, options);
     }
 
-    static async create(data: Partial<ActorData<StrikeActorData> & { items: ItemData<StrikeItemData>[] }>, options = {}): Promise<StrikeActor> {
+    static async create(data: any, options: any = {}): Promise<StrikeActor> {
         // this will be filled out later, but we want to set defaults for some of it
-        (data.token as Partial<TokenData>) = data.token || {};
+        (data as any).token = data.token || {};
 
         // has tactical template
         if (data.type === "character" || data.type === "monster") {
@@ -33,7 +33,7 @@ export default class StrikeActor extends Actor<StrikeActorData> {
             }, { overwrite: false });
                         
             if (!data.items) {
-                let commonPowersPack = game.packs.get("fmmua.commonPowers") as Compendium;
+                let commonPowersPack = game.packs!.get("fmmua.commonPowers") as Compendium;
                 let commonPowers = await commonPowersPack.getContent() as Item[];
                 data.items = commonPowers.map(item => item.data);
             }
@@ -45,7 +45,7 @@ export default class StrikeActor extends Actor<StrikeActorData> {
         }
 
         // defaults for both PCs and owned monsters 
-        if (data.type === "character" || !game.user.isGM) {
+        if (data.type === "character" || !game.user!.isGM) {
             mergeObject(data.token, {
                 disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
                 vision: true,
@@ -61,23 +61,19 @@ export default class StrikeActor extends Actor<StrikeActorData> {
             }, { overwrite: false });
         }
 
-        return super.create(data, options) as Promise<StrikeActor>;
+        return super.create(data, options) as unknown as Promise<StrikeActor>;
     }
 
     // workaround 0.7.9 change where the data of owned items is duplicate()d, 
     // meaning their derived data isn't visible in actor.data
     prepareData() {
         super.prepareData();
-        this.data.items = Array.from(this.items.values()).map(i => duplicate(i.data));
-        this.data.effects = Array.from(this.getEmbeddedCollection("ActiveEffect").values()).map(e => duplicate(e));
-    }
-
-    getOwnedItem(itemId: string): StrikeItem | null {
-        return super.getOwnedItem(itemId) as StrikeItem | null;
+        this.data.items = Array.from(this.items.values()).map(i => duplicate(i.data)) as any;
+        this.data.effects = Array.from(this.getEmbeddedCollection("ActiveEffect").values()).map(e => duplicate(e)) as any;
     }
 
     getPower(name: string): StrikeItem | null {
-        let result = this.items.find((i: Item) => i.name === name) as StrikeItem | null;
+        let result = this.items.find(i => i.name === name) ?? null;
         if (result != null && result.type == "power") {
             return result;
         } else {
@@ -87,17 +83,17 @@ export default class StrikeActor extends Actor<StrikeActorData> {
 
     async display(traitOrPower: string | StrikeItem | null): Promise<void> {
         if (typeof traitOrPower == "string") {
-            traitOrPower = this.items.find((i: Item) => i.name === traitOrPower) as StrikeItem | null;
+            traitOrPower = this.items.find(i => i.name === traitOrPower) ?? null;
         }
 
         if (traitOrPower != null) {
             let content = await traitOrPower.render();
-            let speaker = ChatMessage.getSpeaker({ actor: this });
-            await ChatMessage.create({ 
-                content, 
+            let speaker = ChatMessage.getSpeaker({ actor: this as any });
+            await ChatMessage.create({
+                content,
                 speaker,
                 flags: {"core.canPopout": true}
-            });
+            } as any);
         }
     }
 

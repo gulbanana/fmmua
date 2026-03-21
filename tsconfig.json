@@ -7,7 +7,7 @@
     "rootDir": "./src/",
     "outDir": "./dist/",
     "types": [
-      "foundry-pc-types", 
+      "@league-of-foundry-developers/foundry-vtt-types",
       "highlight.js"
     ],
     "lib": [

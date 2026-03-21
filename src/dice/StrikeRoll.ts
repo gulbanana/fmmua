@@ -11,7 +11,7 @@ export type RollTag = "attack" | "save" | "skilled" | "unskilled";
 export class StrikeRoll extends Roll {
     async render(chatOptions: Partial<ChatOptions> = {}) {
         chatOptions = mergeObject({
-          user: game.user._id,
+          user: game.user!._id,
           flavor: null,
           template: Roll.CHAT_TEMPLATE,
           blind: false,
@@ -28,7 +28,7 @@ export class StrikeRoll extends Roll {
           flavor: isPrivate ? null : chatOptions.flavor,
           user: chatOptions.user,
           tooltip: isPrivate ? "" : await this.getTooltip(),
-          total: isPrivate ? "?" : Math.round(this.total * 100) / 100,
+          total: isPrivate ? "?" : Math.round(this.total! * 100) / 100,
           d1: this.terms[0] instanceof DiceTerm ? this.terms[0].results[0].result : 0,
           d2: this.terms[0] instanceof Die && this.terms[0].results.length > 1 ? this.terms[0].results[1].result : 0,
           tag: this.terms.length == 1 && this.terms[0] instanceof Die ? this.terms[0].options.flavor : undefined

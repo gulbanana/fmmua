@@ -1,9 +1,10 @@
 import StrikeActorData from "./StrikeActorData.js";
 import StrikeActor from "./StrikeActor.js";
+import StrikeItem from "../items/StrikeItem.js";
 import PowerData from "../items/PowerData.js";
 
 // base class with common listeners for item management
-export default class StrikeActorSheet extends ActorSheet<StrikeActorData, StrikeActor> {
+export default class StrikeActorSheet extends ActorSheet<ActorSheet.Data<StrikeActor>, StrikeActor> {
     getData() {
         let data = super.getData() as any;
 
@@ -144,7 +145,7 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
                 item: itemId
             }));
         } else {
-            item.sheet.render(true);
+            item.sheet!.render(true);
         }
     }
 
@@ -154,7 +155,7 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
         }
 
         const itemId = html.data("itemId");
-        const item = this.actor.items.get(itemId);
+        const item = this.actor.getOwnedItem(itemId);
 
         if (item == null) {
             ui.notifications.error(game.i18n.format("fmmua.error.ItemIdNotFound", {
@@ -162,7 +163,7 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
                 item: itemId
             }));
         } else {
-            this.actor.use(item);
+            this.actor.use(item as StrikeItem);
         }
     }
 
@@ -212,7 +213,7 @@ export default class StrikeActorSheet extends ActorSheet<StrikeActorData, Strike
         }
     }
 
-    comparePowers(a: ItemData<PowerData>, b: ItemData<PowerData>): number {
+    comparePowers(a: Item.Data<PowerData>, b: Item.Data<PowerData>): number {
         let result = sourceToKey(a.data) - sourceToKey(b.data);
         if (result != 0) return result;
 

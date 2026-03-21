@@ -3,7 +3,7 @@ import RollDialog from "./RollDialog.js";
 
 export function _init() {    
     // render rolled strike dice with semantic interpretation    
-    Handlebars.registerHelper("strike-roll", StrikeRoll.helper);
+    (globalThis as any).Handlebars.registerHelper("strike-roll", StrikeRoll.helper);
     CONFIG.Dice.rolls = [StrikeRoll];
     Roll.CHAT_TEMPLATE = "systems/fmmua/dice/roll.html";
 
@@ -29,10 +29,10 @@ export async function strikeRoll(options: {advantage?: boolean, disadvantage?: b
 
     await r.toMessage({ flavor: options?.flavor }, {
         create: true,
-        rollMode: game.settings.get("core", "rollMode")
+        rollMode: game.settings.get("core", "rollMode") as any
     });
 
-    return r.total;
+    return r.total!;
 }
 
 export function skillRoll(advantage: boolean, disadvantage: boolean, unskilled: boolean = false, flavor: string|undefined = undefined): Promise<number> {

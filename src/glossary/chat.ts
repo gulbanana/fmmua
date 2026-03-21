@@ -16,9 +16,9 @@ export async function refreshLog() {
     for (let messageElement of logQuery[0].children) {
         if (messageElement instanceof HTMLElement) {
             let messageId = messageElement.dataset["messageId"] || "";
-            let message = game.messages.get(messageId);
+            let message = game.messages!.get(messageId);
             let replacementQuery = await message?.render();
-            if (replacementQuery?.length > 0) {
+            if (replacementQuery && replacementQuery.length > 0) {
                 logQuery[0].replaceChild(replacementQuery[0], messageElement);
             }
         }

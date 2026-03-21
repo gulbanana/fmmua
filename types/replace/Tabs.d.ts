@@ -1,1 +1,0 @@
-declare class Tabs extends TabsV2 {}

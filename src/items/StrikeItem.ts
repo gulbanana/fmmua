@@ -2,8 +2,8 @@ import StrikeItemData from "./StrikeItemData.js";
 import PowerData from "./PowerData.js";
 import TraitData from "./TraitData.js";
 
-export default class StrikeItem extends Item<StrikeItemData> {
-    static create(data: Partial<ItemData<Partial<StrikeItemData>>>, options = {}) {
+export default class StrikeItem extends Item<Item.Data<StrikeItemData>> {
+    static create(data: any, options: any = {}) {
         data.name = data.name || undefined;
         switch (data.type) {
             case "trait":
@@ -24,13 +24,13 @@ export default class StrikeItem extends Item<StrikeItemData> {
         return super.create(data, options) as Promise<StrikeItem>;
     }
 
-    static createPower(data: Partial<ItemData<Partial<PowerData>>>, options = {}) {
+    static createPower(data: DeepPartial<Item.Data<PowerData>>, options = {}) {
         return this.create(mergeObject(data, {
             type: "power"
         }), options);
     }
 
-    static createTrait(data: Partial<ItemData<Partial<PowerData>>>, options = {}) {
+    static createTrait(data: DeepPartial<Item.Data<PowerData>>, options = {}) {
         return this.create(mergeObject(data, {
             type: "trait"
         }), options);
@@ -223,7 +223,7 @@ export default class StrikeItem extends Item<StrikeItemData> {
         return super.update(data, options);
     }
 
-    render(): Promise<HTMLElement> {
+    render(): Promise<string> {
         return renderTemplate(this.type == "power" ? "systems/fmmua/items/PowerCard.html" : "systems/fmmua/items/TraitCard.html", this.data);
     }
 }
